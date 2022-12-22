@@ -1,0 +1,100 @@
+{% extends 'Mathsolver.html' %}
+{% comment %} Naziya {% endcomment %}
+{% block input %}
+
+<form class='parentinput' method="post" action="/CombinedSD">
+    {% csrf_token %}
+    
+    <h1>Enter X or C.I.</h1>
+    <h2><b style='color:var(--secondary-color);'>X</b> (Number of items) or  <b style='color:var(--secondary-color);' >C.I.</b> (Class Interval) Below</h2>
+    
+    <input type="text" name="firstinput" id="numberField" onkeypress='return restrictAlphabets(event)'  placeholder="Enter X column with comma seperated">
+    
+    <h1 style="margin-top: 40px;">Enter F (Frequency)</h1>
+    <h2>Leave this blank if you have individual series</h2>
+    <input type="text" name="secondinput" id="numberField1" placeholder="Enter F column with comma seperated">
+
+    {% block buttons%}
+
+    <span class='notetext'>{{parveen}}</span>
+
+    <div class="buttongroup" style='margin-bottom: 30px;'>
+
+        <button style='margin-top: 5px; max-width: fit-content;' class='projectbutton' id='standarddeviation' type='submit' name='standarddeviation'>Solve</button>         
+
+    </div>
+
+    {% endblock buttons%} 
+    
+</form> 
+
+{% if allerror == 'Handle' %}
+
+    <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+{% else %}
+
+    {% if emp == 0%}
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+    {% endif %}
+
+    {% if x2 != f2 %}
+
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+
+    {% else %}
+
+        {% if match|length > 0 %}
+
+            <span class='underroot1' style='margin-bottom: -5px; font-size:25px;'>{{seriesname}}</span>
+
+            <span class='balance' style='margin-bottom: 10px; margin-top: 15px;'>{{method1}}</span>
+
+
+            <Naziya class='standardoutput1'>
+
+                {% if classinterval|length > 0 %}
+
+
+                {% endif %}
+
+
+                {% if f1 == 0 %}
+
+
+                {% else %}
+
+                {% endif %}
+
+
+            </Naziya>
+
+        {% endif %}
+    {% endif %}
+
+{% endif %}
+
+<script>
+var userName = document.querySelector('#numberField');
+
+userName.addEventListener('input', restrictNumber);
+function restrictNumber (e) {  
+    var newValue = this.value.replace(new RegExp(/[^-,\d]/,'ig'), "");
+    this.value = newValue;
+}
+
+var userName1 = document.querySelector('#numberField1');
+
+userName1.addEventListener('input', restrictNumber1);
+function restrictNumber1 (e) {  
+    var newValue = this.value.replace(new RegExp(/[^,\d]/,'ig'), "");
+    this.value = newValue;
+}
+</script>
+
+
+
+{% endblock input %}
+
+

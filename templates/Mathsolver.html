@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+{% comment %} Naziya {% endcomment %}
+{% load static %}
+
+{% block title %} Mathsolver {% endblock title%}
+
+{% block cssfile %}
+    <link rel="stylesheet" href="static/Mathsolvercontent.css" class="css">
+{% endblock cssfile%}
+
+{% block body%}
+
+<img class="typographybackground" src="https://source.unsplash.com/random/1366x400/?Math" alt="image" >
+
+<Naziya class="mathsheading">
+    
+    <h1 style="padding-left:25px; padding-right:25px;">{{question}}</h1>
+    <h3 style="padding-left:25px; padding-right:25px;">{{cando}}</h3>
+    <h3 style="margin-top: 0px; padding-right:25px; padding-left:25px;">{{info}}</h3>
+    <h3 style="margin-top: 0px; padding-right:25px; padding-left:25px;">{{info2}}</h3>
+    
+</Naziya>
+
+
+{% endblock body%}
+
+
+
+{% block bodyfooter %}
+
+<style>
+    img#name1{
+        width: 24px;
+        padding-top:5px;
+    }
+</style>
+
+    <button class="themebutton" data-visible='false'><img id="naziya5" class="themeicon" src="/static/Assets/sun.png" width="25px" height="25px"></button>
+
+    <div class='inputnumber'>
+
+        <div class="parveenrulerdiv">
+            <hr class="parveenruler" id="work">
+        </div>
+
+        {% block input%}
+        
+
+        {% block buttons%}
+
+        <Naziya class="buttongroup">
+
+            <div class='maincontainerforbutton'>
+                <a href='/Mean'  id='mean' style='color:white;' name='mean'>Solve Mean</a>
+            </div>
+
+            <div class='maincontainerforbutton'>
+                <a href='/Median'  id='/median' style='color:white;' name='median'>Solve Median</a>
+            </div>
+
+            <div class='maincontainerforbutton'>
+                <a href='/Mode'   id='mode' style='color:white;' name='mode'>Solve Mode</a>
+            </div>
+
+            <div class='maincontainerforbutton'>
+                <a href='/Standarddeviation' style='color:white;' id='standarddeviation' name='standarddeviation'>Solve Standard Deviation</a>  
+            </div>
+
+            <div class='maincontainerforbutton'>
+                <a href='/range' id='range' style='color:white;' name='range'>Solve Range</a>
+            </div>
+            
+            <div class='maincontainerforbutton'>
+                <a href='/Quartile' id='quartile' style='color:white;' name='quartile'>Solve Quartile</a>  
+            </div>
+            
+            <div class='maincontainerforbutton'>
+                <a href='/MeanDeviation' id='meandeviation' style='color:white;' name='meandeviation'>Solve Mean Deviation</a>
+            </div>
+            
+            
+            <div class='maincontainerforbutton' >
+                <a href='/CombinedMean' id='combinedmean' style='color:white;' name='combinedmean'>Solve Combined Mean</a>
+            </div>
+            
+            {% comment %} <div class='maincontainerforbutton' style='background-color:grey;'>
+                <a href='/CombinedSD' id='combinedsd' style='color:white;' name='combinedsd'>Solve Combined Standard Deviation</a>
+            </div>
+        
+            <div class='maincontainerforbutton' style='background-color:grey;'>
+                <a href='/coefficientofcorrelation' id='coefficientofcorrelation' style="color:white;" name='coefficientofcorrelation'>Solve Coefficient Of Correlation</a> 
+            </div>
+
+            <div class='maincontainerforbutton' style='background-color:grey;'>
+                <a href='/rankcorrelation' style='color:white;' id='rankcorrelation' name='rankcorrelation'>Solve Rank Correlation</a>
+            </div> 
+            
+            <div class='maincontainerforbutton' style='background-color:grey;'>
+                <a href='/rankcorrelation' style='color:white;' id='rankcorrelation' name='rankcorrelation'>Solve Geometric Mean</a>
+            </div> 
+
+            <div class='maincontainerforbutton' style='background-color:grey;'>
+                <a href='/rankcorrelation' style='color:white;' id='rankcorrelation' name='rankcorrelation'>Solve Harmonic Mean</a>
+            </div>  
+
+            <div class='maincontainerforbutton' style='background-color:grey;'>
+                <a href='/rankcorrelation' style='color:white;' id='rankcorrelation' name='rankcorrelation'>Solve Missing Frequency Median</a>
+            </div> 
+
+            <div class='maincontainerforbutton' style='background-color:grey;'>
+                <a href='/rankcorrelation' style='color:white;' id='rankcorrelation' name='rankcorrelation'>Solve Missing Frequency Mode</a>
+            </div>   
+
+            <div class='maincontainerforbutton' style='background-color:grey;'>
+                <a href='/rankcorrelation' style='color:white;' id='rankcorrelation' name='rankcorrelation'>Solve Missing Frequency Mean</a>
+            </div>  
+
+            <div class='maincontainerforbutton' style='background-color:grey;'>
+                <a href='/rankcorrelation' style='color:white;' id='rankcorrelation' name='rankcorrelation'>Solve Missing Combined Standard Deviation</a>
+            </div>  
+
+            <div class='maincontainerforbutton' style='background-color:grey;'>
+                <a href='/rankcorrelation' style='color:white;' id='rankcorrelation' name='rankcorrelation'>Solve Missing Combined Mean Deviation</a>
+            </div>          {% endcomment %}
+        </Naziya>
+        {% endblock buttons%} 
+        {% endblock input%}
+    </div>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+{% endblock bodyfooter %}
+
+
+{% block signupscript %}
+
+<script>
+
+    const homecolor = document.getElementById('homechange')
+    const workcolor = document.getElementById('workchange')
+    const contactcolor = document.getElementById('contactform')
+    const aboutcolor = document.getElementById('aboutform')
+
+    homecolor.style.color = 'var(--secondary-color)';
+    workcolor.style.color = 'var(--accent-color)';
+    contactcolor.style.color = 'var(--secondary-color)';
+    aboutcolor.style.color = 'var(--secondary-color)';
+    {% comment %} document.querySelector(".body1").style.marginTop = '308px';
+    document.querySelector(".maineyeball1").style.marginTop = '148px'; {% endcomment %}
+
+    document.getElementById('workchange').innerHTML = 'Mathsolver';
+    document.getElementById('name1').src = "/static/Assets/Mathsolver(white).png";
+    document.getElementById('themenaz').style.display = 'none';
+    document.getElementById('themenaz2').style.display = 'block';
+
+
+    z = localStorage.getItem("theme")
+    if (z == "white"){
+        document.body.classList.toggle("white-theme");
+        if(document.body.classList.contains("white-theme")) {
+            localStorage.setItem("theme" , "white")
+            naziyamaths51.classList.add('themeclickanimation');
+            naziyamaths51.classList.remove('themeclickanimation1');
+            home1.src = "/static/Assets/home.png";
+            name1.src = "/static/Assets/Mathsolver(black).png";
+            phone1.src= "/static/Assets/phone.png";
+        }
+        else{
+            localStorage.setItem("theme" , "black")
+            naziyamaths51.classList.add('themeclickanimation1');
+            naziyamaths51.classList.remove('themeclickanimation');
+            home1.src = "/static/Assets/home1.png";
+            name1.src = "/static/Assets/Mathsolver(white).png";
+            phone1.src= "/static/Assets/phone1.png";
+        }
+    }
+
+    naziyamaths51.onclick= function() {
+        document.body.classList.toggle("white-theme");
+        if(document.body.classList.contains("white-theme")) {
+            localStorage.setItem("theme" , "white")
+            naziyamaths51.classList.add('themeclickanimation');
+            naziyamaths51.classList.remove('themeclickanimation1');
+            naziya5.classList.add('themeclickanimation');
+            naziya5.classList.remove('themeclickanimation1');
+            naziyamaths51.src = "/static/Assets/moon(1).png"; 
+            naziya5.src = "/static/Assets/moon(1).png"; 
+            home1.src = "/static/Assets/home.png"
+            name1.src = "/static/Assets/Mathsolver(black).png"
+            phone1.src= "/static/Assets/phone.png"
+        }
+
+        else{
+            localStorage.setItem("theme" , "black")
+            naziyamaths51.classList.add('themeclickanimation1');
+            naziyamaths51.classList.remove('themeclickanimation');
+            naziya5.classList.add('themeclickanimation1');
+            naziya5.classList.remove('themeclickanimation');
+            naziyamaths51.src = "/static/Assets/sun.png";
+            naziya5.src = "/static/Assets/sun.png"; 
+            home1.src = "/static/Assets/home1.png"
+            name1.src = "/static/Assets/Mathsolver(white).png"
+            phone1.src= "/static/Assets/phone1.png"
+        }
+    }
+
+            
+    document.addEventListener("keydown", e =>{
+        if (
+            e.key.toLowerCase() === "b"
+            && e.ctrlKey
+        ){
+            document.body.classList.toggle("white-theme");
+            if(document.body.classList.contains("white-theme")) {
+                localStorage.setItem("theme" , "white")
+                naziyamaths51.classList.add('themeclickanimation');
+                naziyamaths51.classList.remove('themeclickanimation1');
+                naziyamaths51.src = "/static/Assets/moon(1).png";
+                home1.src = "/static/Assets/home.png"
+                name1.src = "/static/Assets/Mathsolver(black).png"
+                phone1.src= "/static/Assets/phone.png" 
+            }
+            else{
+                localStorage.setItem("theme" , "black")
+                naziyamaths51.classList.add('themeclickanimation1');
+                naziyamaths51.classList.remove('themeclickanimation');
+                naziyamaths51.src = "/static/Assets/sun.png";
+                home1.src = "/static/Assets/home1.png"
+                name1.src = "/static/Assets/Mathsolver(white).png"
+                phone1.src= "/static/Assets/phone1.png" 
+            }
+        }
+    });
+
+
+    parnaz = document.getElementById("customID");
+    parnaz.className = "par show";
+    
+    {% comment %} 
+    var myScrollFunc = function() {
+        var y = window.scrollY;
+
+        if (y >= 300) {
+            parnaz.className = "par show";
+        } else {
+            parnaz.className = "par hide"
+        }
+        };
+
+    window.addEventListener("scroll", myScrollFunc); {% endcomment %}
+
+        
+    
+
+
+
+    {% comment %} console.log('this is me') {% endcomment %}
+</script>
+
+{% endblock signupscript %}
+
+

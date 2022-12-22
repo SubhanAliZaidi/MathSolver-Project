@@ -1,0 +1,852 @@
+{% extends 'Mathsolver.html' %}
+{% comment %} Naziya {% endcomment %}
+{% block input %}
+
+<form class='parentinput' method="post" action="/Mode">
+    {% csrf_token %}
+    
+    <h1>Enter X or C.I.</h1>
+    <h2><b style='color:var(--secondary-color);'>X</b> (Number of items) or  <b style='color:var(--secondary-color);' >C.I.</b> (Class Interval) Below</h2>
+    
+    <input type="text" name="firstinput" id="numberField" onkeypress='return restrictAlphabets(event)'  placeholder="Enter X column with comma seperated">
+    
+    <h1 style="margin-top: 40px;">Enter F (Frequency)</h1>
+    <h2>Leave this blank if you have individual series</h2>
+    <input type="text" name="secondinput" id="numberField1" placeholder="Enter F column with comma seperated">
+
+    {% block buttons%}
+
+    <span class='notetext'>{{parveen}}</span>
+
+    <div class="buttongroup" style='margin-bottom: 30px;'>
+
+        <button style='margin-top: 5px; max-width: fit-content;' class='projectbutton' id='standarddeviation' type='submit' name='standarddeviation'>Solve</button>         
+
+    </div>
+
+    {% endblock buttons%} 
+    
+</form> 
+
+{% if allerror == 'Handle' %}
+
+    <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+{% else %}
+
+    {% if emp == 0%}
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+    {% endif %}
+
+    {% if x2 != f2 %}
+
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+
+    {% else %}
+
+        {% if match|length > 0 %}
+
+            <span class='underroot1' style='margin-bottom: -5px; font-size:25px;'>{{seriesname}}</span>
+
+            <span class='balance' style='margin-bottom: 10px; margin-top: 15px;'>{{method1}}</span>
+
+
+            <div class='standardoutput1'>
+
+                {% if classinterval|length > 0 %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot modeheight'>
+                            <p style="margin-left:0px;">C.I.</p>
+                            <br>
+                            {% for i in classinterval %}
+                            <span class="classinterval1">{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                    </Naziya>
+
+                {% endif %}
+
+                {% if f1 == 0 %}
+
+                    <Naziya>
+                        <span class='medianindividualfont'>X</span> <br><button class='buttonforind' style='margin-top:3px;'><ion-icon name="arrow-dropdown"></ion-icon></button><br>
+                        <span class='summation1'>
+                            {% for i in x%}
+                                
+                                {% if forloop.counter == len1 %}
+                                    {{i}}
+                                {% else %}
+                                    {{i}},
+                                {% endif %}
+                            {% endfor%}
+                        </span>
+                    </Naziya>
+
+                {% else %}
+
+                    <div class = "delivery" hidden> 
+                        <p class = "status1">{{heightfire}}</p>
+                    </div>
+
+                    {% if simplemethod == 1 %}
+                    
+                        <Naziya class='underroot1'>
+
+                            <div class='summation'>
+                                <span class='underroot'>
+                                    <p>F</p>
+                                    <br>
+                                    {% for i in f%}
+                                    <span>{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                {% comment %} <span class='summationtotal'>&sum;f = {{sumf}}</span> {% endcomment %}
+                            </div>
+                        </Naziya>
+                        
+                    {% else %}
+                    
+                        {% if classinterval|length > 0 %}
+
+                            <Naziya class='underroot1'>
+
+                                <div class='summation'>
+                                    <span class='underroot'>
+                                        <p>F</p>
+                                        <br>
+                                        {% for i in f%}
+                                        <span>{{i}}</span>
+                                        {% endfor%}
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                    {% comment %} <span class='summationtotal'>&sum;f = {{sumf}}</span> {% endcomment %}
+                                </div>
+                            </Naziya>
+
+
+                            <Naziya class='underroot1'>
+
+                                <div class='summation'>
+                                    <span class='underroot' id='2height'>
+                                        <p style='margin-left:-8px;'>2-2</p>
+                                        <br>
+                                        {% for i in g2_2%}
+
+                                            {% if forloop.counter == leng2_2 %}
+                                                {% comment %} <span class='thereisnothing'> </span> {% endcomment %}
+                                                {% if i == max2_2 %}
+                                                    <div class='groupingmethod'>] <span style='font-size:17px; color:var(--accent-color);'>{{i}}</span>
+                                                    </div>
+                                                {% else %}
+                                                    <div class='groupingmethod'>] <span style='font-size:17px;'>{{i}}</span>
+                                                    </div>
+                                                {% endif %}
+
+                                            {% else %}
+                                                {% if i == max2_2 %}
+                                                    <div class='groupingmethod'>] <span style='font-size:17px; color:var(--accent-color);'>{{i}}</span>
+                                                    </div>
+                                                    <hr class='grouphr'>
+                                                {% else %}
+                                                    <div class='groupingmethod'>] <span style='font-size:17px;'>{{i}}</span>
+                                                    </div>
+                                                    <hr class='grouphr'>
+
+                                                {% endif %}
+
+                                            {% endif %}
+                                        
+                                        {% endfor%}
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                </div>
+                            </Naziya>
+
+                            <Naziya class='underroot1'>
+
+                                <div class='summation'>
+                                    <span class='underroot' id='22height'>
+                                        <p style='margin-left:-8px;'>1,2-2</p>
+                                        <br>
+                                        {% for i in g1_2_2%}
+                                            {% if forloop.counter == 1 %}
+                                                <span class='thereisnothing1'> </span>
+                                            {% else %}
+
+                                                {% if i == max1_2_2 %}
+                                                    <hr class='grouphr1'>    
+                                                    <div class='groupingmethod' >] <span style='font-size:17px; color:var(--accent-color);'>{{i}}</span></div>
+                                                {% else %}
+                                                    <hr class='grouphr1'>    
+                                                    <div class='groupingmethod' >] <span style='font-size:17px;'>{{i}}</span></div>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor%}
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                </div>
+                            </Naziya>
+
+                            <Naziya class='underroot1'>
+
+                                <div class='summation'>
+                                    <span class='underroot' id='33height'>
+                                        <p>3-3</p>
+                                        <br>
+                                        <div class='gap'>
+                                            {% for i in g3_3 %}
+                                                {% if forloop.counter == leng3_3 %}
+                                                    {% comment %} <span class='thereisnothing2'> </span> {% endcomment %}
+                                                    {% if i == max3_3 %}
+                                                        <span class='groupingmethod2' >] <span style='font-size:17px; color:var(--accent-color);'>{{i}}</span></span>
+                                                        
+                                                    {% else %}
+                                                        <span class='groupingmethod2' >] <span style='font-size:17px;'>{{i}}</span></span>
+
+                                                    {% endif %}
+                                                {% else %}
+
+                                                    {% if i == max3_3 %}
+                                                        <span class='groupingmethod2' >]
+                                                            <span style='font-size:17px; color:var(--accent-color);'>{{i}}</span>
+                                                        </span>
+                                                        <hr class='grouphr2'>    
+                                                    {% else %}
+                                                        <span class='groupingmethod2' >]
+                                                            <span style='font-size:17px;'>{{i}}</span>
+                                                        </span>
+                                                        <hr class='grouphr2'>    
+                                                    {% endif %}
+
+                                                {% endif %}
+                                            {% endfor%}
+                                        </div>
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                </div>
+                            </Naziya>
+
+                            <Naziya class='underroot1'>
+
+                                <div class='summation'>
+                                    <span class='underroot' id='133height'>
+                                        <p>1,3-3</p>
+                                        <br>
+                                        <div class='gap'>
+                                            {% for i in g1_3_3 %}
+                                                {% if forloop.counter == 1 %}
+                                                    <span class='thereisnothing3'> </span>
+                                                {% else %}
+
+                                                    {% if i == max1_3_3 %}
+                                                        <hr class='grouphr3'>    
+                                                        <div class='groupingmethod2' >] <span style='font-size:17px;color:var(--accent-color);'>{{i}}</span>
+                                                        </div>
+                                                    {% else %}
+                                                        <hr class='grouphr3'>    
+                                                        <div class='groupingmethod2' >] <span style='font-size:17px;'>{{i}}</span>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor%}
+                                        </div>
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                </div>
+                            </Naziya>
+
+                            <Naziya class='underroot1'>
+
+                                <div class='summation'>
+                                    <span class='underroot' id='233height'>
+                                        <p>2,3-3</p>
+                                        <br>
+                                        <div class='gap'>
+                                            {% for i in g2_3_3%}
+                                                {% if forloop.counter == 1 %}
+                                                    <span class='thereisnothing2'> </span>
+                                                {% else %}
+                                                    {% if forloop.counter == 2 %}
+                                                        <span class='thereisnothing2'> </span>
+                                                    {% endif %}
+                                                    {% if i == max2_3_3 %}
+                                                        
+                                                        <hr class='grouphr3'>    
+                                                        <div class='groupingmethod2' >] <span style='font-size:17px;color:var(--accent-color);'>{{i}}</span></div>
+                                                    {% else %}
+                                                        
+                                                        <hr class='grouphr3'>    
+                                                        <div class='groupingmethod2' >] <span style='font-size:17px;'>{{i}}</span></div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor%}
+                                        </div>
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                </div>
+                            </Naziya>
+
+                            {% comment %} <div class='underroot1'>
+
+                                <div class='summation'>
+                                    <span class='underroot'>
+                                        <p>Tally</p>
+                                        <br>
+                                        {% for i in f%}
+                                        <span>{{i}}</span>
+                                        {% endfor%}
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                    <span class='summationtotal'>&sum;f = {{sumf}}</span>
+                                </div>
+                            </div> {% endcomment %}
+
+                            
+
+                        {% else %}
+
+                            {% comment %} FOR SIMPLE METHOD DISCRETE METHOD {% endcomment %}
+
+                            <Naziya class='summation'>
+                                <span class='underroot modeheight'>
+                                    <p style="margin-left:0px;">C.I.</p>
+                                    <br>
+                                    {% for i in x %}
+                                    <span class="classinterval1">{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            </Naziya>
+                            
+                            
+                            <Naziya class='summation'>
+                                <span class='underroot xheight'>
+                                    <p style="margin-left:0px;">X</p>
+                                    <br>
+                                    {% for i in x%}
+                                    <span>{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                {% comment %} <span class='summationtotal'>&sum;x = {{sumx}}</span> {% endcomment %}
+                            </Naziya>
+
+                            
+
+                            <Naziya class='underroot1'>
+
+                                <div class='summation'>
+                                    <span class='underroot'>
+                                        <p>F</p>
+                                        <br>
+                                        {% for i in f%}
+                                        <span>{{i}}</span>
+                                        {% endfor%}
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                    {% comment %} <span class='summationtotal'>&sum;f = {{sumf}}</span> {% endcomment %}
+                                </div>
+                            </Naziya>
+
+                            {% if method1 == "Tally Method (Grouping Table)"%}
+
+                                <Naziya class='underroot1'>
+
+                                    <div class='summation' >
+                                        <span class='underroot' id='dis22height'>
+                                            <p style='margin-left:-8px;'>2-2</p>
+                                            <br>
+                                            {% for i in g2_2%}
+
+                                                {% if forloop.counter == leng2_2 %}
+                                                    {% comment %} <span class='thereisnothing'> </span> {% endcomment %}
+                                                    {% if i == max2_2 %}
+                                                        <div class='groupingmethod'>] <span style='font-size:17px; color:var(--accent-color);'>{{i}}</span>
+                                                        </div>
+                                                    {% else %}
+                                                        <div class='groupingmethod'>] <span style='font-size:17px;'>{{i}}</span>
+                                                        </div>
+                                                    {% endif %}
+
+                                                {% else %}
+                                                    {% if i == max2_2 %}
+                                                        <div class='groupingmethod'>] <span style='font-size:17px; color:var(--accent-color);'>{{i}}</span>
+                                                        </div>
+                                                        <hr class='grouphr'>
+                                                    {% else %}
+                                                        <div class='groupingmethod'>] <span style='font-size:17px;'>{{i}}</span>
+                                                        </div>
+                                                        <hr class='grouphr'>
+
+                                                    {% endif %}
+
+                                                {% endif %}
+                                            
+                                            {% endfor%}
+                                        </span>
+                                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                    </div>
+                                </Naziya>
+
+                                <Naziya class='underroot1'>
+
+                                    <div class='summation'>
+                                        <span class='underroot' id='dis122height'>
+                                            <p style='margin-left:-8px;'>1,2-2</p>
+                                            <br>
+                                            {% for i in g1_2_2%}
+                                                {% if forloop.counter == 1 %}
+                                                    <span class='thereisnothing1'> </span>
+                                                {% else %}
+
+                                                    {% if i == max1_2_2 %}
+                                                        <hr class='grouphr1'>    
+                                                        <div class='groupingmethod' >] <span style='font-size:17px; color:var(--accent-color);'>{{i}}</span></div>
+                                                    {% else %}
+                                                        <hr class='grouphr1'>    
+                                                        <div class='groupingmethod' >] <span style='font-size:17px;'>{{i}}</span></div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor%}
+                                        </span>
+                                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                    </div>
+                                </Naziya>
+
+                                <Naziya class='underroot1'>
+
+                                    <div class='summation'>
+                                        <span class='underroot' id='dis33height'>
+                                            <p>3-3</p>
+                                            <br>
+                                            <div class='gap'>
+                                                {% for i in g3_3 %}
+                                                    {% if forloop.counter == leng3_3 %}
+                                                        {% comment %} <span class='thereisnothing2'> </span> {% endcomment %}
+                                                        {% if i == max3_3 %}
+                                                            <span class='groupingmethod2' >] <span style='font-size:17px; color:var(--accent-color);'>{{i}}</span></span>
+                                                            
+                                                        {% else %}
+                                                            <span class='groupingmethod2' >] <span style='font-size:17px;'>{{i}}</span></span>
+
+                                                        {% endif %}
+                                                    {% else %}
+
+                                                        {% if i == max3_3 %}
+                                                            <span class='groupingmethod2' >]
+                                                                <span style='font-size:17px; color:var(--accent-color);'>{{i}}</span>
+                                                            </span>
+                                                            <hr class='grouphr2'>    
+                                                        {% else %}
+                                                            <span class='groupingmethod2' >]
+                                                                <span style='font-size:17px;'>{{i}}</span>
+                                                            </span>
+                                                            <hr class='grouphr2'>    
+                                                        {% endif %}
+
+                                                    {% endif %}
+                                                {% endfor%}
+                                            </div>
+                                        </span>
+                                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                    </div>
+                                </Naziya>
+
+                                <Naziya class='underroot1'>
+
+                                    <div class='summation'>
+                                        <span class='underroot' id='dis133height'>
+                                            <p>1,3-3</p>
+                                            <br>
+                                            <div class='gap'>
+                                                {% for i in g1_3_3 %}
+                                                    {% if forloop.counter == 1 %}
+                                                        <span class='thereisnothing3'> </span>
+                                                    {% else %}
+
+                                                        {% if i == max1_3_3 %}
+                                                            <hr class='grouphr3'>    
+                                                            <div class='groupingmethod2' >] <span style='font-size:17px;color:var(--accent-color);'>{{i}}</span>
+                                                            </div>
+                                                        {% else %}
+                                                            <hr class='grouphr3'>    
+                                                            <div class='groupingmethod2' >] <span style='font-size:17px;'>{{i}}</span>
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor%}
+                                            </div>
+                                        </span>
+                                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                    </div>
+                                </Naziya>
+
+                                <Naziya class='underroot1'>
+
+                                    <div class='summation'>
+                                        <span class='underroot' id='dis233height'>
+                                            <p>2,3-3</p>
+                                            <br>
+                                            <div class='gap'>
+                                                {% for i in g2_3_3%}
+                                                    {% if forloop.counter == 1 %}
+                                                        <span class='thereisnothing2'> </span>
+                                                    {% else %}
+                                                        {% if forloop.counter == 2 %}
+                                                            <span class='thereisnothing2'> </span>
+                                                        {% endif %}
+                                                        {% if i == max2_3_3 %}
+                                                            
+                                                            <hr class='grouphr3'>    
+                                                            <div class='groupingmethod2' >] <span style='font-size:17px;color:var(--accent-color);'>{{i}}</span></div>
+                                                        {% else %}
+                                                            
+                                                            <hr class='grouphr3'>    
+                                                            <div class='groupingmethod2' >] <span style='font-size:17px;'>{{i}}</span></div>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor%}
+                                            </div>
+                                        </span>
+                                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                    </div>
+                                </Naziya>
+
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                
+            </div>
+
+            {% if tallymatch == 'NaziyaParveen'%}
+                <div class='summation' style='font-size:20px; margin-top:30px;'>
+                    Analysis Table
+                </div>
+
+                
+                <div class='standardoutput1'>
+
+                    {% if classinterval|length > 0 %}
+                    
+                        <Naziya class='summation'>
+                            <span class='underroot'>
+                                <p style="margin-left:0px;">C.I.</p>
+                                <br>
+                                {% for i in classinterval %}
+                                <span class="classinterval1">{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            
+                        </Naziya>
+                    {% else %}
+
+                        <Naziya class='underroot1'>
+
+                            <div class='summation'>
+                                <span class='underroot'>
+                                    <p>X</p>
+                                    <br>
+                                    {% for i in x%}
+                                    <span>{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                            </div>
+                        </Naziya>
+
+                    {% endif %}
+
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>F</p>
+                                <br>
+                                {% for i in f%}
+                                <span>{{i}}</span>
+                                {% endfor%}
+                            </span>
+                        </div>
+                    </Naziya>
+
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>1</p>
+                                <br>
+                                {% for i in dash7%}
+                                    {% if i == 'Naziya' %}
+                                        <ion-icon name="checkmark" style='font-size:23px;'></ion-icon>
+                                    {% else %}
+                                        <span>{{i}}</span>
+                                    {% endif %}
+                                {% endfor%}
+                            </span>
+                        </div>
+                    </Naziya>
+
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>2</p>
+                                <br>
+                                {% for i in dash1%}
+                                    {% if i == 'Naziya' %}
+                                        <ion-icon name="checkmark" style='font-size:23px;'></ion-icon>
+                                    {% else %}
+                                        <span>{{i}}</span>
+                                    {% endif %}
+                                {% endfor%}
+                            </span>
+                        </div>
+                    </Naziya>
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>3</p>
+                                <br>
+                                {% for i in dash2%}
+                                    {% if i == 'Naziya' %}
+                                        <ion-icon name="checkmark" style='font-size:23px;'></ion-icon>
+                                    {% else %}
+                                        <span>{{i}}</span>
+                                    {% endif %}
+                                {% endfor%}
+                            </span>
+                        </div>
+                    </Naziya>
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>4</p>
+                                <br>
+                                {% for i in dash3%}
+                                    {% if i == 'Naziya' %}
+                                        <ion-icon name="checkmark" style='font-size:23px;'></ion-icon>
+                                    {% else %}
+                                        <span>{{i}}</span>
+                                    {% endif %}
+                                {% endfor%}
+                            </span>
+                        </div>
+                    </Naziya>
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>5</p>
+                                <br>
+                                {% for i in dash4%}
+                                    {% if i == 'Naziya' %}
+                                        <ion-icon name="checkmark" style='font-size:23px;'></ion-icon>
+                                    {% else %}
+                                        <span>{{i}}</span>
+                                    {% endif %}
+                                {% endfor%}
+                            </span>
+                        </div>
+                    </Naziya>
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>6</p>
+                                <br>
+                                {% for i in dash5%}
+                                    {% if i == 'Naziya' %}
+                                        <ion-icon name="checkmark" style='font-size:23px;'></ion-icon>
+                                    {% else %}
+                                        <span>{{i}}</span>
+                                    {% endif %}
+                                {% endfor%}
+                            </span>
+                        </div>
+                    </Naziya>
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>Result</p>
+                                <br>
+                                {% for i in dash6%}
+                                    {% if i == 'Naziya' %}
+                                        <ion-icon name="checkmark" style='font-size:23px; color:var(--accent-color);'></ion-icon>
+                                    {% else %}
+                                        <span>{{i}}</span>
+                                    {% endif %}
+                                {% endfor%}
+                            </span>
+                        </div>
+                    </Naziya>
+                    
+
+
+                </div>
+
+                {% if classinterval|length > 0 %}
+                    <div>
+                        <span class='underroot1' style='margin-bottom: 10px; font-size:20px; margin-top: 30px;'>From Tally Method Modal Class = {{modeclass}}</span>
+                    </div>
+                {% else %}
+                    <div>
+                        <span class='underroot1' style='margin-bottom: 30px; font-size:20px; margin-top: 30px;'>From Tally Method Mode (Z) = {{modeclass}}</span>
+                    </div>
+
+                {% endif%}
+
+            {% endif %}
+
+            <div class='underroot1'>
+                
+                {% if f1 == 0 %}
+                    <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+
+                    {% if mode == "Mode Is not possible"%}
+
+                        <span class='assume'>{{mode}}</span>
+
+                    {% else %}
+
+                        <span style='margin-top:10px;'>
+                            <span class='assume'>Mode (Z) = Most Repetitive Term in X</span>
+                        </span>
+
+                        <span style='margin-top: 5px; margin-bottom: 30px;'>
+                            Mode (Z) = 
+                            {% for i in mode %}
+
+                                {% if forloop.counter == lenmode %}
+                                    {{i}}
+                                {% else %}
+                                    {{i}},
+                                {% endif %}
+
+                            {% endfor %}
+                        </span>
+
+                    {% endif %}
+
+                {% else %}
+
+                    {% if classinterval|length > 0 %}
+
+                        <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+
+                        <div >
+                            <span class='assume'>Mode (Z) Formula = </span><img style='margin-top: 5px;' width='290px' src="https://latex.codecogs.com/svg.image?{\color{White}&space;L1&space;&plus;&space;\left&space;(\frac{&space;f_{1}&space;-&space;f_{0}}{2f_{1}&space;-&space;f_{0}&space;-&space;f_{2}}&space;\times&space;i&space;\right)}" title="https://latex.codecogs.com/svg.image?{\color{White} L1 + \left (\frac{ f_{1} - f_{0}}{2f_{1} - f_{0} - f_{2}} \times i \right)}" />
+                        </div>
+
+                        <div style='margin-top: 30px;'>
+                            <img  width='280px' src="https://latex.codecogs.com/svg.image?{\color{White}&space;{{l1}}&space;&plus;&space;\left&space;(\frac{&space;{{f1}}&space;-&space;{{f0}}}{2\times{{f1}}&space;-&space;{{f0}}&space;-&space;{{f21}}}&space;\times&space;{{i}}&space;\right)}" title="https://latex.codecogs.com/svg.image?{\color{White} L1 + \left (\frac{ f_{1} - f_{0}}{2f_{1} - f_{0} - f_{2}} \times i \right)}" />
+                        </div>
+
+                        <div style='margin-top: 25px;'>
+                            <img width='170px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{l1}}&space;&plus;&space;\left&space;(&space;\frac{\{{min1}}}{\{{min2}}}&space;\times&space;{{i}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L1 + \left ( \frac{x1}{x2} \times 10 \right )}" />
+                        </div>
+
+                        <div style='margin-top: 25px;'>
+                            <img width='120px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{l1}}&space;&plus;&space;\left&space;(&space;\frac{\{{mult}}}{\{{min2}}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L1 + \left ( \frac{x1}{x2} \right )}" />
+                        </div>
+
+                        <div style='margin-top: 25px;'>
+                            <img width='90px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{l1}}&space;&plus;&space;{{divide1}}}" title="https://latex.codecogs.com/svg.image?{\color{white} L1 + x1}" />
+                        </div>
+
+                        <div style='margin-top: 25px; margin-bottom: 25px;'>
+                            <span class='assume'>Mode (Z) = {{mode}}</span>
+                        </div>
+
+                        
+
+                    {% else %}
+
+
+                        {% if indiformulamatch == "1" %}
+                            <div>
+                                <span class='assume'>Mode (Z) Formula = Maximum Frequency of X</span>
+
+                            </div>
+
+                            <div style='margin-top: 15px; margin-bottom: 25px;'>
+                                <span class='assume'>Mode (Z) = {{mode}}</span>
+                            </div>
+                        {% endif %}
+
+                    {% endif %}
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+    {% endif %}
+
+{% endif %}
+
+<script>
+    var userName = document.querySelector('#numberField');
+
+    userName.addEventListener('input', restrictNumber);
+    function restrictNumber (e) {  
+        var newValue = this.value.replace(new RegExp(/[^-,\d]/,'ig'), "");
+        this.value = newValue;
+    }
+
+    var userName1 = document.querySelector('#numberField1');
+
+    userName1.addEventListener('input', restrictNumber1);
+    function restrictNumber1 (e) {  
+        var newValue = this.value.replace(new RegExp(/[^,\d]/,'ig'), "");
+        this.value = newValue;
+    }
+
+    let p1 = document.querySelector('.status1').textContent;
+    {% comment %} let p2 = document.querySelector('.estado2').textContent; {% endcomment %}
+
+    if(p1 == 'off'){
+       
+        let divElement = document.querySelector(".modeheight");
+        let elemHeight = divElement.offsetHeight;
+        h = (elemHeight-24) + "px";
+    
+        var element = document.getElementById("2height").style.height = h;
+        var element = document.getElementById("22height").style.height = h;
+        var element = document.getElementById("33height").style.height = h;
+        var element = document.getElementById("133height").style.height = h;
+        var element = document.getElementById("233height").style.height = h;
+    }
+
+    else{
+
+        let heightvar = document.querySelector(".modeheight");
+        let disheight = heightvar.offsetHeight;
+        console.log(disheight)
+        h1 = (disheight-24) + "px";
+        console.log(h1)
+    
+        var element = document.getElementById("dis22height").style.height = h1;
+        var element = document.getElementById("dis122height").style.height = h1;
+        var element = document.getElementById("dis33height").style.height = h1;
+        var element = document.getElementById("dis133height").style.height = h1;
+        var element = document.getElementById("dis233height").style.height = h1;
+    }
+    
+
+
+                
+
+
+
+</script>
+
+
+
+{% endblock input %}

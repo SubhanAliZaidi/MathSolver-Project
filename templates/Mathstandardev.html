@@ -1,0 +1,680 @@
+{% extends 'Mathsolver.html' %}
+{% comment %} Naziya {% endcomment %}
+
+{% block input%}
+
+
+<form class='parentinput' method="post" action="/Standarddeviation">
+{% csrf_token %}
+
+    <h1>Enter X or C.I.</h1>
+    <h2><b style='color:var(--secondary-color);'>X</b> (Number of items) or  <b style='color:var(--secondary-color);' >C.I.</b> (Class Interval) Below</h2>
+    
+    <input type="text" name="firstinput" id="numberField" placeholder="Enter X column with comma seperated">
+    
+    <h1 style="margin-top: 40px;">Enter F (Frequency)</h1>
+    <h2>Leave this blank if you have individual series</h2>
+    <input type="text" name="secondinput" id="numberField1" placeholder="Enter F column with comma seperated">
+
+    {% block buttons%}
+
+    <span class='notetext'>{{parveen}}</span>
+
+    <div class="buttongroup" style='margin-bottom: 30px;'>
+
+        <button style='margin-top: 5px; max-width: fit-content;' class='projectbutton' id='standarddeviation' type='submit' name='standarddeviation'>Solve</button>         
+
+    </div>
+
+    {% endblock buttons%} 
+
+</form>  
+
+
+{% if allerror == 'Handle' %}
+
+    <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+{% else %}
+
+    {% if emp == 0%}
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+    {% endif %}
+
+
+    {% if x2 != f2 %}
+
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+    {% else %}
+
+        {% if match|length > 0 %}
+        {% comment %} {% if classinterval|length > 0 %} {% endcomment %}
+
+            <span class='underroot1' style='margin-bottom: -5px; font-size:25px;'>{{seriesname}}</span>
+
+            <span class='balance' style='margin-bottom: 10px; margin-top: 15px;'>Solved With Indirect Method (Assumed Mean)</span>
+
+
+            {% comment %} 
+            <button onclick='toggleText()'  class='topbutton projectbutton'><ion-icon name="arrow-dropdown"></ion-icon>Click To See Solution</button> {% endcomment %}
+
+
+            <div class="standardoutput">
+
+                {% comment %} <button onclick='hidelist()' class='projectbutton'>click</button> {% endcomment %}
+
+                {% if classinterval|length > 0 %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">C.I.</p>
+                            <br>
+                            {% for i in classinterval %}
+                            <span class="classinterval1">{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;x = {{sumx}}</span> {% endcomment %}
+                    </Naziya>
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">X</p>
+                            <br>
+                            {% for i in x%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;x = {{sumx}}</span> {% endcomment %}
+                    </Naziya>
+
+
+                {% else %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">X</p>
+                            <br>
+                            {% for i in x%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;x = {{sumx}}</span> {% endcomment %}
+                    </Naziya>
+
+                {% endif %}
+
+                
+                
+                {% if f1 == 0 %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>D</p>
+                            <br>
+                            {% for i in d%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        <span class='summationtotal'>&sum;d = {{sumd}}</span>
+                    </Naziya>
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>D<sup style="font-size:12px;">2</sup></p>
+                            <br>
+                            {% for i in d2%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        <span class='summationtotal'>&sum;d<sup style="font-size:12px;">2</sup> = {{sumd2}}</span>
+                    </Naziya>
+
+
+                {% else %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>F</p>
+                            <br>
+                            {% for i in f%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        <span class='summationtotal'>&sum;f = {{sumf}}</span>
+                    </Naziya>
+                
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>D</p>
+                            <br>
+                            {% for i in d%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;d = {{sumd}}</span> {% endcomment %}
+                    </Naziya>
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>D<sup style="font-size:12px;">2</sup></p>
+                            <br>
+                            {% for i in d2%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;d<sup style="font-size:12px;">2</sup> = {{sumd2}}</span> {% endcomment %}
+                    </Naziya>
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>FD</p>
+                            <br>
+                            {% for i in fd%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        <span class='summationtotal'>&sum;fd = {{sumfd}}</span>
+                    </Naziya>
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>FD<sup style="font-size:12px;">2</sup></p>
+                            <br>
+                            {% for i in fd2%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        <span class='summationtotal'>&sum;fd<sup style="font-size:12px;">2</sup> = {{sumfd2}}</span>
+                    </Naziya>
+                {% endif %}
+
+
+            </div>
+
+
+            <div class='underroot1'>
+                <hr class='ruler'>
+                <span>
+                    <span class='assume'>Assumed Mean is = {{assumedmean}}</span>
+                </span>
+
+                {% if f1 == 0 %}
+
+                    <div style='margin-top: 20px;'>
+
+                        <span>Formula (&#963;) = </span><img class='white3' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\sqrt{\frac{\Sigma&space;d^{2}}{n}&space;-&space;\left&space;(&space;\frac{\Sigma&space;d}{n}&space;\right&space;)^{2}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \sqrt{\frac{\Sigma d^{2}}{n} - \left ( \frac{\Sigma d}{n} \right )^{2}}}" />
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+
+                        <img class='white2' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\sqrt{\frac{\{{sumd2}}}{\{{len}}}&space;-&space;\left&space;(\frac{\&space;{{sumd}}}{\{{len}}}&space;\right&space;)^{2}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \sqrt{\frac{\Sigma d^{2}}{n} - \left ( \frac{\Sigma d}{n} \right )^{2}}}" />
+
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+
+                        <img class='white3' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\sqrt{\{{divide1}}&space;-&space;\left&space;(&space;{{divide2}}&space;\right&space;)^{2}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \sqrt{x - \left ( x \right )^{2}}}" />
+
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+
+                        <img class='white3' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\sqrt{\{{divide1}}&space;-&space;{{square2}}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \sqrt{x - x}}" />
+
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+
+                        <img class='white7' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\sqrt{\{{min}}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \sqrt{x}}" />
+
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+
+                        <span> = {{sqrroot}}</span>
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+                        <span>
+                            <span class='answerred'>S</span>tandard <span class='answerred'>D</span>eviation (&#963;) is = {{sqrroot}}
+                        </span>
+                    </div>
+
+
+                {% else %}
+                    <div style='margin-top: 20px;'>
+
+                        <span>Formula (&#963;) = </span><img class='white' src="https://latex.codecogs.com/svg.image?\LARGE&space;{\color{White}&space;\sqrt{\frac{\Sigma&space;fd^{2}}{\Sigma&space;f}-\left&space;(&space;\frac{\Sigma&space;fd}{\Sigma&space;f}&space;\right&space;)^{2}}}" title="https://latex.codecogs.com/svg.image?\LARGE {\color{White} \sqrt{\frac{\Sigma fd^{2}}{\Sigma f}-\left ( \frac{\Sigma fd}{\Sigma f} \right )^{2}}}" />
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+
+                        <img class='white1' src="https://latex.codecogs.com/svg.image?\LARGE&space;{\color{White}&space;\sqrt{\frac{\{{sumfd2}}}{\{{sumf}}}-\left&space;(&space;\frac{\&space;{{sumfd}}}{\{{sumf}}}&space;\right&space;)^{2}}}" title="https://latex.codecogs.com/svg.image?\LARGE {\color{White} \sqrt{\frac{\Sigma fd^{2}}{\Sigma f}-\left ( \frac{\Sigma fd}{\Sigma f} \right )^{2}}}" />
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+
+                        <img class='white2' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\sqrt{\{{divide1}}&space;-&space;\left&space;(&space;{{divide2}}\right&space;)^{2}&space;}}" title="https://latex.codecogs.com/svg.image?{\color{White} \sqrt{x - \left ( x\right )^{2} }}" />
+
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+
+                        <img class='white3' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\sqrt{\{{divide1}}&space;-&space;{{square2}}}}" title="https://latex.codecogs.com/svg.image?{\color{White} \sqrt{x - x}}" />
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+
+                        <img class='white4' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\sqrt{\{{subs}}}}" title="https://latex.codecogs.com/svg.image?{\color{White} \sqrt{x}}" />
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+                        <span>= {{sqrroot}}</span>
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+                        <span>
+                            <span class='answerred'>S</span>tandard <span class='answerred'>D</span>eviation (&#963; ) is = {{sqrroot}}
+                        </span>
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <hr class='ruler2' style='margin-top:20px; margin-bottom:30px;'>
+
+
+
+
+
+
+
+
+
+
+
+            <span class='balance' style='margin:0; margin-bottom:10px;'>Solved With Direct Method (Actual Mean)</span>
+
+
+            <div class="standardoutput">
+
+
+                {% if classinterval|length > 0 %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">C.I.</p>
+                            <br>
+                            {% for i in classinterval %}
+                            <span class="classinterval1">{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;x = {{sumx}}</span> {% endcomment %}
+                    </Naziya>
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">X</p>
+                            <br>
+                            {% for i in x%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;x = {{sumx}}</span> {% endcomment %}
+                    </Naziya>
+
+
+                {% else %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">X</p>
+                            <br>
+                            {% for i in x%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        <span class='summationtotal'>&sum;x = {{sumx}}</span>
+                    </Naziya>
+
+                {% endif %}
+
+                {% comment %} <button onclick='hidelist()' class='projectbutton'>click</button> {% endcomment %}
+
+
+
+                {% if f1 == 0 %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>D</p>
+                            <br>
+                            {% for i in acd%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;d = {{sumd}}</span> {% endcomment %}
+                    </Naziya>
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>D<sup style="font-size:12px;">2</sup></p>
+                            <br>
+                            {% for i in acd2%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        <span class='summationtotal'>&sum;d<sup style="font-size:12px;">2</sup> = {{sumacd2}}</span>
+                    </Naziya>
+
+                {% else %}
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>F</p>
+                            <br>
+                            {% for i in f%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        <span class='summationtotal'>&sum;f = {{sumf}}</span>
+                    </Naziya>
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>Fx</p>
+                            <br>
+                            {% for i in fx%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        <span class='summationtotal'>&sum;fx = {{sumfx}}</span>
+                    </Naziya>
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>D</p>
+                            <br>
+                            {% for i in acd%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;d = {{sumacd}}</span> {% endcomment %}
+                    </Naziya>
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>D<sup style="font-size:12px;">2</sup></p>
+                            <br>
+                            {% for i in acd2%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;d<sup style="font-size:12px;">2</sup> = {{sumacd2}}</span> {% endcomment %}
+                    </Naziya>
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p>FD<sup style="font-size:12px;">2</sup></p>
+                            <br>
+                            {% for i in acfd2%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        <span class='summationtotal'>&sum;fd<sup style="font-size:12px;">2</sup> = {{sumacfd2}}</span>
+                    </Naziya>
+                {% endif %}
+
+
+            </div>
+
+
+            <div class='underroot1'>
+                <hr class='ruler'>
+
+                {% if f1 == 0 %}
+
+                    <span>
+                        <span class='assume'>Actual Mean Formula = </span><img width='40px' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\frac{\Sigma&space;x}{n}}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{\Sigma x}{n}}" />
+                    </span>
+
+                    <span>
+                        (x&#772;) = <img width='45px' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\frac{\&space;{{sumx}}}{\{{len}}}}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{\Sigma x}{n}}" />
+                    </span>
+
+                    <span>
+                        <span class='assume' style='margin-top:10px;'>Actual Mean (x&#772;) = {{actualmean}}</span>
+                    </span>
+
+                    <hr class="ruler">
+
+                    <div style='margin-top: 20px;'>
+
+                        <span>Formula (&#963;) = </span><img width='80px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\sqrt{\frac{\Sigma&space;d^{2}}{n}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \sqrt{\frac{\Sigma d^{2}}{n}}}" />
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+
+                        (&#963;) = <img width='110px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\sqrt{\frac{&space;{{sumacd2}}}{\{{len}}}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \sqrt{\frac{ d}{n}}}" />
+                    </div>
+
+                    <div style='margin-top: 25px;'>
+
+                        = <img width='95px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\sqrt{&space;{{divide3}}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \sqrt{ x}}" />
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+                        = <span> {{acsqrroot}}</span>
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+                        <span>
+                            <span class='answerred'>S</span>tandard 
+                            <span class='answerred'>D</span>eviation (&#963;) is = {{acsqrroot}}
+                        </span>
+                    </div>
+
+                
+
+                {% else %}
+                    <span>
+                        <span class='assume'>Actual Mean Formula = </span><img class='white5' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\frac{\Sigma&space;fx}{\Sigma&space;f}}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{\Sigma fx}{\Sigma f}}" />
+                    </span>
+
+                    <span style='margin-top:10px; margin-bottom:10px;'>
+                        = <span class='fractionparent' style='font-size:22px;'>
+                            <div>{{sumfx}}</div>
+                            <div>{{sumf}}</div>
+                        </span>
+                    </span>
+
+
+
+                    <span>
+                        <span class='assume' style='margin-top:10px;'>Actual Mean = {{actualmean}}</span>
+                    </span>
+
+                    <hr class="ruler">
+
+
+
+                    <div style='margin-top: 20px;'>
+
+                        <span>Formula (&#963;) = </span><img  class='white7' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\sqrt{\frac{\Sigma&space;fd^{2}}{\Sigma&space;f}}}" title="https://latex.codecogs.com/svg.image?{\color{White} \sqrt{\frac{\Sigma fd^{2}}{\Sigma f}}}" />
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+
+                        = <img  class='white8' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\sqrt{\frac{\{{sumacfd2}}}{\{{sumf}}}}" title="https://latex.codecogs.com/svg.image?{\color{White} \sqrt{\frac{\Sigma fd^{2}}{\Sigma f}}}" />
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+
+                        = <img class='white4' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\sqrt{\{{divide3}}}}" title="https://latex.codecogs.com/svg.image?{\color{White} \sqrt{x}}" />
+
+                    </div>
+
+
+                    <div style='margin-top: 20px;'>
+                        <span> {{acsqrroot}}</span>
+                    </div>
+
+                    <div style='margin-top: 20px;'>
+                        <span>
+                            <span class='answerred'>S</span>tandard <span class='answerred'>D</span>eviation (&#963;) is = {{acsqrroot}}</span>
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <hr class='ruler2' style='margin-top: 30px; margin-bottom:20px; '>
+
+            <div style='color:var(--secondary-color);'>
+
+                <div >
+                    <span class='underroot1' style='color:var(--accent-color); font-size:25px; margin-bottom: 15px;' ><b>Variance</b></span>
+
+                    <span class='assume'>Formula = </span><img class='white10' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\left&space;(&space;S.D.&space;\right&space;)^{2}}" title="https://latex.codecogs.com/svg.image?{\color{White} \left ( S.D. \right )^{2}}" />
+                </div>
+
+                <div style='margin-top: 20px;'>
+                    <span class='fractionparent' style='font-size:24px;'>
+                        <span>({{acsqrroot}}) <sup>2</sup></span>
+                    </span>
+                </div>
+
+
+                <div style='margin-top: 20px;'>
+                    <span class='underroot1' >Variance = {{variance}}</span>
+                </div>
+
+                <hr class='ruler2' style='margin-top:30px;'>
+
+
+
+                <div>
+
+                    <span class="underroot1" style="color:var(--accent-color); font-size:25px; margin-bottom: 15px;"><b>Coefficient of Standard Deviation</b></span>
+
+                    {% comment %} <span class='balance' style='color:var(--accent-color); font-size:25px;' ><b>Coefficient of Standard Deviation</b></span> {% endcomment %}
+
+                    <div style='margin-top:20px;'>
+                        <span class='assume'>Formula = </span><img class='white9' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\frac{S.D.}{Actual Mean}}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{S.D.}{Actual Mean}}" />
+                    </div>
+
+                        
+                    <div style='margin-top: 25px;'>
+
+                        = <span class='fractionparent' style='font-size:25px;'>
+                            <div>{{acsqrroot}}</div>
+                            <div>{{actualmean}}</div>
+                        </span>
+
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <span class="underroot1">Coefficient of S.D. = {{coefficientofsd}}</span>
+                    </div>
+                    
+                </div>
+
+
+                <hr class='ruler2' style='margin-top:30px;'>
+
+                <div  style='margin-top: 30px;'>
+                    <span class='underroot1' style='color:var(--accent-color); font-size:25px;'><b>Coefficient of Variation</b>
+                    </span>
+
+                    <div style='margin-top:20px;'>
+                        <span class='assume'>Formula = </span><img class='white3' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\frac{S.D.}{Actual Mean}\times&space;100}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{S.D.}{Actual Mean}\times 100}" />
+                    </div>
+                </div>
+
+                <div style='margin-top: 25px;'>
+
+                    <img width='150px' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\frac{\{{acsqrroot}}}{\{{actualmean}}}\times&space;100}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{x}{x}\times 100}" />
+
+                </div>
+
+                <div style="margin-top: 20px; margin-bottom:20px;">
+                    <span class="underroot1">Coefficient of Variation = {{coefficientofvar}}</span>
+                </div>
+
+            </div>
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    var userName = document.querySelector('#numberField');
+
+    userName.addEventListener('input', restrictNumber);
+    function restrictNumber (e) {  
+        var newValue = this.value.replace(new RegExp(/[^-,\d]/,'ig'), "");
+        this.value = newValue;
+    }
+
+    var userName1 = document.querySelector('#numberField1');
+
+    userName1.addEventListener('input', restrictNumber1);
+    function restrictNumber1 (e) {  
+        var newValue = this.value.replace(new RegExp(/[^,\d]/,'ig'), "");
+        this.value = newValue;
+    }
+</script>
+
+
+{% endblock input%}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1006 @@
+{% extends 'base.html' %}
+{% comment %} Naziya {% endcomment %}
+
+{% block title %} Home {% endblock title%}
+
+{% block body %}
+{% load static %}
+
+<div class="naziyapopup">
+    <div class="Autopopup">
+        <div class="contentbox">
+            <div class="imgbox">
+                <div><span style='color:var(--accent-color); font-size: 34px; font-weight:bold;'>N</span><span style='margin-bottom:-6px;'>azloop</span> </div> 
+            </div>
+
+            <div class="content">
+                <div class="second">
+                    <h3>Key Highlights</h3>
+                    <hr class="popupruler">
+                    <p><b>Theming</b><span><img src="/static/Assets/ThemeIcon.png" width="16px"  style="padding-left: 8px; margin-bottom:5px;"> - You Can Choose Colors From 16 Million Color Shades. (Go To Menu And Click On Red Circle To Choose) Or Press (Ctrl + i) To Select Random Color</p>
+                    <hr class="secondpopupruler">
+                    <p><b>Dark Mode</b><span><img src="/static/Assets/moon(1).png" width="17px"  style="padding-left: 5px; margin-bottom:5px;"></span> - There Is Dark Mode Also. Click On Sun Icon Or Press (Ctrl + b) To Switch Between Day/Night Mode, Hover On Some Elements To See Glow Effect</p>
+                    <div class="close">Close</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="popupparveennaz" >
+    <div class='aboutinnernaz'>
+        <iframe style="border-radius: 10px; background-color: transparent;" src="https://textbin.net/embed/vxzs7chdpk" width="600px" height="400px"></iframe>
+
+        <a onclick="toggleparveennaz()" class='close1' style='margin-top:20px;'>Close</a>
+    </div>
+</div>
+
+<div id="popupparveennaz1" >
+    <div class='aboutinnernaz1'>
+        <div class="previewtitle">
+            <h1>NazTypoGraphy Preview</h1>
+        </div>
+        <img class="previewimage" id="previewnaztypo" src="/static/Assets/PreviewNazTypoW.png" alt="Font Preview" >
+        <a onclick="toggleparveennaz1()" class='close1' style='margin-top:10px; margin-bottom:15px;'>Close</a>
+    </div>
+</div>
+
+<div class="image">
+    
+    <button class="themebutton"><img id="naziya5" class="themeicon" src="/static/Assets/sun.png" width="25px" height="25px"></button>
+
+    <div class="container" id="top">
+        <img class="img1" src="/static/Assets/image5.jpg" alt="" width='140px'>
+        <div class="overlay">
+            <div class="cvbutton">
+                <p class="resumedownload">Download</p>
+                <p class="resumedownload1">CV</p>
+                <a class="fa fa-cloud-download" href="/static/Assets/Subhan Ali (CV).pdf" download="Subhan Ali (CV)"> </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="NAZIYA">
+        <pre class="name">S</pre>
+        <pre class="name">u</pre>
+        <pre class="name">b</pre>
+        <pre class="name">h</pre>
+        <pre class="name">a</pre>
+        <pre class="name">n</pre>
+        <pre class="name"> A</pre>
+        <pre class="name">l</pre>
+        <pre class="name">i</pre>
+        <pre class="name"> Z</pre>
+        <pre class="name">a</pre>
+        <pre class="name">i</pre>
+        <pre class="name">d</pre>
+        <pre class="name">i</pre>
+    </div>
+
+    <div class="rulerdiv">
+        <hr class="ruler">
+    </div>
+
+    <div class="NAZIYA2">
+        #️⃣<pre class="name2">P</pre>
+        <pre class="name2">r</pre>
+        <pre class="name2">o</pre>
+        <pre class="name2">g</pre>
+        <pre class="name2">r</pre>
+        <pre class="name2">a</pre>
+        <pre class="name2">m</pre>
+        <pre class="name2">m</pre>
+        <pre class="name2">e</pre>
+        <pre class="name2">r</pre>
+        <pre class="name2"> | </pre>
+        💻<pre class="name2">W</pre>
+        <pre class="name2">e</pre>
+        <pre class="name2">b</pre>
+        <pre class="name2"> D</pre>
+        <pre class="name2">e</pre>
+        <pre class="name2">v</pre>
+        <pre class="name2">e</pre>
+        <pre class="name2">l</pre>
+        <pre class="name2">o</pre>
+        <pre class="name2">p</pre>
+        <pre class="name2">e</pre>
+        <pre class="name2">r</pre>
+        <pre class="name2"> | </pre>
+        🎨<pre class="name2">A</pre>
+        <pre class="name2">n</pre>
+        <pre class="name2"> A</pre>
+        <pre class="name2">r</pre>
+        <pre class="name2">t</pre>
+        <pre class="name2">i</pre>
+        <pre class="name2">s</pre>
+        <pre class="name2">t</pre>
+    </div>
+    
+    <div class="rulerdivnaz1">
+        <hr class="rulernaz">
+    </div>
+    
+</div>
+
+{% endblock body %}{% block bodyfooter%}
+
+<div class="upparveen">
+
+    <div class="parveenrulerdiv">
+        <hr class="parveenruler" id="work">
+    </div>
+
+    <div class='expertise'>My Expertise</div>
+        
+    <div class="Parveen hiddenanimation">
+
+        <button class='childanimation hiddenanimation'>
+            <a href="#cssprojects"><img class="circle" src="/static/Assets/css.png" width="110px" id="css" draggable='false'></a>
+            <p class='expertisetitle'>CSS</p>
+        </button>
+
+        <button class='childanimation hiddenanimation'>
+            <a href="#pythonscroll"><img class="circle" src="/static/Assets/python.png" width="90px" id="python" draggable='false'></a>
+            <p class='expertisetitle'>PYTHON</p>
+        </button>
+
+        <button class='childanimation hiddenanimation'>
+            <a><img class="circle" src="/static/Assets/django.png" width="112px" id="django" draggable='false'></a>
+            <p class='expertisetitle'>DJANGO</p>
+        </button>
+
+        <button class='childanimation hiddenanimation'>
+            <a href="/html" target="_new"><img class="circle" src="/static/Assets/html.png" width="110px" id="html" draggable='false'></a>
+            <p class='expertisetitle'>HTML</p>
+        </button>
+        
+        <button class='childanimation hiddenanimation'>
+            <a><img class="circle" src="/static/Assets/javascript1.png" width="110px" id="javascript" draggable='false'></a>
+            <p class='expertisetitle'>JAVASCRIPT</p>
+        </button>
+
+        <button class='childanimation hiddenanimation'>
+            <a href="#photoshoptitle"><img class="circle" src="/static/Assets/Photoshop.png" width="100px" id="photoshop" draggable='false'></a>
+            <p class='expertisetitle'>PHOTOSHOP</p>
+        </button>
+        
+    </div>
+
+    <div class="otherup">
+
+        <div class="other">
+
+            <main class="maineyeballmiddle">
+                <img class='catimg' src="/static/Images/CatImage.png" alt="" id="anchor2" width='160px'>
+                <div id="eyes2">
+        
+                    <img src="/static/Images/CatEyeBall.png" alt="" id='blueeye' class="eye2" width="25px" style="top:-9px; left:-31px; ">
+                    
+                    <img src="/static/Images/CatEyeBall2.png" alt="" id='yelloweye' class="eye2" width="25px" style="top:-9px; left:7px; ">
+        
+                </div>
+                {% comment %} <div class='hidecatglow'></div> {% endcomment %}
+            </main>
+
+            <hr class="ruler2" style="margin-top: -6px; margin-bottom: 30px;"> 
+
+            <div class="centercard">
+                
+                <div class="textforappinfo1 hiddenanimation1" style='padding-bottom:10px;'>
+                    <p>
+                        <h2>Maths Solver</h2>
+    
+                        <hr width="10%" style="border: 1px solid var(--accent-color); white-space: normal; margin-top: -7px; margin-bottom: -17px; background-color: var(--accent-color);" id="work">
+
+                        <div class="fontinfo" style="margin: 0px;">
+                            <p style="color: var(--secondary-text-color) ; margin: 15px;"></p>
+                        </div>
+    
+                        <p style="text-align: justify; margin-top: 0px;" class="mathstext">
+                            This Maths solver can solve all business statistics question including (Standard deviation, combined Standard deviation, Mean deviation, combined mean deviation etc). This Can Solve questions in all individual, discrete and continuous series. 
+
+                            <br>
+                            <br>
+                            I Coded this with Python, Django, Html, Css and Javascript.
+                        </p>
+
+                        <a class="projectbutton" style="margin-top: 5px; margin-bottom: -200px;" href="/Mathsolver" target='_blank'  onclick='mathnavtext()'><ion-icon style="margin-bottom: -3px;" name="open"></ion-icon> Open</a>
+    
+                    </p>
+                </div>
+            </div>
+
+            <hr id="pythonscroll" class="invisibleruler">
+
+
+
+            <hr class="ruler2" style="margin-top: 26px;" > 
+            <p class="photoshoptitle"> Software Which I Developed</p>
+            
+            <div class="centercard">
+                <div class="textforappinfo">
+                    <p style="font-weight: bold; font-size: 20px; margin-bottom: 5px;"><img class='hiddenanimation' src="/static/Assets/icon.png" width="75px" id="img1" style="justify-content: center; margin-bottom: 12px; border-radius: 0px; user-select:none;"><br style=' user-select:none;'>Naz Text Editor<br>
+    
+                        <hr width="10%" style="border: 1px solid var(--ruler-color); white-space: normal; margin-top: 15px; margin-bottom: 0px; background-color: #000000;" id="work">
+    
+                        <p style="text-align: justify;">
+                            This is text editor for windows operating system. I coded this in <b>PYTHON</b> programming language. It can do basic text editing like making text bold, changing text color,  font size, font family, font weight etc. You can do more than whatever you do on notepad like saving file, open text or html files. Although there are some bugs in it, which i am trying to fix but still you can perform your daily life text action in it. If you want to download this software you can download it from below and install it in your windows operating system.<br> <br>
+                            
+                            <b>Note:</b> This software will not work on Linux, Ubuntu or MacOs. If you want to run Naz Text Editor in these operating system you can run this as a python script which you will get <a href="https://github.com/Subhan-bot/Naz-Text-Editor.git" target="_new" style="text-decoration: none; color: #F65A5A;">here</a>.
+                        </p>
+                        <div class='buttonalign'>
+                            <a class="projectbutton" style="margin-top: 5px;" href="/static/apps/Naz Text Editor.exe" download="Naz Text Editor.exe"><i class="fa fa-download"></i> Download</a>
+
+                            <button onclick='toggleparveennaz()' class="buy-btn1 projectbutton" id='codepopup' style="margin-top: 5px;"><ion-icon class="sourcecodeicon" name="code-working"></ion-icon> Code</button> 
+
+                        
+                            <a href='/Texteditor' class="buy-btn1 projectbutton" style="margin-top: 5px; margin-right: 5px;"><ion-icon style=" margin-right: 5px;" class='sourcecodeicon' name="code"></ion-icon>Run Here</a> 
+                        </div>
+                    </p>
+                </div>
+            </div>
+
+            <div class="centercard" style="margin-top: 40px;">
+                <div class="textforappinfo">
+                    <p style="font-weight: bold; font-size: 20px; margin-bottom: 5px;"><img class='hiddenanimation2' src="/static/Assets/1024.png" width="75px" id="img2" style="justify-content: center; margin-bottom: 12px; border-radius: 15px;  user-select:none;"><br style='user-select:none;'>Calculator<br>
+    
+                        <hr width="10%" style="border: 1px solid var(--ruler-color); white-space: normal; margin-top: 15px; margin-bottom: 0px; background-color: #000000;" id="work">
+    
+                        <p style="text-align: justify;">
+                            It's a basic calculator app for android. I created this app in <b>JAVASCRIPT</b>. In this app you can do basic Maths Calculation like addition, substraction, multiplication etc. This app's supports Android 10(Q) and may be Android 11(R). It doesn't supports latest android version Android 12. And there is some bugs in this app so some time this app will crash on your smartphone. I will fix them very soon but for now atleast you can give it a try by downloading and installing it in your android devices. You can download this app from below.<br><br>
+    
+                            <b>Note:</b> There is some bugs so maybe this app will not install on your devices or maybe not work properly.
+                        </p>
+    
+                        <a class="projectbutton" style="margin-top: 5px; margin-bottom: -10px;" href="/static/apps/Calculator.apk" download="Calculator.apk"><i class="fa fa-download" id="photoshoptitle"></i> Download</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="ruler2">
+    <p class="photoshoptitle"> Photoshop Composites</p>
+    <p class="photoshoptitleinfo">Drag <i>Left/Right</i> To See Before And After</p>
+
+    <div class="otherup">
+        <main class="main5 ">
+            <main class="mainnaz hiddenanimation">
+                <div class="Nazpar">
+                    <div class="image-container">
+                        <img class="image-before slider-image img5" src="/static/Images/Elephant Fantasy 1.jpg" loading="lazy" alt="color photo" draggable='false'/>
+    
+                        <img class="image-after slider-image img5" src="/static/Images/Elephant Fantasy.jpg" loading="lazy" alt="black and white"
+                         draggable='false'/>
+                    </div>
+
+                    <input type="range" min="0" max="101" value="50" aria-label="Percentage of before photo shown" class="slider"/>
+    
+                    <div class="slider-line" aria-hidden="true"></div>
+    
+                    <div class="slider-button" aria-hidden="true">
+                        <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        viewBox="0 0 256 256">
+    
+                            <rect width="256" height="256" fill="none"></rect>
+                            <line
+                                x1="128"
+                                y1="40"
+                                x2="128"
+                                y2="216"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="16"></line>
+    
+                            <line
+                                x1="96"
+                                y1="128"
+                                x2="16"
+                                y2="128"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="16"></line>
+    
+                            <polyline
+                                points="48 160 16 128 48 96"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="16"></polyline>
+    
+                            <line
+                                x1="160"
+                                y1="128"
+                                x2="240"
+                                y2="128"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="16"></line>
+    
+                            <polyline
+                                points="208 96 240 128 208 160"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="16"></polyline>
+    
+                        </svg>
+                    </div>
+                </div>
+                <div class="phototitletop1">
+                    <div class="phototitletop">
+                        <div class="phototitle">
+                            The Giant Elephant
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <main class="mainnaz">
+                <div class="container78">
+                    <div class="image-container78">
+                        <img class="image-before78 slider-image78 img78" src="/static/Images/Butterfly Glow 1.jpg" loading="lazy" alt="color photo" draggable='false'/>
+                        <img class="image-after78 slider-image78 img78" src="/static/Images/Butterfly Glow.jpg" loading="lazy" alt="black and white" draggable='false'/>
+                    </div>
+                    
+                    <input type="range" min="0" max="101" value="50" aria-label="Percentage of before photo shown" class="slider78"/>
+    
+                    <div class="slider-line78" aria-hidden="true"></div>
+    
+                    <div class="slider-button78" aria-hidden="true">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="30"
+                            height="30"
+                            fill="currentColor"
+                            viewBox="0 0 256 256">
+    
+                            <rect width="256" height="256" fill="none"></rect>
+                            <line
+                            x1="128"
+                            y1="40"
+                            x2="128"
+                            y2="216"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"></line>
+    
+                            <line
+                            x1="96"
+                            y1="128"
+                            x2="16"
+                            y2="128"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"></line>
+    
+                            <polyline
+                            points="48 160 16 128 48 96"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"></polyline>
+    
+                            <line
+                            x1="160"
+                            y1="128"
+                            x2="240"
+                            y2="128"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"></line>
+    
+                            <polyline
+                            points="208 96 240 128 208 160"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div class="phototitletop178">
+                    <div class="phototitletop78">
+                        <div class="phototitle78">
+                            Butterfly Glow
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <main class="mainnaz hiddenanimation1">
+                <div class="containernaz1">
+                    <div class="image-containernaz1">
+        
+                        <img
+                        class="image-beforenaz1 slider-imagenaz1 imgnaz1"
+                        src="/static/Images/first manipulation 1.png" loading="lazy"
+                        alt="color photo" draggable='false'/>
+                        <img
+                        class="image-afternaz1 slider-imagenaz1 imgnaz1"
+                        src="/static/Images/first manipulation.png" loading="lazy"
+                        alt="black and white" draggable='false'/>
+
+                    </div>
+        
+                    <input
+                        step="1"
+                        type="range"
+                        min="0"
+                        max="101"
+                        value="50"
+                        aria-label="Percentage of before photo shown"
+                        class="slidernaz1"/>
+        
+                    <div class="slider-linenaz1" aria-hidden="true"></div>
+                    <div class="slider-buttonnaz1" aria-hidden="true">
+                        
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="30"
+                            height="30"
+                            fill="currentColor"
+                            viewBox="0 0 256 256">
+
+                            <rect width="256" height="256" fill="none"></rect>
+                            <line
+                            x1="128"
+                            y1="40"
+                            x2="128"
+                            y2="216"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"
+                            ></line>
+                            <line
+                            x1="96"
+                            y1="128"
+                            x2="16"
+                            y2="128"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"
+                            ></line>
+                            <polyline
+                            points="48 160 16 128 48 96"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"
+                            ></polyline>
+                            <line
+                            x1="160"
+                            y1="128"
+                            x2="240"
+                            y2="128"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"
+                            ></line>
+                            <polyline
+                            points="208 96 240 128 208 160"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"
+                            ></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div class="phototitletop1naz1">
+                    <div class="phototitletopnaz1">
+                        <div class="phototitlenaz1">
+                            The Sky View
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <main class="mainnaz hiddenanimation">
+                <div class="container786">
+                    <div class="image-container786">
+                    <img
+                        class="image-before786 slider-image786 img786"
+                        src="/static/Images/Spooky Halloween 1.png" loading="lazy"
+                        alt="color photo"
+                        draggable = 'false'
+                    />
+                    <img
+                        class="image-after786 slider-image786 img786"
+                        src="/static/Images/Spookey Halloween.png" loading="lazy"
+                        alt="black and white"
+                        draggable = 'false'
+                    />
+                    </div>
+                    <!-- step="10" -->
+                    <input
+                    step="1"
+                    type="range"
+                    min="0"
+                    max="101"
+                    value="50"
+                    aria-label="Percentage of before photo shown"
+                    class="slider786"/>
+
+                    <div class="slider-line786" aria-hidden="true"></div>
+                    <div class="slider-button786" aria-hidden="true">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="30"
+                            height="30"
+                            fill="currentColor"
+                            viewBox="0 0 256 256">
+                            <rect width="256" height="256" fill="none"></rect>
+                            <line
+                            x1="128"
+                            y1="40"
+                            x2="128"
+                            y2="216"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"></line>
+
+                            <line
+                            x1="96"
+                            y1="128"
+                            x2="16"
+                            y2="128"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"></line>
+
+                            <polyline
+                            points="48 160 16 128 48 96"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"></polyline>
+
+                            <line
+                            x1="160"
+                            y1="128"
+                            x2="240"
+                            y2="128"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"></line>
+
+                            <polyline
+                            points="208 96 240 128 208 160"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"></polyline>
+
+                        </svg>
+                    </div>
+                </div>
+                <div class="phototitletop1786">
+                    <div class="phototitletop786">
+                        <div class="phototitle786">
+                            Halloween
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <main class="mainnaz hiddenanimation1">
+                <div class="containernaz">
+                    <div class="image-containernaz">
+        
+                        <img
+                        class="image-beforenaz slider-imagenaz imgnaz"
+                        src="/static/Images/Space shuttle window 1.png" loading="lazy"
+                        alt="color photo" draggable='false'/>
+                        <img
+                        class="image-afternaz slider-imagenaz imgnaz"
+                        src="/static/Images/Space shuttle window.png" loading="lazy"
+                        alt="black and white" draggable='false'/>
+
+                    </div>
+        
+                    <input
+                        step="1"
+                        type="range"
+                        min="0"
+                        max="101"
+                        value="50"
+                        aria-label="Percentage of before photo shown"
+                        class="slidernaz"/>
+        
+                    <div class="slider-linenaz" aria-hidden="true"></div>
+                    <div class="slider-buttonnaz" aria-hidden="true">
+                        
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="30"
+                            height="30"
+                            fill="currentColor"
+                            viewBox="0 0 256 256">
+
+                            <rect width="256" height="256" fill="none"></rect>
+                            <line
+                            x1="128"
+                            y1="40"
+                            x2="128"
+                            y2="216"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"
+                            ></line>
+                            <line
+                            x1="96"
+                            y1="128"
+                            x2="16"
+                            y2="128"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"
+                            ></line>
+                            <polyline
+                            points="48 160 16 128 48 96"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"
+                            ></polyline>
+                            <line
+                            x1="160"
+                            y1="128"
+                            x2="240"
+                            y2="128"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"
+                            ></line>
+                            <polyline
+                            points="208 96 240 128 208 160"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="16"
+                            ></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div class="phototitletop1naz">
+                    <div class="phototitletopnaz">
+                        <div class="phototitlenaz">
+                            Space Shuttle Window
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </main>
+    </div>
+
+    <h3 class="moreinfo" style="text-align: center;">Too See More Edits You Can Check My <a href="https://www.instagram.com/subhan_aliii/" target="_blank" style="color: #C42D83;" id="cssprojects">Instagram</a> Profile</h3>
+    <hr class="ruler3" style="margin-top: 15px;"> 
+
+    <main class="naziyaparveen"> 
+
+        <h1 class="textmaintitleparveen">Cascade Shading Style Projects</h1>
+        <p class="infoparveen"><i>Hover/Click</i> On Icons To See Animation Effect</p>
+
+        <hr width="10%" style="border: 1px solid var(--secondary-text-color); position: relative; white-space: normal; margin-top: 10px; margin-bottom: 0px; background-color:  var(--secondary-text-color);" id="work">
+    
+        <h1 class="textforbarparveen" style="margin-top: 25px;">Menu Bar</h1>
+    
+        <div class="menucenterparveen">
+            <ul>
+                <li style="--i:#a955ff; --j:#ea51ff;">
+                    <span class="iconparveen"><ion-icon name="home"></ion-icon></span>
+                    <span class="titleparveen">Home</span>
+                </li>
+    
+                <li style="--i:#56ccf2; --j:#2f80ed;">
+                    <span class="iconparveen"><ion-icon name="chatbubbles"></ion-icon></span>
+                    <span class="titleparveen">Messages</span>
+                </li>
+    
+                <li style="--i:#ff9966; --j:#ff5e62;">
+                    firstinput = request.POST.get('firstinput')
+                    secondinput = request.POST.get('secondinput')
+                    <span class="iconparveen"><ion-icon name="heart-empty"></ion-icon></span>
+                    <span class="titleparveen">Favourite</span>
+                </li>
+    
+                <li style="--i:#80ff72; --j:#7ee8fa;">
+                    <span class="iconparveen"><ion-icon name="camera"></ion-icon></span>
+                    <span class="titleparveen">Photos</span>
+                </li>
+    
+                <li style="--i:#FDC830; --j:#F37335;">
+                    <span class="iconparveen"><ion-icon name="videocam"></ion-icon></span>
+                    <span class="titleparveen">Videos</span>
+                </li>
+            </ul>
+        </div>
+
+        <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+        <hr width="16%" style="border: 1px solid var(--secondary-text-color); position: relative; white-space: normal; margin-top: 60px; margin-bottom: 0px; background-color:  var(--secondary-text-color);" id="work">
+
+        <h1 class="textmaintitleparveen" style="margin-top: 30px; margin-bottom: 15px;">Search Bar</h1>
+
+        <div class="searchdiv">
+            <div class="search-box">
+                <input class="inputsearch" style="color: black;" type="text" placeholder="Search......"/>
+                <a href="##" class="iconnaz"><ion-icon name="search"></ion-icon>
+                </a>
+            </div>
+        </div>
+
+        <hr width="16%" style="border: 1px solid var(--secondary-text-color); position: relative; white-space: normal; margin-top: 40px; margin-bottom: 0px; background-color: var(--secondary-text-color);" id="work">
+
+        <h1 class="loaderheading">Loading Bar</h1>
+        <div class="loaderbody">
+            <div class="loader"></div>
+        </div>
+        
+    </main>
+
+    <hr class="ruler3" style="margin-top: 15px; margin-bottom: 0;"> 
+
+    <h1 class="fonttitle">Font Which I Desinged</h1>
+    <div class="fontcontainer">
+
+        <div class="centercard">
+            <div class="textforappinfo1">
+                
+                <p style="font-weight: bold; font-size: 20px; margin-bottom: 0px;" >
+                    <img id="naztypo" src="/static/Assets/NazTypoGraphy(White).png" width="300px" style="justify-content: center; margin-bottom: 6px; border-radius: 0px; margin-top: 10px; user-select:none;">
+
+                    <hr width="10%" style="border: 1px solid var(--accent-color); white-space: normal; margin-top: 0px; margin-bottom: 0px; background-color: var(--accent-color);" id="work">
+
+                    <div class="fontinfo" style="margin: 0px;">
+                        <p style="color: var(--secondary-text-color) ; margin: 15px;">Simply <i>Download</i> it from <i>below </i>> <i>Extract</i> > <i>Right click</i> > <i>Install</i> </p>
+                    </div>
+
+                    <p style="text-align: justify; margin-top: 0px;">
+                        Install it on  your Windows system and use it on Word, excel, powerpoint, or any where you can type text, This supports all windows version including (windows xp,7,8,8.1,10,11). Base Font is modern sans serif.
+                    </p>
+
+                    <div class='buttonalign' style='margin-bottom:10px;'>
+                        <a class="projectbutton hiddenanimation" style="margin-top: 5px; margin-bottom: 4px;" href="/static/apps/NazTypoGraphy.zip" download="NazTypoGraphy.zip"><i class="fa fa-download" style="margin-right: 0px;" ></i> Download</a>
+
+                        <button onclick='toggleparveennaz1()' class="buy-btn projectbutton hiddenanimation1" id='typopopup'> 
+                            <span><ion-icon name="eye"></ion-icon></span> Preview
+                        </button>  
+                    </div>
+                </p>
+            </div>
+        </div>
+    </div>
+
+                
+    <hr class="ruler3" style="margin-top: 15px; margin-bottom: 0;"> 
+    <h1 class="fonttitle">Photography And Art</h1>
+    <div class="slideshow-container">
+        <div class="middle">
+            <div class="mySlides fade">
+                <img src="/static/Images/art/gangabairaj.png" class="maxwidth2">
+
+                <div class="text hiddenanimation1">
+                    Ganga Bairaj
+                </div>
+            </div>
+            
+            <div class="mySlides fade">
+                <img src="/static/Images/art/1659444264485(Final Liquify With Eye Adjust).png" class="maxwidth1">
+
+                <div class="text">
+                    Art
+                </div>
+            </div>
+            
+            <div class="mySlides fade">
+                <img src="/static/Images/art/1658034454210.jpg" class="maxwidth">
+
+                <div class="text">
+                    Heaven <span style="color: red;">❤</span>
+                </div>
+            </div>
+
+            <div class="mySlides fade">
+                <img src="/static/Images/art/IMG_20220731_200052.jpg" class="maxwidth">
+
+                <div class="text">
+                    Eye
+                </div>
+            </div>
+
+            <div class="mySlides fade">
+                <img src="/static/Images/art/Park.jpg" class="maxwidth3">
+
+                <div class="text">
+                    Park
+                </div>
+            </div>
+
+            <div class="mySlides fade">
+                <img src="/static/Images/art/WP_20190908_06_05_03_Pro (2).jpg" class="maxwidth">
+
+                <div class="text">
+                    Motijheel
+                </div>
+            </div>
+
+            <div class="mySlides fade">
+                <img src="/static/Images/art/school.jpeg" class="maxwidth">
+
+                <div class="text">
+                    School
+                </div>
+            </div>
+
+            <div class="mySlides fade">
+                <img src="/static/Images/art/J.k Temple.jpg" class="maxwidth3">
+
+                <div class="text">
+                    J.K.Temple
+                </div>
+            </div>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">
+            <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z"
+                    fill="currentColor"/>  
+            </svg>
+        </a>
+
+        <a class="next" onclick="plusSlides(1)">
+            <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z"
+                    fill="currentColor"/>
+            </svg>
+        </a>
+    </div> 
+    <br style='user-select:none;'>
+    <div style="text-align:center" class="lines">
+        <span class="dot" onclick="currentSlide(1)"></span> 
+        <span class="dot" onclick="currentSlide(2)"></span> 
+        <span class="dot" onclick="currentSlide(3)"></span> 
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
+        <span class="dot" onclick="currentSlide(7)"></span>
+        <span class="dot" onclick="currentSlide(8)"></span>
+    </div>
+    <br style='user-select:none;'>  
+    <div class='scrollx' >
+        <div class='scrollmid'>
+
+            <button class='scrollbuttonforslideshow' id='scrollleft'>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z" fill="currentColor"></path>  
+                </svg>
+            </button>
+
+            <button id = 'scrollright' class='scrollbuttonforslideshow'>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z" fill="currentColor"></path>
+                </svg>
+            </button>
+            <div class='scrollcenter' id='scrollcontainer'>
+                <img src='/static/Images/art/1658034454210.jpg' width='150px'>
+                <img src='/static/Images/art/gangabairaj.png' width='150px'>
+                <img src='/static/Images/art/school.jpeg' width='150px'>
+                <img src='/static/Images/art/IMG_20220731_200052.jpg' width='150px'>
+                <img src='/static/Images/art/gangabairaj.png' width='150px'>
+                <img src='/static/Images/art/1658034454210.jpg' width='150px'>
+                <img src='/static/Images/art/gangabairaj.png' width='150px'>
+                <img src='/static/Images/art/school.jpeg' width='150px'>
+                <img src='/static/Images/art/IMG_20220731_200052.jpg' width='150px'>
+                <img src='/static/Images/art/gangabairaj.png' width='150px'>
+            </div>
+        </div>
+    </div>
+    <div class='photoshoptitleinfo' style='margin:0px; padding-bottom:30px; margin-left:20px; margin-right:20px;'>Hover on Image, Hold Shift and Scroll Up and Down to Shuffle Or Click On Arrow</div>
+</div>
+
+{% endblock bodyfooter%}
+
+{% block signupscript%}
+<script>
+    const homecolor = document.getElementById('homechange')
+    const workcolor = document.getElementById('workchange')
+    const contactcolor = document.getElementById('contactform')
+    const aboutcolor = document.getElementById('aboutform')
+
+    homecolor.style.color = 'var(--accent-color)';
+    workcolor.style.color = 'var(--secondary-color)';
+    contactcolor.style.color = 'var(--secondary-color)';
+    aboutcolor.style.color = 'var(--secondary-color)';
+
+    
+    document.addEventListener('mousemove', (e) => {
+        console.log(e)
+
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+
+        const anchor = document.getElementById('anchor2')
+        const rekt = anchor.getBoundingClientRect();
+        const anchorX = rekt.left + rekt.width /2;
+        const anchorY = rekt.top + rekt.height /2;
+
+        const angleDeg = angle1(mouseX, mouseY, anchorX, anchorY);
+
+        console.log(angleDeg)
+
+        const eyes = document.querySelectorAll('.eye2')
+        eyes.forEach(eye => {
+            eye.style.transform = `rotate(${90 + angleDeg}deg)`;
+            // anchor.style.filter = `hue-rotate(${angleDeg}deg)`;
+        })
+    })
+
+
+    function angle1(cx,cy,ex,ey){
+        const dy = ey - cy;
+        const dx = ex - cx;
+        const rad = Math.atan2(dy,dx);
+        const deg = rad * 180/Math.PI;
+        return deg;
+    }
+    
+</script>
+{% endblock signupscript%}

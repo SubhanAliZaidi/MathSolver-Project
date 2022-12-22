@@ -1,0 +1,239 @@
+{% extends 'Mathsolver.html' %}
+{% comment %} Naziya {% endcomment %}
+{% block input %}
+
+<form class='parentinput' method="post" action="/Range">
+    {% csrf_token %}
+    
+    <h1>Enter X or C.I.</h1>
+    <h2><b style='color:var(--secondary-color);'>X</b> (Number of items) or  <b style='color:var(--secondary-color);' >C.I.</b> (Class Interval) Below</h2>
+    
+    <input type="text" name="firstinput" id="numberField" onkeypress='return restrictAlphabets(event)'  placeholder="Enter X column with comma seperated">
+    
+    <h1 style="margin-top: 40px;">Enter F (Frequency)</h1>
+    <h2>Leave this blank if you have individual series</h2>
+    <input type="text" name="secondinput" id="numberField1" placeholder="Enter F column with comma seperated">
+
+    {% block buttons%}
+
+    <span class='notetext'>{{parveen}}</span>
+
+    <div class="buttongroup" style='margin-bottom: 30px;'>
+
+        <button style='margin-top: 5px; max-width: fit-content;' class='projectbutton' id='standarddeviation' type='submit' name='standarddeviation'>Solve</button>         
+
+    </div>
+
+    {% endblock buttons%} 
+    
+</form>
+
+
+{% if allerror == 'Handle' %}
+
+    <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+{% else %}
+
+
+    {% if emp == 0%}
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+    {% endif %}
+
+    {% if x2 != f2 %}
+
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+
+    {% else %}
+
+        {% if match|length > 0 %}
+
+            <span class='underroot1' style='margin-bottom: -5px; font-size:25px;'>{{seriesname}}</span>
+
+            <span class='balance' style='margin-bottom: 10px; margin-top: 15px;'>{{method1}}</span>
+
+
+            <div class='standardoutput'>
+
+                {% if classinterval|length > 0 %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">C.I.</p>
+                            <br>
+                            {% for i in classinterval %}
+                            <span class="classinterval1">{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;x = {{sumx}}</span> {% endcomment %}
+                    </Naziya>
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">F</p>
+                            <br>
+                            {% for i in f%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;x = {{sumx}}</span> {% endcomment %}
+                    </Naziya>
+                    
+                {% endif %}
+
+                {% if classinterval1|length > 0%}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">C.I.</p>
+                            <br>
+                            {% for i in classinterval1 %}
+                            <span class="classinterval1">{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;x = {{sumx}}</span> {% endcomment %}
+                    </Naziya>
+
+                {% endif %}
+
+
+                {% if f1 == 0 %}
+
+
+                    <Naziya style='margin-top:0px; margin-bottom:15px;'>
+                        <span class='summation1'>
+                            
+                            {% for i in x%}
+                                {% if forloop.counter == len1 %}
+                                    {{i}}
+                                {% else %}
+                                    {{i}},
+                                {% endif %}
+                            {% endfor%}
+                        </span>
+                    </Naziya>
+
+                {% else %}
+
+                    {% if fseries == 2 %}
+
+                        <Naziya class='summation'>
+                            <span class='underroot'>
+                                <p style="margin-left:0px;">X</p>
+                                <br>
+                                {% for i in x%}
+                                <span>{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            {% comment %} <span class='summationtotal'>&sum;x = {{sumx}}</span> {% endcomment %}
+                        </Naziya>
+
+                        <Naziya class='summation'>
+                            <span class='underroot'>
+                                <p style="margin-left:0px;">F</p>
+                                <br>
+                                {% for i in f%}
+                                <span>{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            {% comment %} <span class='summationtotal'>&sum;x = {{sumx}}</span> {% endcomment %}
+                        </Naziya>
+
+                    {% endif %}
+
+                {% endif %}
+                
+            </div>
+
+
+            <div class='underroot1'>
+                
+                <span>
+                    <span class='assume'>Smallest Item (S) = {{lowestf}}</span>
+                </span>
+                
+                <span  style='margin-top:-25px;'>
+                    <span class='assume'>Largest Item (L) = {{highestf}}</span>
+                </span>
+
+                <hr class='ruler'>
+
+
+                <div style='margin-top: 20px;'>
+
+                    <span >Formula = [ Largest Item (L) - Smallest Item (S) ]</span>
+                </div>
+
+                <div style='margin-top: 20px;'>
+                    {% if lowestf <div 0 %}
+                        <span >[ {{highestf}} - ({{lowestf}}) ]</span>
+                    {% else %}
+                        <span >[ {{highestf}} - {{lowestf}} ]</span>
+                    {% endif %}
+                </div>
+
+                <div style='margin-top: 15px; margin-bottom: 0px;'>
+                    <span>Range (R) is = {{rang}}
+                    </span>
+                </div>
+
+                <hr class='ruler2' style='margin-top:30px;'>
+
+                <div>
+                    <span class='balance' style='color:var(--accent-color); font-size:25px; margin-top:10px;' ><b>Coefficient of Range</b></span>
+
+                    <div style='margin-top:20px;'>
+                        <span class='assume'>Formula = </span><img width='85px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{L&space;-&space;S}{L&space;&plus;&space;S}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{H.f - L.f}{H.f + L.f}}" />
+                    </div>
+                </div>
+
+                <div style='margin-top: 25px;'>
+
+                    <img width='90px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\{{highestf}}&space;-&space;{{lowestf}}}{\{{highestf}}&space;&plus;&space;{{lowestf}}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{H.f - L.f}{H.f + L.f}}" />
+
+                </div>
+
+                <div style='margin-top: 25px;'>
+
+                    <img width='40px'  src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{&space;{{rang}}&space;}{&space;{{add1}}&space;}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{ x1 }{ x2 }}" />
+
+                </div>
+
+                <div style='margin-top: 25px; margin-bottom:30px;'>
+                    <span class='balance' >Coefficient of Range = {{coefficientofrange}}</span>
+                </div>
+
+            </div>
+
+        {% endif %}
+
+    {% endif %}
+{% endif %}
+
+
+
+<script>
+    var userName = document.querySelector('#numberField');
+
+    userName.addEventListener('input', restrictNumber);
+    function restrictNumber (e) {  
+        var newValue = this.value.replace(new RegExp(/[^-,\d]/,'ig'), "");
+        this.value = newValue;
+    }
+
+    var userName1 = document.querySelector('#numberField1');
+
+    userName1.addEventListener('input', restrictNumber1);
+    function restrictNumber1 (e) {  
+        var newValue = this.value.replace(new RegExp(/[^,\d]/,'ig'), "");
+        this.value = newValue;
+    }
+</script>
+
+{% endblock input %}

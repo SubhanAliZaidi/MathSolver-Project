@@ -1,0 +1,1550 @@
+{% extends 'Mathsolver.html' %}
+{% comment %} Naziya {% endcomment %}
+{% block input %}
+
+<form class='parentinput' method="post" action="/MeanDeviation">
+    {% csrf_token %}
+    
+    <h1>Enter X or C.I.</h1>
+    <h2><b style='color:var(--secondary-color);'>X</b> (Number of items) or  <b style='color:var(--secondary-color);' >C.I.</b> (Class Interval) Below</h2>
+    
+    <input type="text" name="firstinput" id="numberField" onkeypress='return restrictAlphabets(event)'  placeholder="Enter X column with comma seperated">
+    
+    <h1 style="margin-top: 40px;">Enter F (Frequency)</h1>
+    <h2>Leave this blank if you have individual series</h2>
+    <input type="text" name="secondinput" id="numberField1" placeholder="Enter F column with comma seperated">
+
+    {% block buttons%}
+
+    <span class='notetext'>{{parveen}}</span>
+
+    <div class="buttongroup" style='margin-bottom: 30px;'>
+
+        <button style='margin-top: 5px; max-width: fit-content;' class='projectbutton' id='standarddeviation' type='submit' name='standarddeviation'>Solve</button>         
+
+    </div>
+
+    {% endblock buttons%} 
+    
+</form> 
+
+{% if allerror == 'Handle' %}
+
+    <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+{% else %}
+
+    {% if emp == 0%}
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+    {% endif %}
+
+    {% if x2 != f2 %}
+
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+    {% else %}
+
+        {% if match|length > 0 %}
+
+            <span class='underroot1' style='margin-bottom: -5px; font-size:25px;'>{{seriesname}}</span>
+            
+            <div class='underroot1'>
+
+                <span class='balance' style='margin-bottom: 10px; margin-top: 15px;'>{{method1}}</span>
+
+
+                <Naziya class='standardoutput1'>
+
+                    {% if classinterval|length > 0 %}
+                        <Naziya class='summation'>
+                            <span class='underroot'>
+                                <p style="margin-left:0px;">C.I.</p>
+                                <br>
+                                {% for i in classinterval %}
+                                <span class="classinterval1">{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        </Naziya>
+                    {% endif %}
+
+
+                    {% if f1 == 0 %}
+
+                        <Naziya class='summation'>
+                            <span class='underroot'>
+                                <p style="margin-left:0px;">X</p>
+                                <br>
+                                {% for i in x%}
+                                <span>{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            <span class='summationtotal'>&sum;x = {{sumx}}</span>
+                        </Naziya>
+
+                        <Naziya class='summation'>
+                            <span class='underroot'>
+                                <p style="margin-left:0px;">Mean - X = |d|</p>
+                                <br>
+                                {% for i in dlist1 %}
+                                <span class="classinterval1">{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            <span class='summationtotal'>&sum;|d| = {{summd}}</span>
+                        </Naziya>
+
+                    {% else %}
+                    
+                        <Naziya class='summation'>
+                            <span class='underroot'>
+                                <p style="margin-left:0px;">X</p>
+                                <br>
+                                {% for i in x %}
+                                <span class="classinterval1">{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        </Naziya>
+
+                        <Naziya class='summation'>
+                            <span class='underroot'>
+                                <p style="margin-left:0px;">F</p>
+                                <br>
+                                {% for i in f %}
+                                <span class="classinterval1">{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            <span class='summationtotal'>&sum;f = {{sumf}}</span>
+                        </Naziya>
+
+                        <Naziya class='summation'>
+                            <span class='underroot'>
+                                <p style="margin-left:0px;">FX
+                                </p>
+                                <br>
+                                {% for i in fx %}
+                                <span class="classinterval1">{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            <span class='summationtotal'>&sum;fx = {{sumfx}}</span>
+                        </Naziya>
+
+                        <Naziya class='summation'>
+                            <span class='underroot'>
+                                <p style="margin-left:0px;">Mean - X = |d|</p>
+                                <br>
+                                {% for i in dlist1 %}
+                                <span class="classinterval1">{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        </Naziya>
+
+                        <Naziya class='summation'>
+                            <span class='underroot'>
+                                <p style="margin-left:0px;">F|d|</p>
+                                <br>
+                                {% for i in fd %}
+                                <span class="classinterval1">{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            <span class='summationtotal'>&sum;f|d| = {{sumfd}}</span>
+
+                        </Naziya>
+
+                    {% endif %}
+                </Naziya>
+
+                <div class='underroot1'>
+
+                    {% if f1 == 0 %}
+
+                        <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+
+                        <span>
+                            <span class='assume' style='margin-top: 5px; margin-bottom: 10px;'>n = {{len}}</span>
+                        </span>
+
+                        <span style='margin-top:10px; margin-bottom:10px;'>
+                            <div class='assume' style='margin-bottom:15px;'>Actual Mean Formula (x&#772;) = </div><img width='40px' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\frac{\Sigma&space;x}{n}}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{\Sigma x}{n}}" />
+                        </span>
+
+                        <span style='margin-top:10px;'>
+                            <span style='margin-top:10px; margin-bottom:10px;'>
+                                = <span class='fractionparent' style='font-size:22px;'>
+                                    <div>{{sumx}}</div>
+                                    <div>{{len}}</div>
+                                </span>
+                            </span>
+                        </span>
+
+                        <span style='margin-top:15px;'>
+                            <span class='assume'> = {{actualmean}}</span>
+                        </span>
+
+                        <span style='margin-top: 15px; margin-bottom: 15px;'>
+                            <span class='assume' >Actual Mean (x&#772;) = {{actualmean}}</span>
+                        </span> 
+
+                        <hr class='ruler' style='margin-top:5px; margin-bottom:15px;'>
+
+                        <div style='margin-bottom:15px;'>
+                            <div class='assume' style='margin-bottom: 25px;'>Mean Deviation (MD) Formula = </div><img width='50px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\Sigma&space;\left|&space;d\right|}{n}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\Sigma \left| d\right|}{n}}" />
+                        </div>
+
+                        <div>
+                            = <span style='margin-top:10px; margin-bottom:10px;'>
+                                <span class='fractionparent' style='font-size:22px;'>
+                                    <div>{{summd}}</div>
+                                    <div>{{len}}</div>
+                                </span>
+                            </span>
+                        </div>
+                        
+                        <span style='margin-top:15px;'>
+                            <span class='assume'> = {{mdforind}}</span>
+                        </span>
+
+                        <span style='margin-top:20px; margin-bottom:30px; border:2px solid var(--accent-color);padding:8px; width:fit-content;'>
+                            <span class='assume' >Mean Deviation (M.D.) = {{mdforind}}</span>
+                        </span>
+                        
+                        {% else %}
+                        
+                        <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+                        
+                        <div>
+                            <div class='assume' style='margin-bottom: 20px;'>Actual Mean Formula (x&#772;) = </div><img width='55px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\Sigma&space;fx&space;}{\Sigma&space;f}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\Sigma fx }{\Sigma f}}" />
+                        </div>
+            
+                        <div style='margin-top: 20px;'>
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{sumfx}}</div>
+                                <div>{{sumf}}</div>
+                            </span>
+                        </div>
+                        
+                        <div style='margin-top: 20px;'>
+                            <span class='assume' style='margin-top: 15px; margin-bottom: 0px;'> = {{actualmean}}</span>
+                        </div>
+            
+                        <div style='margin-top: 15px; margin-bottom: 25px;'>
+                            <span class='assume' >Actual Mean (x&#772;) = {{actualmean}}</span>
+                        </div>
+
+                        <hr class='ruler' style='margin-top:5px; margin-bottom:15px;'>
+                        
+                        <div>
+                            <div class='assume' style='margin-bottom: 25px;'>Mean Deviation (MD) Formula = </div><img width='70px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\Sigma&space;f\left|&space;d&space;\right|}{\Sigma&space;f}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\Sigma f\left| d \right|}{\Sigma f}}" />
+                        </div>
+
+                        <div style='margin-top: 20px;'>
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{sumfd}}</div>
+                                <div>{{sumf}}</div>
+                            </span>
+                        </div>
+
+                        <span style='margin-top:15px; margin-bottom:30px; border:2px solid var(--accent-color);padding:8px; width:fit-content;'>
+                            <span class='assume' >Mean Deviation (MD) = {{meand}} </span>
+                        </span>
+                    
+                    {% endif %}
+                </div>
+            </div>
+
+            <hr class='ruler4' style='margin-top:5px; margin-bottom:15px;'>
+            
+            <div class='underroot1'>
+
+                <span class='balance' style='margin-bottom: 10px; margin-top: 35px;'>{{method2}}</span>
+
+                <div class='standardoutput1'>
+
+                    <div class='standardoutput1'>
+
+                        {% if f1 == 0 %}
+
+                            <Naziya class='summation'>
+                                <span class='underroot'>
+                                    <p style="margin-left:0px;">X</p>
+                                    <br>
+                                    {% for i in x%}
+                                    <span>{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            </Naziya>
+
+                            <Naziya class='summation'>
+                                <span class='underroot'>
+                                    <p style="margin-left:0px;">A.O.</p>
+                                    <br>
+                                    {% for i in sortx%}
+                                    <span>{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            </Naziya>
+
+                            <Naziya class='summation'>
+                                <span class='underroot'>
+                                    <p style="margin-left:0px;">Median - X = |d|</p>
+                                    <br>
+                                    {% for i in dlist2 %}
+                                    <span class="classinterval1">{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                <span class='summationtotal'>&sum;|d| = {{summd1}}</span>
+                            </Naziya>
+
+{% comment %} 
+
+                            this is individual series second method for median only with no shortcut method {% endcomment %}
+                        
+                        {% else %}
+
+                            {% if classinterval|length > 0 %}
+                        
+                                <Naziya class='summation'>
+                                    <span class='underroot'>
+                                        <p style="margin-left:0px;">C.I.</p>
+                                        <br>
+                                        {% for i in classinterval %}
+                                        <span class="classinterval1">{{i}}</span>
+                                        {% endfor%}
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                </Naziya>
+
+                            {% endif %}
+
+                            <Naziya class='summation'>
+                                <span class='underroot'>
+                                    <p style="margin-left:0px;">X</p>
+                                    <br>
+                                    {% for i in x %}
+                                    <span class="classinterval1">{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            </Naziya>
+
+                            <Naziya class='summation'>
+                                <span class='underroot'>
+                                    <p style="margin-left:0px;">F</p>
+                                    <br>
+                                    {% for i in f %}
+                                    <span class="classinterval1">{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                <span class='summationtotal'>&sum;f = {{sumf}}</span>
+                            </Naziya>
+
+                            <Naziya class='underroot1'>
+
+                                <div class='summation'>
+                                    <span class='underroot'>
+                                        <p>C.F.</p>
+                                        <br>
+                                        {% for i in cf%}
+                                        <span>{{i}}</span>
+                                        {% endfor%}
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                </div>
+                            </Naziya>
+
+
+                            <Naziya class='summation'>
+                                <span class='underroot'>
+                                    <p style="margin-left:0px;">Median - X = |d|</p>
+                                    <br>
+                                    {% for i in dlist5 %}
+                                    <span class="classinterval1">{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            </Naziya>
+
+                            <Naziya class='summation'>
+                                <span class='underroot'>
+                                    <p style="margin-left:0px;">F|d|</p>
+                                    <br>
+                                    {% for i in fdmedian %}
+                                    <span class="classinterval1">{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                <span class='summationtotal'>&sum;f|d| = {{sumfdmedian}}</span>
+                            </Naziya>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class='underroot1'>
+
+                    {% if f1 == 0 %}
+
+                        {% if odd == 1%}
+
+                            {% if lensumx == 1 %}
+                                <div class='underroot1' >
+                                    <span style='margin-top:20px;'>n = {{len1}}</span>
+                                </div>
+                            {% endif %}
+
+                            <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+
+                            <span >
+                                <div class='assume'>Median Formula (Odd Series) = </div><img style='margin-top:8px;' width='180px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{n&space;&plus;&space;1}{2}&space;\right&space;)^{th} term}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{n + 1}{2} \right )^{th}}" />
+                            </span>
+
+                            <span style='margin-top:20px;'>
+                                M = <img width='130px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{\{{len1}}&space;&plus;&space;1}{2}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{n + 1}{2} \right )^{th}}" />
+                            </span>
+
+                            <span style='margin-top:15px;'>
+                                = <img width='90px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{\{{n}}}{2}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{nn}{2} \right )^{th}}" />
+                            </span>
+
+                            <span style='margin-top:15px;'>
+                                = <img width='50px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;{{divide1}}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( 7 \right )^{th}}" />
+                            </span>
+
+                            <span style='margin-top:15px;'>
+                                <span class='assume' > = {{term}}</span>
+                            </span>
+
+                            <span style='margin-top: 10px; margin-bottom: 25px;'>
+                                <span class='assume' >Median (M) = {{term}}</span>
+                            </span>
+
+                        {% else %}
+
+                            {% if lensumx == 1 %}
+                                <div class='underroot1' >
+                                    <span style='margin-top:20px;'>n = {{len1}}</span>
+                                </div>
+                            {% endif %}
+
+                            <hr class='ruler' style='margin-top:25px; margin-bottom:5px;'>
+
+                            {% comment %} <div class='underroot1' >
+                                <span style='margin-top:8px;'>n = {{len1}}</span>
+                            </div> {% endcomment %}
+
+                            <span style='margin-top:10px;'>
+                                <div class='assume'>Median Formula (Even Series) = </div><img style='margin-top:8px;' width='260px' src="https://latex.codecogs.com/svg.image?\LARGE&space;{\color{white}&space;\frac{\left&space;(&space;\frac{n}{2}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;\frac{n}{2}&space;&plus;&space;1&space;\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?\LARGE {\color{white} \frac{\left ( \frac{n}{2} \right )^{th} + \left ( \frac{n}{2} + 1 \right )^{th}}{2}}" />
+                            </span>
+
+                            <span style='margin-top:25px;'>
+                                M = <img width='260px' src="https://latex.codecogs.com/svg.image?\LARGE&space;{\color{white}&space;\frac{\left&space;(&space;\frac{\{{len1}}}{2}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;\frac{\{{len1}}}{2}&space;&plus;&space;1&space;\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?\LARGE {\color{white} \frac{\left ( \frac{n}{2} \right )^{th} + \left ( \frac{n}{2} + 1 \right )^{th}}{2}}" />
+                            </span>
+
+                            <span style='margin-top:25px;'>
+                                = <img width='200px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\left&space;(&space;{{divide1}}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;{{divide1}}&space;&plus;&space;1\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( n \right )^{th} + \left ( n + 1\right )^{th}}{2}}" />
+                            </span>
+
+                            <span style='margin-top:25px;'>
+                                = <img width='150px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\left&space;(&space;{{divide1}}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;{{add1}}&space;\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( n \right )^{th} + \left ( n \right )^{th}}{2}}" />
+                            </span>
+
+                            <div style='margin-top: 30px;'>
+                                = <span class='fractionparent' style='font-size:25px;'>
+                                    <div>{{term1}} &plus; {{term2}}</div>
+                                    <div>{{2}}</div>
+                                </span>
+                            </div>
+
+                            <div style='margin-top: 20px;'>
+                                = <span class='fractionparent' style='font-size:25px;'>
+                                    <div>{{la}}</div>
+                                    <div>{{2}}</div>
+                                </span>
+                            </div>
+
+                            <span style='margin-top:15px;'>
+                                <span class='assume' style='margin-top:10px;'> = {{median}}</span>
+                            </span>
+
+                            <span style='margin-top: 15px; margin-bottom: 30px;'>
+                                <span class='assume' >Median (M) = {{median}}</span>
+                            </span>
+
+
+                        {% endif %}
+
+                            {% comment %} this is individual series second method solution {% endcomment %}
+
+                        <hr class='ruler' style='margin-top:5px; margin-bottom:15px;'>
+
+                        <div style='margin-bottom:15px;'>
+                            <div class='assume' style='margin-bottom: 25px;'>Mean Deviation (MD) Formula = </div><img width='50px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\Sigma&space;\left|&space;d\right|}{n}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\Sigma \left| d\right|}{n}}" />
+                        </div>
+
+                        <div>
+                            = <span style='margin-top:10px; margin-bottom:10px;'>
+                                <span class='fractionparent' style='font-size:22px;'>
+                                    <div>{{summd1}}</div>
+                                    <div>{{len}}</div>
+                                </span>
+                            </span>
+                        </div>
+                        
+                        <span style='margin-top:15px;'>
+                            <span class='assume'> = {{mdforind1}}</span>
+                        </span>
+
+                        <span style='margin-top:20px; margin-bottom:30px; border:2px solid var(--accent-color);padding:8px; width:fit-content;'>
+                            <span class='assume' >Mean Deviation (M.D.) = {{mdforind1}}</span>
+                        </span>
+
+                    {% else %}
+
+                        <hr class='ruler' style='margin-top:20px; margin-bottom:15px;'>
+
+                        {% if classinterval|length > 0 %}
+                        
+                            <div style='margin-top: 0px;'>
+                                <div class='assume' style='margin-bottom: 25px;'>Median (M) Formula = </div><img  width='280px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;L1&space;&plus;&space;\left&space;(&space;\frac{\frac{n}{2}&space;-&space;c.f.p.}{F_{1}}&space;\times&space;&space;i&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L1 + \left ( \frac{\frac{n}{2} - c.f.p.}{F_{1}} \times i \right )}" />
+                            </div>
+
+                            <div style='margin-top: 25px;'>
+                                M = <img width='280px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{L1}}&space;&plus;&space;\left&space;(&space;\frac{\frac{\{{sumf}}}{2}&space;-&space;{{cfp}}}{\{{f1}}}&space;\times&space;&space;{{i}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L1 + \left ( \frac{\frac{n}{2} - c.f.p.}{F_{1}} \times i \right )}" />
+                            </div>
+
+                            <div style='margin-top: 25px;'>
+                                = <img width='270px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{L1}}&space;&plus;&space;\left&space;(&space;\frac{\{{divide1}}&space;-&space;{{cfp}}}{\{{f1}}}&space;\times&space;&space;{{i}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L1 + \left ( \frac{x - c.f.p.}{F_{1}} \times i \right )}" />
+                            </div>
+
+                            <div style='margin-top: 25px;'>
+                                = <img width='140px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{L1}}&space;&plus;&space;\left&space;(&space;\frac{\{{multiply1}}}{\{{f1}}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} x + \left ( \frac{x}{x} \right )}" />
+                            </div>
+
+                            <div style='margin-top: 25px; '>
+                                = <span class='assume' style='margin-top: 15px; margin-bottom: 0px; font-size:22px;'>{{L1}} + {{divide2}}</span>
+                            </div>
+
+                            <div style='margin-top: 15px;'>
+                                = <span class='assume' style='margin-top: 15px; margin-bottom: 0px;'>{{median}}</span>
+                            </div>
+
+                            <div style='margin-top: 15px; margin-bottom: 25px;'>
+                                <span class='assume'>Median (M) = {{median}}</span>
+                            </div>
+
+                        {% else %}
+
+
+                            {% comment %} median individual series {% endcomment %}
+
+                            {% if odd == 1%}
+
+                                {% if lensumx == 1 %}
+                                    <div class='underroot1' >
+                                        <span style='margin-top:20px;'>n = {{len1}}</span>
+                                    </div>
+
+                                    <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+                                {% endif %}
+
+
+                                <span >
+                                    <span class='assume'>Median Formula (Odd Series) = </span><img style='margin-top:8px;' width='180px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{n&space;&plus;&space;1}{2}&space;\right&space;)^{th} term}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{n + 1}{2} \right )^{th}}" />
+                                </span>
+
+                                <span style='margin-top:20px;'>
+                                    M = <img width='130px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{\{{len3}}&space;&plus;&space;1}{2}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{n + 1}{2} \right )^{th}}" />
+                                </span>
+
+                                <span style='margin-top:15px;'>
+                                    = <img width='90px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{\{{n}}}{2}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{nn}{2} \right )^{th}}" />
+                                </span>
+
+                                <span style='margin-top:15px;'>
+                                    = <img width='50px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;{{divide1}}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( 7 \right )^{th}}" />
+                                </span>
+
+                                <span style='margin-top:10px;'>
+                                    <span class='assume' style='margin-top:10px;'> = {{term}}</span>
+                                </span>
+
+                                <span>
+                                    <span class='assume' style='margin-top: 5px; margin-bottom: 30px;'>Median (M) = {{term}}</span>
+                                </span>
+
+                            {% else %}
+
+                                {% if lensumx == 1 %}
+                                    <div class='underroot1' >
+                                        <span style='margin-top:20px;'>n = {{len1}}</span>
+                                    </div>
+
+                                    <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+                                {% endif %}
+
+                                <span style='margin-top:20px;'>
+                                    <span class='assume'>Median Formula (Even Series) = </span><img style='margin-top:8px;' width='260px' src="https://latex.codecogs.com/svg.image?\LARGE&space;{\color{white}&space;\frac{\left&space;(&space;\frac{n}{2}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;\frac{n}{2}&space;&plus;&space;1&space;\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?\LARGE {\color{white} \frac{\left ( \frac{n}{2} \right )^{th} + \left ( \frac{n}{2} + 1 \right )^{th}}{2}}" />
+                                </span>
+
+                                <span style='margin-top:25px;'>
+                                    M = <img width='260px' src="https://latex.codecogs.com/svg.image?\LARGE&space;{\color{white}&space;\frac{\left&space;(&space;\frac{\{{len3}}}{2}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;\frac{\{{len3}}}{2}&space;&plus;&space;1&space;\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?\LARGE {\color{white} \frac{\left ( \frac{n}{2} \right )^{th} + \left ( \frac{n}{2} + 1 \right )^{th}}{2}}" />
+                                </span>
+
+                                <span style='margin-top:25px;'>
+                                    = <img width='200px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\left&space;(&space;{{divide1}}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;{{divide1}}&space;&plus;&space;1\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( n \right )^{th} + \left ( n + 1\right )^{th}}{2}}" />
+                                </span>
+
+                                <span style='margin-top:25px;'>
+                                    = <img width='150px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\left&space;(&space;{{divide1}}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;{{add1}}&space;\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( n \right )^{th} + \left ( n \right )^{th}}{2}}" />
+                                </span>
+
+                                <div style='margin-top: 30px;'>
+                                    = <span class='fractionparent' style='font-size:25px;'>
+                                        <div>{{term1}} &plus; {{term2}}</div>
+                                        <div>2</div>
+                                    </span>
+                                </div>
+
+                                <div style='margin-top: 30px;'>
+                                    = <span class='fractionparent' style='font-size:25px;'>
+                                        <div>{{la}}</div>
+                                        <div>2</div>
+                                    </span>
+                                </div>
+
+                                <span style='margin-top:10px;'>
+                                    <span class='assume' style='margin-top:10px;'> = {{median}}</span>
+                                </span>
+
+                                <span>
+                                    <span class='assume' style='margin-top: 5px; margin-bottom: 30px;'>Median (M) = {{median}}</span>
+                                </span>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                        <hr class='ruler' style='margin-top:5px; margin-bottom:15px;'>
+
+
+                        <div>
+                            <div class='assume' style='margin-bottom: 25px;'>Mean Deviation (MD) Formula = </div><img width='70px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\Sigma&space;f\left|&space;d&space;\right|}{\Sigma&space;f}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\Sigma f\left| d \right|}{\Sigma f}}" />
+                        </div>
+
+                        <div style='margin-top: 20px;'>
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{sumfdmedian}}</div>
+                                <div>{{sumf}}</div>
+                            </span>
+                        </div>
+
+                        <span style='margin-top:20px; margin-bottom:30px; border:2px solid var(--accent-color);padding:8px; width:fit-content;'>
+                            <span class='assume' >Mean Deviation (MD) = {{mediand}} </span>
+                        </span>
+                    
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <hr class='ruler4' style='margin-top:5px; margin-bottom:15px;'>
+            
+            <div class='underroot1'>
+
+                <span class='balance' style='margin-bottom: 10px; margin-top: 35px;'>{{method3}}</span>
+
+                <div class='standardoutput1'>
+
+                    {% comment %} for mean shortcut method {% endcomment %}
+
+                    <div class='standardoutput1' >
+
+                        {% if f1 == 0 %}
+
+                            {% comment %} this is individual series third method {% endcomment %}
+                        
+                            <Naziya class='summation'>
+                                <span class='underroot heightshowforind'>
+                                    <p style="margin-left:0px;">X</p>
+                                    <br>
+                                    {% for i in x%}
+                                    <span>{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                <span class='summationtotal'>&sum;x = {{sumx}}</span>
+                            </Naziya>
+
+                            <Naziya class='summation'>
+                                <span class='underroot'>
+                                    <p style="margin-left:0px;">A.O.</p>
+                                    <br>
+                                    {% for i in sortx%}
+                                    <span>{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            </Naziya>
+    
+                            <Naziya class='summation'>
+                                <span class='underrootmd' id='heightbalanceforind'>
+                                    <div class='halfmd'>
+                                        <div>&sum;x<sub>B</sub> = {{sigmaxb}}</div>
+                                        <div>&sum;n<sub>B</sub> = {{sigmanb}}</div>
+                                    </div>
+                                        <div class='halfmd1'>
+                                            <div>&sum;x<sub>A</sub> = {{sigmaxa}}</div>
+                                            <div>&sum;n<sub>A</sub> = {{sigmana}}</div>
+                                        </div>
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            </Naziya>
+                            
+                            
+                        {% else %}
+
+                            {% if classinterval|length > 0 %}
+                            
+                                <Naziya class='summation'>
+                                    <span class='underroot'>
+                                        <p style="margin-left:0px;">C.I.</p>
+                                        <br>
+                                        {% for i in classinterval %}
+                                        <span class="classinterval1">{{i}}</span>
+                                        {% endfor%}
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                </Naziya>
+
+                            {% endif %}
+
+                            <Naziya class='summation'>
+                                <span class='underroot'>
+                                    <p style="margin-left:0px;">X</p>
+                                    <br>
+                                    {% for i in x %}
+                                    <span class="classinterval1">{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            </Naziya>
+
+                            <Naziya class='summation'>
+                                <span class='underroot'>
+                                    <p style="margin-left:0px;">F</p>
+                                    <br>
+                                    {% for i in f %}
+                                    <span class="classinterval1">{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                <span class='summationtotal'>&sum;f = {{sumf}}</span>
+                            </Naziya>
+
+                            <Naziya class='summation'>
+                                <span class='underroot heightshow' >
+                                    <p style="margin-left:0px;">FX
+                                    </p>
+                                    <br>
+                                    {% for i in fx %}
+                                    <span class="classinterval1">{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                <span class='summationtotal'>&sum;fx = {{sumfx}}</span>
+                            </Naziya>
+
+                            <Naziya class='summation'>
+                                <span class='underrootmd' id='heightbalance'>
+                                    <div class='halfmd'>
+                                        <div>&sum;fx<sub>B</sub> = {{sigmafxb}}</div>
+                                        <div>&sum;f<sub>B</sub> = {{sigmafb}}</div>
+                                    </div>
+                                        <div class='halfmd1'>
+                                            <div>&sum;fx<sub>A</sub> = {{sigmafxa}}</div>
+                                            <div>&sum;f<sub>A</sub> = {{sigmafa}}</div>
+                                        </div>
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            </Naziya>
+                        
+                        {% endif %}
+                    </div>
+
+                </div>
+            
+                <div class='underroot1'>
+
+                    {% if f1 == 0 %}
+
+                        {% comment %} this is individual series third method solution {% endcomment %}
+
+
+                        <hr class='ruler' style='margin-top:10px; margin-bottom:15px;'>
+
+                        <span>
+                            <span class='assume' style='margin-top: 5px; margin-bottom: 10px;'>n = {{len}}</span>
+                        </span>
+
+                        <span style='margin-top:10px; margin-bottom:10px;'>
+                            <div class='assume' style='margin-bottom:15px;'>Actual Mean Formula (x&#772;) = </div><img width='40px' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\frac{\Sigma&space;x}{n}}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{\Sigma x}{n}}" />
+                        </span>
+
+                        <span style='margin-top:10px;'>
+                            <span style='margin-top:10px; margin-bottom:10px;'>
+                                = <span class='fractionparent' style='font-size:22px;'>
+                                    <div>{{sumx}}</div>
+                                    <div>{{len}}</div>
+                                </span>
+                            </span>
+                        </span>
+
+                        <span style='margin-top:15px;'>
+                            <span class='assume'> = {{actualmean}}</span>
+                        </span>
+
+                        <span style='margin-top: 15px; margin-bottom: 15px;'>
+                            <span class='assume' >Actual Mean (x&#772;) = {{actualmean}}</span>
+                        </span> 
+
+                        <hr class='ruler' style='margin-top:5px; margin-bottom:15px;'>
+
+                        <div>
+                            <div class='assume' style='margin-bottom: 25px;'>Mean Deviation (MD) Formula = </div><img class='widthstep2' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\left&space;(&space;\Sigma&space;x&space;\right&space;)_{A}&space;-&space;\left&space;(&space;\Sigma&space;x&space;\right&space;)_{B}&space;-&space;\left&space;[&space;\left&space;(&space;n&space;\right&space;)_{A}&space;-&space;\left&space;(&space;n&space;\right&space;)_{B}&space;\right&space;]&space;\times&space;&space;\bar{x}/M}{N}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( \Sigma x \right )_{A} - \left ( \Sigma x \right )_{B} - \left [ \left ( n \right )_{A} - \left ( n \right )_{B} \right ] \times \bar{x}/M}{N}}" />
+                        </div>
+
+                        <div style='margin-top: 30px;'>
+                            = <img class='widthstep3' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\&space;{{sigmaxa}}&space;-&space;{{sigmaxb}}&space;-&space;\left&space;[&space;{{sigmana}}&space;-&space;{{sigmanb}}&space;\right&space;]&space;\times&space;{{actualmean}}}{\&space;{{len1}}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( \Sigma fx \right )_{A} - \left ( \Sigma fx \right )_{B} - \left [ \left ( \Sigma f \right )_{A} - \left ( \Sigma f \right )_{B} \right ] \times \bar{x}/M}{N}}" />
+                        </div>
+
+
+
+
+                        <div style='margin-top: 30px;'>
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{firststep}} &#x2212; ({{secondstep}}) &times; {{actualmean}}</div>
+                                <div>{{len1}}</div>
+                            </span>
+                        </div>
+
+                        <div style='margin-top: 30px;'>
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{firststep}} &#x2212; ({{thirdstep}})</div>
+                                <div>{{len1}}</div>
+                            </span>
+                        </div>
+
+                        {% if showplus == 'nazpar' %}
+                            <div style='margin-top: 30px;'>
+                                = <span class='fractionparent' style='font-size:25px;'>
+                                    <div>{{firststep}} &plus; {{thirdstep1}}</div>
+                                    <div>{{len1}}</div>
+                                </span>
+                            </div>
+                        {% endif %}
+
+                        <div style='margin-top: 30px;'>
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{fourthstep}}</div>
+                                <div>{{len1}}</div>
+                            </span>
+                        </div>
+
+                        <div style='margin-top: 25px; '>
+                            = <span class='assume' style='margin-top: 15px; margin-bottom: 0px; font-size:22px;'>{{fifthstep}}</span>
+                        </div>
+
+                        <span style='margin-top:20px; margin-bottom:30px; border:2px solid var(--accent-color);padding:8px; width:fit-content;'>
+                            <span class='assume' >Mean Deviation (MD) = {{fifthstep}} </span>
+                        </span>
+                        
+
+
+
+
+                    {% else %}
+
+                        <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+
+                        <div>
+                            <div class='assume' style='margin-bottom: 20px;'>Actual Mean Formula (x&#772;) = </div><img width='55px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\Sigma&space;fx&space;}{\Sigma&space;f}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\Sigma fx }{\Sigma f}}" />
+                        </div>
+
+                        <div style='margin-top: 20px;'>
+                            = <div class='fractionparent' style='font-size:25px;'>
+                                <div>{{sumfx}}</div>
+                                <div>{{sumf}}</div>
+                            </div>
+                        </div>
+            
+                        <div style='margin-top: 20px;'>
+                            <span class='assume' style='margin-top: 15px; margin-bottom: 0px;'> = {{actualmean}}</span>
+                        </div>
+            
+                        <div style='margin-top: 15px; margin-bottom: 25px;'>
+                            <span class='assume' >Actual Mean (x&#772;) = {{actualmean}}</span>
+                        </div>
+
+                        <hr class='ruler' style='margin-top:0px; margin-bottom:10px;'>
+
+                        <div style='margin-top: 0px;'>
+                            <div class='assume' style='margin-bottom: 25px;'>Mean Deviation Formula = </div>
+                            <img class='widthmd' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\left&space;(&space;\Sigma&space;fx&space;\right&space;)_{A}&space;-&space;\left&space;(&space;\Sigma&space;fx&space;\right&space;)_{B}&space;-&space;\left&space;[&space;\left&space;(&space;\Sigma&space;f&space;\right&space;)_{A}&space;-&space;\left&space;(&space;\Sigma&space;f&space;\right&space;)_{B}&space;\right&space;]&space;\times&space;\bar{x}/M}{N}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( \Sigma fx \right )_{A} - \left ( \Sigma fx \right )_{B} - \left [ \left ( \Sigma f \right )_{A} - \left ( \Sigma f \right )_{B} \right ] \times \bar{x}/M}{N}}" />
+                        </div>
+                        
+                        <div style='margin-top: 30px;'>
+                            = <img class='widthstep1' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\&space;{{sigmafxa}}&space;-&space;{{sigmafxb}}&space;-&space;\left&space;[&space;{{sigmafa}}&space;-&space;{{sigmafb}}&space;\right&space;]&space;\times&space;{{actualmean}}}{\&space;{{sumf}}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( \Sigma fx \right )_{A} - \left ( \Sigma fx \right )_{B} - \left [ \left ( \Sigma f \right )_{A} - \left ( \Sigma f \right )_{B} \right ] \times \bar{x}/M}{N}}" />
+                        </div>
+
+                        <div style='margin-top: 30px;'>
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{firststep}} &#x2212; ({{secondstep}}) &times; {{actualmean}}</div>
+                                <div>{{sumf}}</div>
+                            </span>
+                        </div>
+
+                        <div style='margin-top: 30px;'>
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{firststep}} &#x2212; ({{thirdstep}})</div>
+                                <div>{{sumf}}</div>
+                            </span>
+                        </div>
+
+                        {% if showplus == 'nazpar' %}
+                            <div style='margin-top: 30px;'>
+                                = <span class='fractionparent' style='font-size:25px;'>
+                                    <div>{{firststep}} &plus; {{thirdstep1}}</div>
+                                    <div>{{sumf}}</div>
+                                </span>
+                            </div>
+                        {% endif %}
+
+                        <div style='margin-top: 30px;'>
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{fourthstep}}</div>
+                                <div>{{sumf}}</div>
+                            </span>
+                        </div>
+
+                        <div style='margin-top: 25px; '>
+                            = <span class='assume' style='margin-top: 15px; margin-bottom: 0px; font-size:22px;'>{{fifthstep}}</span>
+                        </div>
+
+                        <span style='margin-top:20px; margin-bottom:30px; border:2px solid var(--accent-color);padding:8px; width:fit-content;'>
+                            <span class='assume' >Mean Deviation (MD) = {{fifthstep}} </span>
+                        </span>
+                        
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <hr class='ruler4' style='margin-top:5px; margin-bottom:15px;'>
+
+            <div class='underroot1'>
+
+                <div class='balance' style='margin-bottom: 10px; margin-top: 35px;'>{{method4}}</div>
+                
+                <div class='standardoutput1'>
+
+                    {% comment %} for median shortcut method {% endcomment %}
+                    
+                    <div class='standardoutput1' >
+
+                        {% if f1 == 0 %}
+
+                            {% comment %} this is individual series fourth method {% endcomment %}
+
+                            <Naziya class='summation'>
+                                <span class='underroot heightshowforind'>
+                                    <p style="margin-left:0px;">X</p>
+                                    <br>
+                                    {% for i in x%}
+                                    <span>{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                <span class='summationtotal'>&sum;x = {{sumx}}</span>
+                            </Naziya>
+
+                            <Naziya class='summation'>
+                                <span class='underroot'>
+                                    <p style="margin-left:0px;">A.O.</p>
+                                    <br>
+                                    {% for i in sortx%}
+                                    <span>{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            </Naziya>
+    
+                            <Naziya class='summation'>
+                                <span class='underrootmd' id='heightbalanceforind1'>
+                                    <div class='halfmd'>
+                                        <div>&sum;x<sub>B</sub> = {{sigmaxbm}}</div>
+                                        <div>&sum;n<sub>B</sub> = {{sigmanbm}}</div>
+                                    </div>
+                                        <div class='halfmd1'>
+                                            <div>&sum;x<sub>A</sub> = {{sigmaxam}}</div>
+                                            <div>&sum;n<sub>A</sub> = {{sigmanam}}</div>
+                                        </div>
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            </Naziya>
+                            
+
+                        
+                        
+                        {% else %}
+
+                            {% if classinterval|length > 0 %}
+                            
+                                <Naziya class='summation'>
+                                    <span class='underroot'>
+                                        <p style="margin-left:0px;">C.I.</p>
+                                        <br>
+                                        {% for i in classinterval %}
+                                        <span class="classinterval1">{{i}}</span>
+                                        {% endfor%}
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                </Naziya>
+                                
+                            {% endif %}
+
+                            <Naziya class='underroot1'>
+
+                                <div class='summation'>
+                                    <span class='underroot'>
+                                        <p>X</p>
+                                        <br>
+                                        {% for i in x%}
+                                        <span>{{i}}</span>
+                                        {% endfor%}
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                </div>
+                            </Naziya>
+
+                            <div class='underroot1'>
+
+                                <div class='summation'>
+                                    <span class='underroot'>
+                                        <p>F</p>
+                                        <br>
+                                        {% for i in f%}
+                                        <span>{{i}}</span>
+                                        {% endfor%}
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                    <span class='summationtotal'>&sum;f = {{sumf}}</span>
+                                </div>
+                            </div>
+
+                            <Naziya class='underroot1'>
+
+                                <div class='summation'>
+                                    <span class='underroot'>
+                                        <p>C.F.</p>
+                                        <br>
+                                        {% for i in cf%}
+                                        <span>{{i}}</span>
+                                        {% endfor%}
+                                    </span>
+                                    <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                </div>
+                            </Naziya>
+
+                            <Naziya class='summation'>
+                                <span class='underroot heightshow' >
+                                    <p style="margin-left:0px;">FX
+                                    </p>
+                                    <br>
+                                    {% for i in fx %}
+                                    <span class="classinterval1">{{i}}</span>
+                                    {% endfor%}
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                                <span class='summationtotal'>&sum;fx = {{sumfx}}</span>
+                            </Naziya>
+
+                            <Naziya class='summation'>
+                                <span class='underrootmd' id='heightbalance1'>
+                                    <div class='halfmd'>
+                                        <div>&sum;fx<sub>B</sub> = {{sigmafxbm}}</div>
+                                        <div>&sum;f<sub>B</sub> = {{sigmafbm}}</div>
+                                    </div>
+                                        <div class='halfmd1'>
+                                            <div>&sum;fx<sub>A</sub> = {{sigmafxam}}</div>
+                                            <div>&sum;f<sub>A</sub> = {{sigmafam}}</div>
+                                        </div>
+                                </span>
+                                <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            </Naziya>
+                        
+                        {% endif %}
+                    </div>
+                </div>
+            
+                <div class='underroot1'>
+
+                    {% if f1 == 0 %}
+
+                        {% comment %} this is individual series fourth method solution {% endcomment %}
+
+                        {% if odd == 1%}
+
+                            {% if lensumx == 1 %}
+                                <div class='underroot1' >
+                                    <span style='margin-top:20px;'>n = {{len1}}</span>
+                                </div>
+                            {% endif %}
+
+                            <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+
+                            <span >
+                                <div class='assume'>Median Formula (Odd Series) = </div><img style='margin-top:8px;' width='180px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{n&space;&plus;&space;1}{2}&space;\right&space;)^{th} term}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{n + 1}{2} \right )^{th}}" />
+                            </span>
+
+                            <span style='margin-top:20px;'>
+                                M = <img width='130px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{\{{len1}}&space;&plus;&space;1}{2}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{n + 1}{2} \right )^{th}}" />
+                            </span>
+
+                            <span style='margin-top:15px;'>
+                                = <img width='90px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{\{{n}}}{2}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{nn}{2} \right )^{th}}" />
+                            </span>
+
+                            <span style='margin-top:15px;'>
+                                = <img width='50px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;{{divide1}}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( 7 \right )^{th}}" />
+                            </span>
+
+                            <span style='margin-top:15px;'>
+                                <span class='assume' > = {{term}}</span>
+                            </span>
+
+                            <span style='margin-top: 10px; margin-bottom: 25px;'>
+                                <span class='assume' >Median (M) = {{term}}</span>
+                            </span>
+
+                        {% else %}
+
+                            {% if lensumx == 1 %}
+                                <div class='underroot1' >
+                                    <span style='margin-top:20px;'>n = {{len1}}</span>
+                                </div>
+                            {% endif %}
+
+                            <hr class='ruler' style='margin-top:15px; margin-bottom:5px;'>
+
+                            <span style='margin-top:10px;'>
+                                <div class='assume'>Median Formula (Even Series) = </div><img style='margin-top:8px;' width='260px' src="https://latex.codecogs.com/svg.image?\LARGE&space;{\color{white}&space;\frac{\left&space;(&space;\frac{n}{2}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;\frac{n}{2}&space;&plus;&space;1&space;\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?\LARGE {\color{white} \frac{\left ( \frac{n}{2} \right )^{th} + \left ( \frac{n}{2} + 1 \right )^{th}}{2}}" />
+                            </span>
+
+                            <span style='margin-top:25px;'>
+                                M = <img width='260px' src="https://latex.codecogs.com/svg.image?\LARGE&space;{\color{white}&space;\frac{\left&space;(&space;\frac{\{{len1}}}{2}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;\frac{\{{len1}}}{2}&space;&plus;&space;1&space;\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?\LARGE {\color{white} \frac{\left ( \frac{n}{2} \right )^{th} + \left ( \frac{n}{2} + 1 \right )^{th}}{2}}" />
+                            </span>
+
+                            <span style='margin-top:25px;'>
+                                = <img width='200px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\left&space;(&space;{{divide1}}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;{{divide1}}&space;&plus;&space;1\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( n \right )^{th} + \left ( n + 1\right )^{th}}{2}}" />
+                            </span>
+
+                            <span style='margin-top:25px;'>
+                                = <img width='150px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\left&space;(&space;{{divide1}}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;{{add1}}&space;\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( n \right )^{th} + \left ( n \right )^{th}}{2}}" />
+                            </span>
+
+                            <div style='margin-top: 30px;'>
+                                = <span class='fractionparent' style='font-size:25px;'>
+                                    <div>{{term1}} &plus; {{term2}}</div>
+                                    <div>{{2}}</div>
+                                </span>
+                            </div>
+
+                            <div style='margin-top: 20px;'>
+                                = <span class='fractionparent' style='font-size:25px;'>
+                                    <div>{{la}}</div>
+                                    <div>{{2}}</div>
+                                </span>
+                            </div>
+
+                            <span style='margin-top:15px;'>
+                                <span class='assume' style='margin-top:10px;'> = {{median}}</span>
+                            </span>
+
+                            <span style='margin-top: 15px; margin-bottom: 30px;'>
+                                <span class='assume' >Median (M) = {{median}}</span>
+                            </span>
+
+
+                        {% endif %}
+
+                        <hr class='ruler' style='margin-top:5px; margin-bottom:15px;'>
+
+
+                        <div>
+                            <div class='assume' style='margin-bottom: 25px;'>Mean Deviation (MD) Formula = </div><img class='widthstep2' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\left&space;(&space;\Sigma&space;x&space;\right&space;)_{A}&space;-&space;\left&space;(&space;\Sigma&space;x&space;\right&space;)_{B}&space;-&space;\left&space;[&space;\left&space;(&space;n&space;\right&space;)_{A}&space;-&space;\left&space;(&space;n&space;\right&space;)_{B}&space;\right&space;]&space;\times&space;&space;\bar{x}/M}{N}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( \Sigma x \right )_{A} - \left ( \Sigma x \right )_{B} - \left [ \left ( n \right )_{A} - \left ( n \right )_{B} \right ] \times \bar{x}/M}{N}}" />
+                        </div>
+
+                        <div style='margin-top: 30px;'>
+                            = <img class='widthstep3' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\&space;{{sigmaxam}}&space;-&space;{{sigmaxbm}}&space;-&space;\left&space;[&space;{{sigmanam}}&space;-&space;{{sigmanbm}}&space;\right&space;]&space;\times&space;{{median}}}{\&space;{{len1}}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( \Sigma fx \right )_{A} - \left ( \Sigma fx \right )_{B} - \left [ \left ( \Sigma f \right )_{A} - \left ( \Sigma f \right )_{B} \right ] \times \bar{x}/M}{N}}" />
+                        </div>
+
+                        <div style='margin-top: 30px;'>
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{firststepm}} &#x2212; ({{thirdstepm}}) &times; {{median}}</div>
+                                <div>{{len1}}</div>
+                            </span>
+                        </div>
+                        
+                        <div style='margin-top: 30px;'>
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{firststepm}} &#x2212; ({{thirdstepm}})</div>
+                                <div>{{len1}}</div>
+                            </span>
+                        </div>
+
+
+                        {% if showplusm == 'showplusm' %}
+                            <div style='margin-top: 30px;'>
+                                = <span class='fractionparent' style='font-size:25px;'>
+                                    <div>{{firststepm}} &plus; {{thirdstepm}}</div>
+                                    <div>{{len1}}</div>
+                                </span>
+                            </div>
+                        {% endif %}
+
+                        <div style='margin-top: 30px;'>
+
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{fourthstepm}}</div>
+                                <div>{{len1}}</div>
+                            </span>
+
+                        </div>
+
+                        <div style='margin-top: 20px; '>
+                            = <span class='assume' style='margin-top: 15px; margin-bottom: 0px; font-size:22px;'>{{fifthstepm}}</span>
+                        </div>
+
+                        <span style='margin-top:20px; margin-bottom:30px; border:2px solid var(--accent-color);padding:8px; width:fit-content;'>
+                            <span class='assume' >Mean Deviation (MD) = {{fifthstepm}} </span>
+                        </span>
+
+
+
+                    {% else %}
+
+                        <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+
+                        {% if classinterval|length > 0 %}
+
+
+                            <div style='margin-top: 0px;'>
+                                <div class='assume' style='margin-bottom: 25px;'>Median (M) Formula = </div><img  width='280px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;L1&space;&plus;&space;\left&space;(&space;\frac{\frac{n}{2}&space;-&space;c.f.p.}{F_{1}}&space;\times&space;&space;i&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L1 + \left ( \frac{\frac{n}{2} - c.f.p.}{F_{1}} \times i \right )}" />
+                            </div>
+            
+                            <div style='margin-top: 25px;'>
+                                M = <img width='280px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{L1}}&space;&plus;&space;\left&space;(&space;\frac{\frac{\&space;{{sumf}}}{2}&space;-&space;{{cfp}}}{\{{f1}}}&space;\times&space;&space;{{i}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L1 + \left ( \frac{\frac{n}{2} - c.f.p.}{F_{1}} \times i \right )}" />
+                            </div>
+            
+                            <div style='margin-top: 25px;'>
+                                = <img width='270px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{L1}}&space;&plus;&space;\left&space;(&space;\frac{\{{divide1}}&space;-&space;{{cfp}}}{\{{f1}}}&space;\times&space;&space;{{i}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L1 + \left ( \frac{x - c.f.p.}{F_{1}} \times i \right )}" />
+                            </div>
+            
+                            <div style='margin-top: 25px;'>
+                                = <img width='140px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{L1}}&space;&plus;&space;\left&space;(&space;\frac{\{{multiply1}}}{\{{f1}}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} x + \left ( \frac{x}{x} \right )}" />
+                            </div>
+
+                            <div style='margin-top: 25px; '>
+                                = <span class='assume' style='margin-top: 15px; margin-bottom: 0px; font-size:22px;'>{{L1}} + {{divide2}}</span>
+                            </div>
+
+                            <div style='margin-top: 15px;'>
+                                = <span class='assume' style='margin-top: 15px; margin-bottom: 0px;'>{{median}}</span>
+                            </div>
+            
+                            <div style='margin-top: 15px; margin-bottom: 25px;'>
+                                <span class='assume'>Median (M) = {{median}}</span>
+                            </div>
+
+                        {% else %}
+
+                            {% comment %} Medain for individual series {% endcomment %}
+
+                            {% if odd == 1%}
+
+                                {% if lensumx == 1 %}
+                                    <div class='underroot1' >
+                                        <span style='margin-top:20px;'>n = {{len1}}</span>
+                                    </div>
+
+                                    <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+                                {% endif %}
+
+
+                                <span >
+                                    <span class='assume'>Median Formula (Odd Series) = </span><img style='margin-top:8px;' width='180px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{n&space;&plus;&space;1}{2}&space;\right&space;)^{th} term}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{n + 1}{2} \right )^{th}}" />
+                                </span>
+
+                                <span style='margin-top:20px;'>
+                                    M = <img width='130px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{\{{len3}}&space;&plus;&space;1}{2}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{n + 1}{2} \right )^{th}}" />
+                                </span>
+
+                                <span style='margin-top:15px;'>
+                                    = <img width='90px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{\{{n}}}{2}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{nn}{2} \right )^{th}}" />
+                                </span>
+
+                                <div style='margin-top: 30px;'>
+                                    = <span class='fractionparent' style='font-size:25px;'>
+                                        <div>{{divide1}} <sup>th</sup></div>
+                                    </span>
+                                </div>
+
+                                <span style='margin-top:10px;'>
+                                    <span class='assume' style='margin-top:10px;'> = {{term}}</span>
+                                </span>
+
+                                <span>
+                                    <span class='assume' style='margin-top: 5px; margin-bottom: 30px;'>Median (M) = {{term}}</span>
+                                </span>
+
+                            {% else %}
+
+                                {% if lensumx == 1 %}
+                                    <div class='underroot1' >
+                                        <span style='margin-top:20px;'>n = {{len1}}</span>
+                                    </div>
+                                    
+                                    <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+                                {% endif %}
+
+                                <span style='margin-top:20px;'>
+                                    <span class='assume'>Median Formula (Even Series) = </span><img style='margin-top:8px;' width='260px' src="https://latex.codecogs.com/svg.image?\LARGE&space;{\color{white}&space;\frac{\left&space;(&space;\frac{n}{2}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;\frac{n}{2}&space;&plus;&space;1&space;\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?\LARGE {\color{white} \frac{\left ( \frac{n}{2} \right )^{th} + \left ( \frac{n}{2} + 1 \right )^{th}}{2}}" />
+                                </span>
+
+                                <span style='margin-top:25px;'>
+                                    M = <img width='260px' src="https://latex.codecogs.com/svg.image?\LARGE&space;{\color{white}&space;\frac{\left&space;(&space;\frac{\{{len3}}}{2}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;\frac{\{{len3}}}{2}&space;&plus;&space;1&space;\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?\LARGE {\color{white} \frac{\left ( \frac{n}{2} \right )^{th} + \left ( \frac{n}{2} + 1 \right )^{th}}{2}}" />
+                                </span>
+
+                                <span style='margin-top:25px;'>
+                                    = <img width='200px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\left&space;(&space;{{divide1}}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;{{divide1}}&space;&plus;&space;1\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( n \right )^{th} + \left ( n + 1\right )^{th}}{2}}" />
+                                </span>
+
+                                <span style='margin-top:25px;'>
+                                    = <img width='150px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\left&space;(&space;{{divide1}}&space;\right&space;)^{th}&space;&plus;&space;\left&space;(&space;{{add1}}&space;\right&space;)^{th}}{2}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( n \right )^{th} + \left ( n \right )^{th}}{2}}" />
+                                </span>
+
+                                <div style='margin-top: 30px;'>
+                                    = <span class='fractionparent' style='font-size:25px;'>
+                                        <div>{{term1}} &plus; {{term2}}</div>
+                                        <div>2</div>
+                                    </span>
+                                </div>
+
+                                <div style='margin-top: 30px;'>
+                                    = <span class='fractionparent' style='font-size:25px;'>
+                                        <div>{{la}}</div>
+                                        <div>2</div>
+                                    </span>
+                                </div>
+
+                                <span style='margin-top:10px;'>
+                                    <span class='assume' style='margin-top:10px;'> = {{median}}</span>
+                                </span>
+
+                                <span>
+                                    <span class='assume' style='margin-top: 5px; margin-bottom: 30px;'>Median (M) = {{median}}</span>
+                                </span>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                        <hr class='ruler' style='margin-top:5px; margin-bottom:15px;'>
+
+                        <div style='margin-top: 0px;'>
+                            <div class='assume' style='margin-bottom: 25px;'>Mean Deviation Formula = </div>    
+                            <img class='widthmd' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\left&space;(&space;\Sigma&space;fx&space;\right&space;)_{A}&space;-&space;\left&space;(&space;\Sigma&space;fx&space;\right&space;)_{B}&space;-&space;\left&space;[&space;\left&space;(&space;\Sigma&space;f&space;\right&space;)_{A}&space;-&space;\left&space;(&space;\Sigma&space;f&space;\right&space;)_{B}&space;\right&space;]&space;\times&space;\bar{x}/M}{N}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( \Sigma fx \right )_{A} - \left ( \Sigma fx \right )_{B} - \left [ \left ( \Sigma f \right )_{A} - \left ( \Sigma f \right )_{B} \right ] \times \bar{x}/M}{N}}" />
+                        </div>
+
+                        <div style='margin-top: 30px;'>
+                            = <img class='widthstep1' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\&space;{{sigmafxam}}&space;-&space;{{sigmafxbm}}&space;-&space;\left&space;[&space;{{sigmafam}}&space;-&space;{{sigmafbm}}&space;\right&space;]&space;\times&space;{{median}}}{\&space;{{sumf}}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\left ( \Sigma fx \right )_{A} - \left ( \Sigma fx \right )_{B} - \left [ \left ( \Sigma f \right )_{A} - \left ( \Sigma f \right )_{B} \right ] \times \bar{x}/M}{N}}" />
+                        </div>
+
+                        <div style='margin-top: 30px;'>
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{firststepm}} &#x2212; ({{thirdstepm}}) &times; {{median}}</div>
+                                <div>{{sumf}}</div>
+                            </span>
+                        </div>
+                        
+                        <div style='margin-top: 30px;'>
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{firststepm}} &#x2212; ({{thirdstepm}})</div>
+                                <div>{{sumf}}</div>
+                            </span>
+                        </div>
+
+
+                        {% if showplusm == 'showplusm' %}
+                            <div style='margin-top: 30px;'>
+                                = <span class='fractionparent' style='font-size:25px;'>
+                                    <div>{{firststepm}} &plus; {{thirdstep1m}}</div>
+                                    <div>{{sumf}}</div>
+                                </span>
+                            </div>
+                        {% endif %}
+
+                        <div style='margin-top: 30px;'>
+
+                            = <span class='fractionparent' style='font-size:25px;'>
+                                <div>{{fourthstepm}}</div>
+                                <div>{{sumf}}</div>
+                            </span>
+
+                        </div>
+
+                        <div style='margin-top: 20px; '>
+                            = <span class='assume' style='margin-top: 15px; margin-bottom: 0px; font-size:22px;'>{{fifthstepm}}</span>
+                        </div>
+
+                        <span style='margin-top:20px; margin-bottom:30px; border:2px solid var(--accent-color);padding:8px; width:fit-content;'>
+                            <span class='assume' >Mean Deviation (MD) = {{fifthstepm}} </span>
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+                <hr class='ruler4' style='margin-top:5px; margin-bottom:15px;'>
+
+                <div style='margin-top:30px;' class='underroot1'>
+
+                    <span class="underroot1" style="color:var(--accent-color); font-size:25px;"><b>Coefficient of Mean Deviation With Mean</b></span>
+
+                    <div style='margin-top: 30px;'>
+
+                        <span class='assume'>Formula = </span><span class='fractionparentformula' style='font-size:25px;'>
+                            <div>M.D.</div>
+                            <div>Mean</div>
+                        </span>
+
+                    </div>
+                        
+                    <div style='margin-top: 25px;'>
+
+                        = <span class='fractionparent' style='font-size:25px;'>
+                            <div>{{coefficientmdmean}}</div>
+                            <div>{{coefficientmean}}</div>
+                        </span>
+
+                    </div>
+
+                    <div style="margin-top: 20px; border:2px solid var(--accent-color);padding:8px; width:fit-content;">
+                        <span class="underroot1">Coefficient of M.D. = {{coefficientofmdmean}}</span>
+                    </div>
+
+
+                    <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+
+
+
+                    <span class="underroot1" style="color:var(--accent-color); font-size:25px; margin-top:20px;"><b>Coefficient of Mean Deviation With Median</b></span>
+
+                    <div style='margin-top: 30px;'>
+
+                        <span class='assume'>Formula = </span>
+                        <span class='fractionparentformula' style='font-size:25px;'>
+                            <div>M.D.</div>
+                            <div>Median</div>
+                        </span>
+
+                    </div>
+                        
+                    <div style='margin-top: 25px;'>
+
+                        = <span class='fractionparent' style='font-size:25px;'>
+                            <div>{{coefficientmdmedian}}</div>
+                            <div>{{coefficientmedian}}</div>
+                        </span>
+
+                    </div>
+
+                    <div style="margin-top: 20px; margin-bottom:30px; border:2px solid var(--accent-color);padding:8px; width:fit-content;">
+                        <span class="underroot1">Coefficient of M.D. = {{coefficientofmdmedian}}</span>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+        {% endif %}
+    {% endif %}
+
+{% endif %}
+
+
+<script>
+var userName = document.querySelector('#numberField');
+
+userName.addEventListener('input', restrictNumber);
+function restrictNumber (e) {  
+    var newValue = this.value.replace(new RegExp(/[^-,\d]/,'ig'), "");
+    this.value = newValue;
+}
+
+var userName1 = document.querySelector('#numberField1');
+
+userName1.addEventListener('input', restrictNumber1);
+function restrictNumber1 (e) {  
+    var newValue = this.value.replace(new RegExp(/[^,\d]/,'ig'), "");
+    this.value = newValue;
+}
+
+
+try{
+    let divElement = document.querySelector(".heightshow");
+    let elemHeight = divElement.offsetHeight;
+    h = (elemHeight-24) + "px";
+    
+    console.log(elemHeight);
+    console.log(h);
+    
+    var element = document.getElementById("heightbalance");
+    element.style.height = h;
+    
+    var element1 = document.getElementById("heightbalance1");
+    element1.style.height = h;
+
+}catch{
+    let divElementforind = document.querySelector(".heightshowforind");
+    let elemHeightforind = divElementforind.offsetHeight;
+    hforind = (elemHeightforind-24) + "px";
+    
+    console.log(elemHeightforind);
+    console.log(hforind);
+    
+    var elementforind = document.getElementById("heightbalanceforind");
+    elementforind.style.height = hforind;
+
+    var elementforind1 = document.getElementById("heightbalanceforind1");
+    elementforind1.style.height = hforind;
+}    
+
+
+
+</script>
+
+
+
+{% endblock input %}
+
+

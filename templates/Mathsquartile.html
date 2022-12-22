@@ -1,0 +1,497 @@
+{% extends 'Mathsolver.html' %}
+{% comment %} Naziya {% endcomment %}
+
+{% block input%}
+
+<form class='parentinput' method="post" action="/Quartile">
+    {% csrf_token %}
+    
+    <h1>Enter X or C.I.</h1>
+    <h2><b style='color:var(--secondary-color);'>X</b> (Number of items) or  <b style='color:var(--secondary-color);' >C.I.</b> (Class Interval) Below</h2>
+    
+    <input type="text" name="firstinput" id="numberField" onkeypress='return restrictAlphabets(event)'  placeholder="Enter X column with comma seperated">
+    
+    <h1 style="margin-top: 40px;">Enter F (Frequency)</h1>
+    <h2>Leave this blank if you have individual series</h2>
+    <input type="text" name="secondinput" id="numberField1" placeholder="Enter F column with comma seperated">
+
+    {% block buttons%}
+
+    <span class='notetext'>{{parveen}}</span>
+
+    <div class="buttongroup" style='margin-bottom: 30px;'>
+
+        <button style='margin-top: 5px; max-width: fit-content;' class='projectbutton' id='standarddeviation' type='submit' name='standarddeviation'>Solve</button>         
+
+    </div>
+
+    {% endblock buttons%} 
+    
+</form>
+
+
+{% if allerror == 'Handle' %}
+
+    <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+{% else %}
+
+
+    {% if emp == 0%}
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+    {% endif %}
+
+    {% if x2 != f2 %}
+
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+    {% else %}
+
+        {% if match|length > 0 %}
+
+            <span class='underroot1' style='margin-bottom: 15px; font-size:25px;'>{{seriesname}}</span>
+
+            <div class='standardoutput'>
+
+                {% if classinterval|length > 0 %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">C.I.</p>
+                            <br>
+                            {% for i in classinterval %}
+                            <span class="classinterval1">{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                    </Naziya>
+
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>F</p>
+                                <br>
+                                {% for i in f%}
+                                <span>{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            <span class='summationtotal'>&sum;f = {{sumf}}</span>
+                        </div>
+                    </Naziya>
+
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>C.F.</p>
+                                <br>
+                                {% for i in cf%}
+                                <span>{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            {% comment %} <span class='summationtotal'>&sum;C.F. = {{sumf}}</span> {% endcomment %}
+                        </div>
+                    </Naziya>
+
+                {% endif %}
+
+
+                
+
+
+                {% if fseries == 2 %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">X</p>
+                            <br>
+                            {% for i in sortx %}
+                            <span class="classinterval1">{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                    </Naziya>
+
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>F</p>
+                                <br>
+                                {% for i in f%}
+                                <span>{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            <span class='summationtotal'>&sum;f = {{sumf}}</span>
+                        </div>
+                    </Naziya>
+
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>C.F.</p>
+                                <br>
+                                {% for i in cf%}
+                                <span>{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            {% comment %} <span class='summationtotal'>&sum;C.F. = {{sumf}}</span> {% endcomment %}
+                        </div>
+                    </Naziya>
+
+
+                {% endif %}
+
+            </div>
+
+
+            
+            {% if f1 == 0 %}
+            
+                <div>
+                    <span class='medianindividualfont'>X</span> <br><button class='buttonforind' style='margin-top:3px;'><ion-icon name="arrow-dropdown"></ion-icon></button><br>
+                    <span class='summation1'>
+                        {% for i in x%}
+                            
+                            {% if forloop.counter == len2 %}
+                                {{i}}
+                            {% else %}
+                                {{i}},
+                            {% endif %}
+                        {% endfor%}
+                    </span>
+                </div>
+
+                <div style='margin-top:30px;'>
+                    <span class='medianindividualfont'>Ascending Order</span><br><button class='buttonforind' style='margin-top:3px;'><ion-icon name="arrow-dropdown"></ion-icon></button><br>
+                    <span class='summation1'>
+                        
+                        {% for i in sortx%}
+                            {% if forloop.counter == len1 %}
+                                {% if i == thirdstep %}
+                                    <b style='color:var(--accent-color);'>  {{i}}</b>
+                                {% else %}
+                                    {% if i == q3thirdstep%}
+                                        <b style='color:var(--accent-color);'>  {{i}}</b>
+                                    {% else %}
+                                        {{i}}
+                                    {% endif %}
+                                {% endif %}
+                            {% else %}
+                                {% if i == thirdstep %}
+                                    <b style='color:var(--accent-color);'>  {{i}}</b>,
+                                {% else %}
+                                    {% if i == q3thirdstep%}
+                                        <b style='color:var(--accent-color);'>  {{i}}</b>,
+                                    {% else %}
+                                        {{i}},
+                                    {% endif %}
+                                {% endif %}
+                                {% comment %} {{i}}, {% endcomment %}
+                            {% endif %}
+                        {% endfor%}
+                    </span>
+                </div>
+
+            {% endif %}
+
+
+
+
+            <div class='underroot1'>
+
+                <div class='underroot1' style='margin-top:20px;'>
+                    <span style='margin-top:8px;'>n = {{lengthofseries}}</span>
+                </div>
+                <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+
+                {% if lencon == 56 %}
+
+                    <span style='margin-top:15px;'>
+                        <span class='assume'>Find Class For Q1 = </span><img width='18px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{&space;n}{&space;4}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{ n}{ 4}}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        = <img width='25px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{&space;{{sumf}}}{&space;4}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{ n}{ 4}}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        = <img width='45px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\{{classfind}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{ n}{ 4}}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        Q1 Class = "{{q1class}}"
+                    </span>
+
+                    <span style='margin-top:40px;'>
+                        Q1 Formula = <img width='270px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;L&space;&plus;&space;\left&space;(&space;\frac{\frac{n}{4}&space;-&space;c.f.p.}{F}&space;\times&space;i&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L + \left ( \frac{\frac{n}{4} - c.f.p.}{F} \times i \right )}" />
+                    </span>
+
+                    <span style='margin-top:25px;'>
+                        = <img width='270px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{lforclass}}&space;&plus;&space;\left&space;(&space;\frac{\frac{\{{sumf}}}{4}&space;-&space;{{cfpforclass}}}{\{{fforq1}}}&space;\times&space;{{iforclass}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L + \left ( \frac{\frac{n}{4} - c.f.p.}{F} \times i \right )}" />
+                    </span>
+
+                    <span style='margin-top:25px;'>
+                        = <img width='270px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{lforclass}}&space;&plus;&space;\left&space;(&space;\frac{\{{classfind}}&space;-&space;{{cfpforclass}}}{\{{fforq1}}}&space;\times&space;{{iforclass}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L + \left ( \frac{\frac{n}{4} - c.f.p.}{F} \times i \right )}" />
+                    </span>
+
+                    <span style='margin-top:25px;'>
+                        = <img width='220px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{lforclass}}&space;&plus;&space;\left&space;(&space;\frac{\{{step1}}}{\{{fforq1}}}&space;\times&space;{{iforclass}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L + \left ( \frac{\frac{n}{4} - c.f.p.}{F} \times i \right )}" />
+                    </span>
+
+                    <span style='margin-top:25px;'>
+                        = <img width='150px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{lforclass}}&space;&plus;&space;\left&space;(&space;\frac{\{{step2}}}{\{{fforq1}}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L + \left ( \frac{\frac{n}{4} - c.f.p.}{F} \times i \right )}" />
+                    </span>
+                    
+                    <span style='margin-top:25px;'>
+                        = <img width='120px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{lforclass}}&space;&plus;&space;{{step3}}}" title="https://latex.codecogs.com/svg.image?{\color{white} L + \left ( \frac{\frac{n}{4} - c.f.p.}{F} \times i \right )}" />
+                    </span>
+
+                    <span style='margin-top:25px;'>
+                        <span class='assume' style=' border:2px solid var(--accent-color);padding:8px;'>Q1 = {{q1}} </span>
+                    </span>
+
+
+
+                    {% comment %} FINDING Q3 {% endcomment %}
+
+                    <span style='margin-top:55px;'>
+                        <span class='assume'>Find Class For Q3 = </span><img width='37px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;3\frac{&space;n}{&space;4}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{ n}{ 4}}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        = <img width='48px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;3\frac{&space;{{sumf}}}{&space;4}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{ n}{ 4}}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        = <img width='110px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;3&space;\times\{{classfind}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{ n}{ 4}}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        = <img width='45px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\{{classfind1}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{ n}{ 4}}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        Q3 Class = "{{q3class1}}"
+                    </span>
+
+                    <span style='margin-top:40px;'>
+                        Q3 Formula = <img width='270px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;L&space;&plus;&space;\left&space;(&space;\frac{3\frac{n}{4}&space;-&space;c.f.p.}{F}&space;\times&space;i&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L + \left ( \frac{\frac{n}{4} - c.f.p.}{F} \times i \right )}" />
+                    </span>
+
+                    <span style='margin-top:25px;'>
+                        = <img width='270px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{lforclass1}}&space;&plus;&space;\left&space;(&space;\frac{3\frac{\{{sumf}}}{4}&space;-&space;{{cfpforclass1}}}{\{{fforq11}}}&space;\times&space;{{iforclass1}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L + \left ( \frac{\frac{n}{4} - c.f.p.}{F} \times i \right )}" />
+                    </span>
+
+                    <span style='margin-top:25px;'>
+                        = <img width='270px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{lforclass1}}&space;&plus;&space;\left&space;(&space;\frac{\{{classfind1}}&space;-&space;{{cfpforclass1}}}{\{{fforq11}}}&space;\times&space;{{iforclass1}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L + \left ( \frac{\frac{n}{4} - c.f.p.}{F} \times i \right )}" />
+                    </span>
+
+                    <span style='margin-top:25px;'>
+                        = <img width='220px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{lforclass1}}&space;&plus;&space;\left&space;(&space;\frac{\{{step11}}}{\{{fforq11}}}&space;\times&space;{{iforclass1}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L + \left ( \frac{\frac{n}{4} - c.f.p.}{F} \times i \right )}" />
+                    </span>
+
+                    <span style='margin-top:25px;'>
+                        = <img width='150px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{lforclass1}}&space;&plus;&space;\left&space;(&space;\frac{\{{step21}}}{\{{fforq11}}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} L + \left ( \frac{\frac{n}{4} - c.f.p.}{F} \times i \right )}" />
+                    </span>
+                    
+                    <span style='margin-top:25px;'>
+                        = <img width='110px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{lforclass1}}&space;&plus;&space;{{step31}}}" title="https://latex.codecogs.com/svg.image?{\color{white} L + \left ( \frac{\frac{n}{4} - c.f.p.}{F} \times i \right )}" />
+                    </span>
+
+                    <span style='margin-top:25px;'>
+                        <span class='assume' style=' border:2px solid var(--accent-color);padding:8px;'>Q3 = {{q3}} </span>
+                    </span>
+
+
+
+
+                {% else %}
+
+                    <span style='margin-top:15px;'>
+                        <span class='assume'>Q1 Formula = </span><img width='190px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{&space;n&space;&plus;&space;1}{4}&space;\right&space;)^{th}&space;term}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{ n + 1}{4} \right )^{th} term}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        Q1 = <img width='125px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{&space;{{lengthofseries}}&space;&plus;&space;1}{4}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{ n + 1}{4} \right )^{th}}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        = <img width='100px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;\frac{&space;{{firststep}}}{4}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{ n}{4} \right )^{th}}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        = <img width='90px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\left&space;(&space;{{secondstep}}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( n \right )^{th}}" />
+                    </span>
+
+
+                    {% if floatmethod == 2%}
+                        <span style='margin-top:15px;'>
+                            = <img width='260px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{first}}^{th}&space;&plus;&space;&space;{{a}}&space;\left&space;(&space;{{roundsecond}}^{th}&space;-&space;{{roundfirst}}^{th}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} n^{th} + decimal \left ( 3^{th} - 2^{th} \right )}" />
+                        </span>
+
+                        <span style='margin-top:15px;'>
+                            = <img width='240px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{fs1}}&space;&plus;&space;&space;{{a}}&space;\left&space;(&space;{{fs3}}&space;-&space;{{fs2}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} n^{th} + decimal \left ( 3^{th} - 2^{th} \right )}" />
+                        </span>
+
+                        <span style='margin-top:15px;'>
+                            = <img width='160px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{fs1}}&space;&plus;&space;&space;{{a}}&space;\left&space;(&space;{{firstsolve}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} n^{th} + decimal \left ( 3^{th} - 2^{th} \right )}" />
+                        </span>
+
+                        <span style='margin-top:15px;'>
+                            = <img width='110px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{fs1}}&space;&plus;&space;{{secondsolve}}}" title="https://latex.codecogs.com/svg.image?{\color{white} n^{th} + decimal \left ( 3^{th} - 2^{th} \right )}" />
+                        </span>
+                    {% endif %}
+
+
+
+
+                    <span style='margin-top:25px;'>
+                        <span class='assume' style=' border:2px solid var(--accent-color);padding:8px;'>Q1 = {{thirdstep}} </span>
+                    </span>
+
+
+                    <span style='margin-top:40px;'>
+                        <span class='assume'>Q3 Formula = </span><img width='210px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;3&space;\left&space;(&space;\frac{&space;n&space;&plus;&space;1}{4}&space;\right&space;)^{th}&space;term}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{ n + 1}{4} \right )^{th} term}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        Q3 = <img width='160px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;3&space;\left&space;(&space;\frac{&space;{{lengthofseries}}&space;&plus;&space;1}{4}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{ n + 1}{4} \right )^{th} term}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        = <img width='110px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;3&space;\left&space;(&space;\frac{&space;{{firststep}}}{4}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( \frac{ n}{4} \right )^{th}}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        = <img width='100px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;3&space;\left&space;(&space;{{secondstep}}&space;\right&space;)^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( n \right )^{th}}" />
+                    </span>
+
+                    <span style='margin-top:15px;'>
+                        = <img width='65px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{q3thterm}}^{th}}" title="https://latex.codecogs.com/svg.image?{\color{white} \left ( n \right )^{th}}" />
+                    </span>
+
+                    {% if floatmethod1 == 2 %}
+                        <span style='margin-top:15px;'>
+                            = <img width='260px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{first1}}^{th}&space;&plus;&space;&space;{{a1}}&space;\left&space;(&space;{{roundsecond1}}^{th}&space;-&space;{{roundfirst1}}^{th}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} n^{th} + decimal \left ( 3^{th} - 2^{th} \right )}" />
+                        </span>
+
+                        <span style='margin-top:15px;'>
+                            = <img width='240px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{fs11}}&space;&plus;&space;&space;{{a1}}&space;\left&space;(&space;{{fs31}}&space;-&space;{{fs21}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} n^{th} + decimal \left ( 3^{th} - 2^{th} \right )}" />
+                        </span>
+
+                        <span style='margin-top:15px;'>
+                            = <img width='160px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{fs11}}&space;&plus;&space;&space;{{a1}}&space;\left&space;(&space;{{firstsolve1}}&space;\right&space;)}" title="https://latex.codecogs.com/svg.image?{\color{white} n^{th} + decimal \left ( 3^{th} - 2^{th} \right )}" />
+                        </span>
+
+                        <span style='margin-top:15px;'>
+                            = <img width='110px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{fs11}}&space;&plus;&space;{{secondsolve1}}}" title="https://latex.codecogs.com/svg.image?{\color{white} n^{th} + decimal \left ( 3^{th} - 2^{th} \right )}" />
+                        </span>
+                    {% endif %}
+
+                    <span style='margin-top:25px;'>
+                        <span class='assume' style=' border:2px solid var(--accent-color);padding:8px;'>Q3 = {{q3thirdstep}} </span>
+                    </span>
+
+
+
+                {% endif %}
+
+            </div>
+            
+            <hr class='ruler' style='margin-top:40px; margin-bottom:10px;'>
+
+            <div class='underroot1' style='align-items:center;'>
+
+                <h1 class='textheading'>Quartile Deviation</h1>
+
+                <span style='margin-top:15px;'>
+                    <span class='assume'>Formula = </span><img width='95px' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\frac{Q3&space;-&space;Q1}{2}}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{Q3 - Q1}{2}}" />
+                </span>
+
+                
+                <span style='margin-top:20px;'>
+                    = <img width='150px' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\frac{\{{q3thirdstep}}&space;-&space;{{thirdstep}}}{2}}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{Q3 - Q1}{2}}" />
+                </span>
+
+                <span style='margin-top:25px;'>
+                    = <img width='65px' src="https://latex.codecogs.com/svg.image?{\color{White}\frac{\{{min1}}}{2}}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{Q3 - Q1}{2}}" />
+                </span>
+
+                <span style='margin-top:25px; border:2px solid var(--accent-color);padding:8px;'>
+                    <span class='assume' >Quartile Deviation = {{divide}} </span>
+                </span>
+
+                <hr class='ruler' style='margin-top:40px; margin-bottom:10px;'>
+
+
+                <h1 class='textheading'>Inter Quartile Range</h1>
+
+                <span style='margin-top:15px;'>
+                    <span class='assume'>Formula = </span><img width='98px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;Q3&space;-&space;Q1}" title="https://latex.codecogs.com/svg.image?{\color{white} Q3 - Q1}" />
+                </span>
+
+                <span style='margin-top:15px;'>
+                    = <img width='128px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;{{q3thirdstep}}&space;-&space;{{thirdstep}}}" title="https://latex.codecogs.com/svg.image?{\color{white} Q3 - Q1}" />
+                </span>
+
+                <span style='margin-top:25px; border:2px solid var(--accent-color);padding:8px;'>
+                    <span class='assume' >Inter Quartile Range = {{min1}} </span>
+                </span>
+
+                <hr class='ruler' style='margin-top:40px; margin-bottom:10px;'>
+
+
+                <h1 class='textheading'>Coefficient Of Quartile Deviation</h1>
+
+                <span style='margin-top:15px;'>
+                    <span class='assume'>Formula = </span><img width='90px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{Q3&space;-&space;Q1}{&space;Q3&space;&plus;&space;Q1&space;}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{Q3 - Q1}{ Q3 + Q1 }}" />
+                </span>
+
+                <span style='margin-top:25px;'>
+                    = <img width='140px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\{{q3thirdstep}}&space;-&space;{{thirdstep}}}{&space;{{q3thirdstep}}&space;&plus;&space;{{thirdstep}}&space;}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{Q3 - Q1}{ Q3 + Q1 }}" />
+                </span>
+
+                
+                <span style='margin-top:25px;'>
+                    = <img width='60px' src="https://latex.codecogs.com/svg.image?{\color{White}\frac{\{{min1}}}{\{{add1}}}}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{Q3 - Q1}{2}}" />
+                </span>
+
+                <span class='assumenaz' style='margin-top:25px; margin-bottom:25px; border:2px solid var(--accent-color);padding:8px;'>
+                    <span class='assume' >Coefficient Of Q.D. = {{coqd}} </span>
+                </span>
+
+            </div>
+
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+
+
+
+<script>
+    var userName = document.querySelector('#numberField');
+
+    userName.addEventListener('input', restrictNumber);
+    function restrictNumber (e) {  
+        var newValue = this.value.replace(new RegExp(/[^-,\d]/,'ig'), "");
+        this.value = newValue;
+    }
+
+    var userName1 = document.querySelector('#numberField1');
+
+    userName1.addEventListener('input', restrictNumber1);
+    function restrictNumber1 (e) {  
+        var newValue = this.value.replace(new RegExp(/[^,\d]/,'ig'), "");
+        this.value = newValue;
+    }
+</script>
+
+{% endblock input%}

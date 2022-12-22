@@ -1,0 +1,145 @@
+{% extends 'Mathsolver.html' %}
+{% comment %} Naziya {% endcomment %}
+{% block input %}
+
+<form class='parentinput' method="post" action="/CombinedSD">
+    {% csrf_token %}
+    
+    <h1>Enter X or C.I.</h1>
+    <h2><b style='color:var(--secondary-color);'>X</b> (Number of items) or  <b style='color:var(--secondary-color);' >C.I.</b> (Class Interval) Below</h2>
+    
+    <input type="text" name="firstinput" id="numberField" onkeypress='return restrictAlphabets(event)'  placeholder="Enter X column with comma seperated">
+    
+    <h1 style="margin-top: 40px;">Enter F (Frequency)</h1>
+    <h2>Leave this blank if you have individual series</h2>
+    <input type="text" name="secondinput" id="numberField1" placeholder="Enter F column with comma seperated">
+
+    {% block buttons%}
+
+    <span class='notetext'>{{parveen}}</span>
+
+    <div class="buttongroup" style='margin-bottom: 30px;'>
+
+        <button style='margin-top: 5px; max-width: fit-content;' class='projectbutton' id='standarddeviation' type='submit' name='standarddeviation'>Solve</button>         
+
+    </div>
+
+    {% endblock buttons%} 
+    
+</form> 
+
+{% if allerror == 'Handle' %}
+
+    <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+{% else %}
+
+    {% if emp == 0%}
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+    {% endif %}
+
+    {% if x2 != f2 %}
+
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+
+    {% else %}
+
+        {% if match|length > 0 %}
+
+            <span class='underroot1' style='margin-bottom: -5px; font-size:25px;'>{{seriesname}}</span>
+
+            <span class='balance' style='margin-bottom: 10px; margin-top: 15px;'>{{method1}}</span>
+
+
+            <div class='standardoutput1'>
+
+                {% if classinterval|length > 0 %}
+
+
+                {% endif %}
+
+
+                {% if f1 == 0 %}
+
+                {% comment %} Coefficient of correlation {% endcomment %}
+
+                <img src="https://latex.codecogs.com/svg.image?\LARGE&space;{\color{white}&space;\frac{\Sigma&space;xy&space;-&space;\frac{\left&space;(&space;\Sigma&space;x&space;\right&space;)\left&space;(&space;\Sigma&space;y&space;\right&space;)}{n}}{\sqrt{\Sigma&space;x^{2}-\frac{\left&space;(&space;\Sigma&space;x&space;\right&space;)^{2}}{n}&space;}&space;\sqrt{\Sigma&space;y^{2}&space;-&space;\frac{\left&space;(&space;\Sigma&space;y&space;\right&space;)^{2}}{n}}}}" title="https://latex.codecogs.com/svg.image?\LARGE {\color{white} \frac{\Sigma xy - \frac{\left ( \Sigma x \right )\left ( \Sigma y \right )}{n}}{\sqrt{\Sigma x^{2}-\frac{\left ( \Sigma x \right )^{2}}{n} } \sqrt{\Sigma y^{2} - \frac{\left ( \Sigma y \right )^{2}}{n}}}}" />
+
+
+                {% else %}
+
+                {% endif %}
+
+
+            </div>
+
+        {% endif %}
+    {% endif %}
+
+{% endif %}
+
+<script>
+var userName = document.querySelector('#numberField');
+
+userName.addEventListener('input', restrictNumber);
+function restrictNumber (e) {  
+    var newValue = this.value.replace(new RegExp(/[^-,\d]/,'ig'), "");
+    this.value = newValue;
+}
+
+var userName1 = document.querySelector('#numberField1');
+
+userName1.addEventListener('input', restrictNumber1);
+function restrictNumber1 (e) {  
+    var newValue = this.value.replace(new RegExp(/[^,\d]/,'ig'), "");
+    this.value = newValue;
+}
+</script>
+
+
+
+{% endblock input %}
+
+
+
+
+
+{% comment %} 
+
+{% block Observer %}
+    <script>
+        const naziy5 = new IntersectionObserver((entries) => {
+            entries.forEach((naziy5) => {
+                console.log(naziy5)
+                if (naziy5.isIntersecting) {
+                    naziy5.target.classList.add('love');
+                }else{
+                    naziy5.target.classList.remove('hate');}
+            });});
+        document.addEventListener('mousemove', (e) => {
+            console.log(e)
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            const rekt = anchor.getBoundingClientRect();
+            const anchorX = rekt.left + rekt.width /2;
+            const anchorY = rekt.top + rekt.height /2;
+            const angleDeg = angle(mouseX, mouseY, anchorX, anchorY);
+            const naziy5 = document.querySelectorAll('.naziy5')
+            naziy5.forEach(eye => {
+                eye.style.transform = `rotate(${90 + angleDeg}deg)`;
+            function angle(cx,cy,ex,ey){
+                const dy = ey - cy;
+                const dx = ex - cx;
+                const rad = Math.atan2(dy,dx);
+                const deg = rad * 180/Math.PI;
+                return deg;};
+            });});
+        var userName1 = document.querySelector('#numberField1');
+        userName1.addEventListener('input', restrictNumber1);
+        function restrictNumber1 (e) {  
+            var newValue = this.value.replace(new RegExp(/[^,\d]/,'ig'),"");
+            this.value = newValue;}
+    </script>
+{% endblock Observer %}
+ {% endcomment %}

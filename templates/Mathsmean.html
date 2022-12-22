@@ -1,0 +1,203 @@
+{% extends 'Mathsolver.html' %}
+{% comment %} Naziya {% endcomment %}
+{% block input%}
+
+<form class='parentinput' method="post" action="/Mean">
+    {% csrf_token %}
+    
+    <h1>Enter X or C.I.</h1>
+    <h2><b style='color:var(--secondary-color);'>X</b> (Number of items) or  <b style='color:var(--secondary-color);' >C.I.</b> (Class Interval) Below</h2>
+    
+    <input type="text" name="firstinput" id="numberField" onkeypress='return restrictAlphabets(event)'  placeholder="Enter X column with comma seperated">
+    
+    <h1 style="margin-top: 40px;">Enter F (Frequency)</h1>
+    <h2>Leave this blank if you have individual series</h2>
+    <input type="text" name="secondinput" id="numberField1" placeholder="Enter F column with comma seperated">
+
+    {% block buttons%}
+
+    <span class='notetext'>{{parveen}}</span>
+
+    <div class="buttongroup" style='margin-bottom: 30px;'>
+
+        <button style='margin-top: 5px; max-width: fit-content;' class='projectbutton' id='standarddeviation' type='submit' name='standarddeviation'>Solve</button>         
+
+    </div>
+
+    {% endblock buttons%} 
+    
+</form> 
+
+
+{% if allerror == 'Handle' %}
+
+    <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+{% else %}
+
+
+    {% if emp == 0%}
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+    {% endif %}
+
+    {% if x2 != f2 %}
+
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+    {% else %}
+
+
+        {% if match|length > 0 %}
+
+            <span class='underroot1' style='margin-bottom: 10px; font-size:25px;'>{{seriesname}}</span>
+
+            <div class='standardoutput'>
+
+                {% if classinterval|length > 0 %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">C.I.</p>
+                            <br>
+                            {% for i in classinterval %}
+                            <span class="classinterval1">{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                    </Naziya>
+
+                {% endif %}
+
+                {% if f1 == 0 %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">X</p>
+                            <br>
+                            {% for i in x%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        <span class='summationtotal'>&sum;x = {{sumx}}</span>
+                    </Naziya>
+                    
+                {% else %}
+
+                    <Naziya class='summation'>
+                        <span class='underroot'>
+                            <p style="margin-left:0px;">X</p>
+                            <br>
+                            {% for i in x%}
+                            <span>{{i}}</span>
+                            {% endfor%}
+                        </span>
+                        <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                        {% comment %} <span class='summationtotal'>&sum;x = {{sumx}}</span> {% endcomment %}
+                    </Naziya>
+
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>F</p>
+                                <br>
+                                {% for i in f%}
+                                <span>{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            <span class='summationtotal'>&sum;f = {{sumf}}</span>
+                        </div>
+                    </Naziya>
+
+                    <Naziya class='underroot1'>
+
+                        <div class='summation'>
+                            <span class='underroot'>
+                                <p>Fx</p>
+                                <br>
+                                {% for i in fx%}
+                                <span>{{i}}</span>
+                                {% endfor%}
+                            </span>
+                            <button><ion-icon name="arrow-dropdown"></ion-icon></button>
+                            <span class='summationtotal'>&sum;fx = {{sumfx}}</span>
+                        </div>
+                    </Naziya>
+
+                {% endif %}
+
+            </div>
+
+            <div class='underroot1'>
+                <hr class='ruler' style='margin-top:25px; margin-bottom:15px;'>
+
+                {% if f1 == 0 %}
+
+                    <span>
+                        <span class='assume' style='margin-top: 5px; margin-bottom: 10px;'>n = {{len}}</span>
+                    </span>
+
+                    <span style='margin-top:10px;'>
+                        <span class='assume'>Actual Mean Formula (x&#772;) = </span><img width='40px' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\frac{\Sigma&space;x}{n}}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{\Sigma x}{n}}" />
+                    </span>
+
+                    <span style='margin-top:10px;'>
+                        = <img width='45px' src="https://latex.codecogs.com/svg.image?{\color{White}&space;\frac{\&space;{{sumx}}}{\{{len}}}}" title="https://latex.codecogs.com/svg.image?{\color{White} \frac{\Sigma x}{n}}" />
+                    </span>
+
+                    <span style='margin-top:10px;'>
+                        <span class='assume' style='margin-top:10px;'> = {{actualmean}}</span>
+                    </span>
+
+                    <span>
+                        <span class='assume' style='margin-top: 5px; margin-bottom: 30px;'>Actual Mean (x&#772;) = {{actualmean}}</span>
+                    </span>
+
+                {% else %}
+
+                    <div>
+                        <span class='assume'>Actual Mean Formula (x&#772;) = </span><img width='55px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\Sigma&space;fx&space;}{\Sigma&space;f}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\Sigma fx }{\Sigma f}}" />
+                    </div>
+
+                    <div style='margin-top: 15px;'>
+                        = <img width='60px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{\{{sumfx}}&space;&space;}{&space;{{sumf}}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{\Sigma fx }{\Sigma f}}" />
+                    </div>
+
+                    <div style='margin-top: 15px;'>
+                        =<span class='assume' style='margin-top: 15px; margin-bottom: 0px;'>{{actualmean}}</span>
+                    </div>
+
+                    <div style='margin-top: 15px; margin-bottom: 25px;'>
+                        <span class='assume' >Actual Mean (x&#772;) = {{actualmean}}</span>
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+
+<script>
+    var userName = document.querySelector('#numberField');
+
+    userName.addEventListener('input', restrictNumber);
+    function restrictNumber (e) {  
+        var newValue = this.value.replace(new RegExp(/[^-,\d]/,'ig'), "");
+        this.value = newValue;
+    }
+
+    var userName1 = document.querySelector('#numberField1');
+
+    userName1.addEventListener('input', restrictNumber1);
+    function restrictNumber1 (e) {  
+        var newValue = this.value.replace(new RegExp(/[^,\d]/,'ig'), "");
+        this.value = newValue;
+    }
+</script>
+
+{% endblock input%}

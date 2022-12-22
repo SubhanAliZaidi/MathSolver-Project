@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% comment %} Naziya {% endcomment %}
+{% block title %} About{% endblock title %}
+
+{% block about %}
+
+{% load static %}
+
+{% block cssfile %}
+<link rel="stylesheet" href="static/About.css" class="css">
+{% endblock cssfile%}
+{% block js %}
+<script ></script>
+{% endblock js%}
+
+<div class='aboutbody'>
+    
+    <div class="parveenrulerdiv" style='margin-bottom:40px;'>
+        <hr class="parveenruler" id="work">
+    </div>
+    <h2 style='text-align:center; margin:0px; margin-bottom:5px;'>Languages Used In This Website</h2>
+    <span style='text-align:center; margin:0px; margin-bottom:20px; color:var(--secondary-text-color);'>Lines Of Codes Written In Which Languages</span>
+
+    <div class='chartBox'>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <div class='dumbcenter'>
+        <div class='langlines'>
+            <span class='colorbox colorbox0'></span><span>HTML = 6393</span> 
+        </div>
+        <div class='langlines'>
+            <span class='colorbox colorbox1'></span><span>CSS = 5320</span> 
+        </div>
+        <div class='langlines'>
+            <span class='colorbox colorbox2'></span><span>JAVASCRIPT = 1247</span> 
+        </div>
+        <div class='langlines'>
+            <span class='colorbox colorbox3'></span><span>PYTHON = 2497</span> 
+        </div>
+        <div class='langlines'>
+            <span class='colorbox colorbox4'></span><span>DJANGO = 1278</span> 
+        </div>
+    </div>
+</div>
+
+{% endblock about %}
+
+
+{% block signupscript %}
+
+
+<script>
+
+    const homecolor = document.getElementById('homechange')
+    const workcolor = document.getElementById('workchange')
+    const contactcolor = document.getElementById('contactform')
+    const aboutcolor = document.getElementById('aboutform')
+    const topmargin = document.querySelector('.body1')
+    const catmargin = document.querySelector('.maineyeball1')
+    const backruler = document.querySelector('.rulerdivnaz1')
+
+    homecolor.style.color = 'var(--secondary-color)';
+    workcolor.style.color = 'var(--secondary-color)';
+    contactcolor.style.color = 'var(--secondary-color)';
+    aboutcolor.style.color = 'var(--accent-color)';
+    topmargin.style.marginTop = '70px';
+    catmargin.style.marginTop = '110px';
+    backruler.style.top = '200px';
+
+    document.getElementById('removefunction').remove('scrolling');
+
+    var naziya51= document.getElementById("naziya51");
+
+    naziya51.onclick= function() {
+        document.body.classList.toggle("white-theme");
+        if(document.body.classList.contains("white-theme")) {
+            localStorage.setItem("theme" , "white")
+            naziya51.classList.add('themeclickanimation');
+            naziya51.classList.remove('themeclickanimation1');
+            naziya51.src = "/static/Assets/moon(1).png";
+            home1.src = "/static/Assets/home.png"
+            name1.src = "/static/Assets/name-icon.png"
+            phone1.src= "/static/Assets/phone.png"
+        }
+        else{
+            localStorage.setItem("theme" , "black")
+            naziya51.classList.add('themeclickanimation1');
+            naziya51.classList.remove('themeclickanimation');
+            naziya51.src = "/static/Assets/sun.png"; 
+            home1.src = "/static/Assets/home1.png"
+            name1.src = "/static/Assets/name-icon1.png"
+            phone1.src= "/static/Assets/phone1.png"
+        }
+    }
+
+    z = localStorage.getItem("theme")
+    if (z == "white"){
+        document.body.classList.toggle("white-theme");
+        if(document.body.classList.contains("white-theme")) {
+            localStorage.setItem("theme" , "white")
+            naziya51.classList.add('themeclickanimation');
+            naziya51.classList.remove('themeclickanimation1');
+            naziya51.src = "/static/Assets/moon(1).png"; 
+            home1.src = "/static/Assets/home.png"
+            name1.src = "/static/Assets/name-icon.png"
+            phone1.src= "/static/Assets/phone.png"
+        }
+        else{
+            localStorage.setItem("theme" , "black")
+            naziya51.classList.add('themeclickanimation1');
+            naziya51.classList.remove('themeclickanimation');
+            naziya51.src = "/static/Assets/sun.png"; 
+            home1.src = "/static/Assets/home1.png"
+            name1.src = "/static/Assets/name-icon1.png"
+            phone1.src= "/static/Assets/phone1.png"
+        }
+    }
+
+        
+    document.addEventListener("keydown", e =>{
+        if (
+            e.key.toLowerCase() === "b"
+            && e.ctrlKey
+        ){
+            document.body.classList.toggle("white-theme");
+            if(document.body.classList.contains("white-theme")) {
+                localStorage.setItem("theme" , "white")
+                naziya51.classList.add('themeclickanimation');
+                naziya51.classList.remove('themeclickanimation1');
+                naziya51.src = "/static/Assets/moon(1).png"; 
+                home1.src = "/static/Assets/home.png"
+                name1.src = "/static/Assets/name-icon.png"
+                phone1.src= "/static/Assets/phone.png"
+            }
+            else{
+                localStorage.setItem("theme" , "black")
+                naziya51.classList.add('themeclickanimation1');
+                naziya51.classList.remove('themeclickanimation');
+                naziya51.src = "/static/Assets/sun.png"; 
+                home1.src = "/static/Assets/home1.png"
+                name1.src = "/static/Assets/name-icon1.png"
+                phone1.src= "/static/Assets/phone1.png"
+            }
+        }
+    });
+            
+        parnaz = document.getElementById("customID");
+        parnaz.className = "par show";
+
+</script>
+
+{% endblock signupscript %}
+

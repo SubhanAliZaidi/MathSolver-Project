@@ -1,0 +1,153 @@
+{% extends 'Mathsolver.html' %}
+{% comment %} Naziya {% endcomment %}
+{% block input %}
+
+<form class='parentinputcombined' method="post" action="/CombinedMean">
+    {% csrf_token %}
+
+    <div class='combinedinputwidth'>
+    
+        <div class='parentinputdiv'>
+            <span class='assume'>Enter n<sub>1</sub></span>
+            <input type="text" name="combinedfirstinput" id="numberField" placeholder="Enter Here">
+        </div>
+
+        <div class='parentinputdiv'>
+            <span class='assume'>Enter n<sub>2</sub></span>
+            <input type="text" name="combinedsecondinput" id="numberField1" placeholder="Enter Here">
+        </div>
+
+        <div class='parentinputdiv'>
+            <span class='assume' >Enter x&#772;<sub>1</sub></span>
+            <input type="text" name="combinedthirdinput" id="numberField2" placeholder="Enter Here">
+        </div>
+
+        <div class='parentinputdiv'>
+            <span class='assume' >Enter x&#772;<sub>2</sub></span>
+            <input type="text" name="combinedfourthinput" id="numberField3" placeholder="Enter Here">
+        </div>
+
+    </div>
+
+    {% block buttons%}
+
+    <span class='notetext'>{{parveen}}</span>
+
+    <div class="buttongroup" style='margin-bottom: 30px;'>
+
+        <button style='margin-top: 5px; max-width: fit-content;' class='projectbutton' id='standarddeviation' type='submit' name='standarddeviation'>Solve</button>         
+
+    </div>
+
+    {% endblock buttons%} 
+    
+</form> 
+
+{% if allerror == 'Handle' %}
+
+    <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+{% else %}
+
+    {% if emp == 0%}
+        <span class='underroot1' style='margin-bottom: 40px; font-size:25px; '>{{seriesname1}}</span>
+
+    {% else %}
+
+        {% if combinedmatch == 'naziya' %}
+
+        <Naziya class='underroot1'>
+
+            <span class='balance' style='margin-bottom: 10px; margin-top: 15px;'>{{method1}}</span>
+
+            <div class='n1parentclass' style='margin-top:15px;'>
+                <div class='n1mean1class'>
+                    <span>n<sub>1</sub> = {{n1}}</span>
+                    <span style='margin-top:8px;'>n<sub>2</sub> = {{n2}}</span>
+                </div>
+
+                <div class='n1mean1class'>
+                    <span>x&#772;<sub>1</sub> = {{x1}}</span>
+                    <span>x&#772;<sub>2</sub> = {{x2}}</span>
+                </div>
+            </div>
+
+            <span style='margin-top:10px;'>
+                <div class='assume' style='margin-bottom:25px;'>Combined Mean Formula = </div><img width='250px' src="https://latex.codecogs.com/svg.image?{\color{white}&space;\frac{n_{1}&space;\left&space;(&space;\bar{x}_{1}&space;\right&space;)&space;&plus;&space;n_{2}\left&space;(&space;\bar{x}_{2}&space;\right&space;)}{n_{1}&space;&plus;&space;n_{2}}}" title="https://latex.codecogs.com/svg.image?{\color{white} \frac{n_{1} \left ( \bar{x}_{1} \right ) + n_{2}\left ( \bar{x}_{2} \right )}{n_{1} + n_{2}}}" />
+            </span>
+
+            
+
+            <div style='margin-top: 35px;'>
+                = <span class='fractionparent' style='font-size:25px;'>
+                    <div>{{n1}} &times; {{x1}} &plus; {{n2}} &times; {{x2}}</div>
+                    <div>{{n1}} &plus; {{n2}}</div>
+                </span>
+            </div>
+
+            <div style='margin-top: 35px;'>
+                = <span class='fractionparent' style='font-size:25px;'>
+                    <div>{{step1}} &plus; {{step2}}</div>
+                    <div>{{step4}}</div>
+                </span>
+            </div>
+
+            <div style='margin-top: 30px;'>
+                = <span class='fractionparent' style='font-size:25px;'>
+                    <div>{{step3}}</div>
+                    <div>{{step4}}</div>
+                </span>
+            </div>
+            
+            <div style='margin-top: 15px;'>
+                = <span>{{step5}}</span>
+            </div>
+
+            <div style='margin-top: 15px; border:2px solid var(--accent-color);padding:8px; width:fit-content; margin-bottom:30px;'>
+                Combined Mean = <span>{{step5}}</span>
+            </div>
+        </Naziya>
+
+
+        {% endif %}
+    {% endif %}
+
+{% endif %}
+
+<script>
+var userName = document.querySelector('#numberField');
+
+userName.addEventListener('input', restrictNumber);
+function restrictNumber (e) {  
+    var newValue = this.value.replace(new RegExp(/[^-,\d]/,'ig'), "");
+    this.value = newValue;
+}
+
+var userName1 = document.querySelector('#numberField1');
+
+userName1.addEventListener('input', restrictNumber1);
+function restrictNumber1 (e) {  
+    var newValue = this.value.replace(new RegExp(/[^,\d]/,'ig'), "");
+    this.value = newValue;
+}
+
+var userName2 = document.querySelector('#numberField2');
+
+userName2.addEventListener('input', restrictNumber1);
+function restrictNumber1 (e) {  
+    var newValue = this.value.replace(new RegExp(/[^,\d]/,'ig'), "");
+    this.value = newValue;
+}
+
+var userName3 = document.querySelector('#numberField3');
+
+userName3.addEventListener('input', restrictNumber1);
+function restrictNumber1 (e) {  
+    var newValue = this.value.replace(new RegExp(/[^,\d]/,'ig'), "");
+    this.value = newValue;
+}
+</script>
+
+
+
+{% endblock input %}

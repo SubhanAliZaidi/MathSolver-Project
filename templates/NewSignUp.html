@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% comment %} Naziya {% endcomment %}
+
+{% block title %} Contact {% endblock title%}
+
+{% load static %}
+{% block signupreplace%}
+
+<div class='signupwidth'>
+        {% if submitstatus == 'sucessful'%}
+            <div class='submitstatus'>
+                Sent Sucessfully
+            </div>
+
+        {% else %}
+            {% if unsucessfulstatus == 'unsucessful'%}
+                <div class='submitstatus' style='color:red;'>
+                    Not Sent Due To Network Issue
+                </div>
+            {% endif %}
+        {% endif %}
+        <div class="showcase17">
+            <div class="text117">
+                <button class="themebutton17">
+                    <img class="themeicon17" src="/static/Assets/sun.png" width="28px" id="naziya517">
+                </button>
+
+                <div class="overlay"></div>
+
+
+                <div class="wrapper17">
+                    <h2 class='formheading'>Contact Me</h2>
+                    
+                    <div class="rule17">
+                        <hr class="ruler17">
+                    </div>
+
+                    <form action="/ContactForm" method="POST">
+
+                    {% csrf_token %}
+                        
+                        <div class="input-box17">
+
+                            <img src="/static/Assets/name-icon1.png" height="35" id="one1">
+                            <input name='name' class="input17" type="text" placeholder="Enter your name" required>
+
+                        </div>
+                        
+
+                        <div class="input-box17">
+
+                            <img src="/static/Assets/mail1.png" height="35" id="one2">
+                            <input name ='email' class="input17" type="text" placeholder="Enter your email" required>
+
+                        </div>
+
+                       
+                        <div class="input-box17">
+
+                            <img src="/static/Assets/phone1.png" height="35" id="one4">
+                            <input name='phonenumber' class="input17" type="number"  placeholder="Mobile No. (Optional)">
+
+                        </div>
+
+                        <textarea class='input-box17 messagefield' name='message' placeholder='Enter Your Message Here' style='margin-bottom:-10px; margin-top: 20px; height:35px;' required></textarea>
+
+                        <div class="input-box17 button">
+                            <input class="input17" type="Submit" value="Send">
+                        </div>
+
+                        
+{% comment %} 
+                        <div class="input-box17">
+
+                            <img src="/static/New folder (3)/city1.png" height="35" id="one5">
+                            <input name='city' class="input17" type="text" placeholder="City" required>
+
+                        </div> {% endcomment %}
+
+
+
+                        <!-- <div class="policy">
+                        <input type="checkbox">
+                        <h3>I accept all terms & condition</h3>
+                        </div> -->
+
+                        {% comment %} <div class="input-box17">
+                            <img src="/static/New folder (3)/password-32-641.png" height="35" id="one3">
+                            <input class="input17" type="password" placeholder="Create password" required>
+                        </div> {% endcomment %}
+
+                        {% comment %} <div>
+                            <pre class="texth317">Already have an account?<a href="#" class="login"> Login Here</a></pre>
+                        </div> {% endcomment %}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+{% endblock signupreplace %}
+
+
+{% block signupscript %}
+
+<script>
+
+    const homecolor = document.getElementById('homechange')
+    const workcolor = document.getElementById('workchange')
+    const contactcolor = document.getElementById('contactform')
+    const aboutcolor = document.getElementById('aboutform')
+
+    homecolor.style.color = 'var(--secondary-color)';
+    workcolor.style.color = 'var(--secondary-color)';
+    contactcolor.style.color = 'var(--accent-color)';
+    aboutcolor.style.color = 'var(--secondary-color)';
+
+    document.getElementById('removefunction').remove('scrolling');
+
+
+    {% comment %} if (localStorage.getItem("popup1") === null){
+        document.querySelector('.bodytheme').style.overflow = 'scroll';
+    } {% endcomment %}
+
+</script>
+
+{% endblock signupscript %}
