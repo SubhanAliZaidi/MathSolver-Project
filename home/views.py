@@ -8,6 +8,8 @@ from home.models import *
 from collections import Counter
 import pymongo
 
+print('hello there')
+
 def homepage(Naziya):
     return render(Naziya, 'index.html')
 
