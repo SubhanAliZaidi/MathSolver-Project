@@ -8,6 +8,9 @@ from home.models import *
 from collections import Counter
 import pymongo
 
+Database_Link = pymongo.MongoClient("mongodb://localhost:27017/")
+Database_Name = Database_Link["Naz"]
+
 def homepage(Naziya):
     return render(Naziya, 'index.html')
 
@@ -28,12 +31,9 @@ def contactform(request):
         phonenumber = request.POST.get('phonenumber')
         message = request.POST.get('message')
 
-        Database_Link = pymongo.MongoClient("mongodb://localhost:27017/")
-        Database_Name = Database_Link["Naz"]
         Collection_Name = Database_Name["ContactForm"]
         Data = { 'Name': name, 'Email': {'Email1': email} , 'Phone_Number':{'Phone_Number1': phonenumber} ,'Message':{'Message1': message} }
 
-        Naziya['unsucessfulstatus'] = 'unsucessful'
         var = [i for i in Collection_Name.find({'Name': name}, {'Name':1, '_id':0})]
 
         checking_last_message_count = [i for i in Collection_Name.find({ 'Name':name},{'Email':1,'Message':1,'Phone_Number':1,'history': -1,'_id':0 })]
@@ -49,12 +49,11 @@ def contactform(request):
             phone_count = NAZIYA.Existing_Value(checking_last_message_count,'Phone_Number')
             message_count = NAZIYA.Existing_Value(checking_last_message_count,'Message')
 
-            Collection_Name.update_one({"Name": name},{'$set':{'Email.Email'+f'{N_Email+1}':email}}) if email not in email_count else print('Already here')
+            Collection_Name.update_one({"Name": name},{'$set':{'Email.Email'+f'{N_Email+1}':email}}) if email not in email_count else None
 
-            Collection_Name.update_one({"Name": name},{'$set':{'Phone_Number.Phone_Number'+f'{N_PhoneNumber+1}':phonenumber}}) if phonenumber not in phone_count else print('Already here')
+            Collection_Name.update_one({"Name": name},{'$set':{'Phone_Number.Phone_Number'+f'{N_PhoneNumber+1}':phonenumber}}) if phonenumber not in phone_count else None
             
-            Collection_Name.update_one({"Name": name},{'$set':{'Message.Message'+f'{N_Message+1}':message}}) if message not in message_count else print('Already here')
-
+            Collection_Name.update_one({"Name": name},{'$set':{'Message.Message'+f'{N_Message+1}':message}}) if message not in message_count else None
             Naziya['submitstatus'] = 'sucessful'
     return render(request, "NewSignUp.html", Naziya)
 
@@ -78,6 +77,14 @@ def standarddev(request):
 
         firstinput = request.POST.get('firstinput')
         secondinput = request.POST.get('secondinput')
+
+        # DATABASE FUNCTION GLOBAL INFO 
+        Collection_Name = Database_Name["StandardDeviation"]
+        IpAddress = NAZIYA.IP_Address(request)
+
+        Checking_Existence = [i for i in Collection_Name.find({'User': IpAddress}, {'User':1, '_id':0})]
+
+        Collection_Name.insert_one({'User' : IpAddress,'Continuous_Series': {}, 'Discrete_Series':{}, 'Individual_Series': {}, 'Errors':{}}) if Checking_Existence == [] else None
 
         if firstinput == '' and secondinput == '':
             Naziya['seriesname1'] = 'Please Enter Your Question First'
@@ -214,6 +221,10 @@ def standarddev(request):
                         Naziya['coefficientofsd'] = cosd
                         Naziya['coefficientofvar'] = cosd*100
                         Naziya['variance'] = acsqr**2
+
+                        # DATABASE
+                        NAZIYA.Database_Insertion('Continuous_Series',firstinput,secondinput,Collection_Name,IpAddress,'Class_Interval')
+
                     else:
                         # FOR DISCRETE SERIES
                         if len(list1) == len(list2):
@@ -318,6 +329,9 @@ def standarddev(request):
                             Naziya['coefficientofsd'] = cosd
                             Naziya['coefficientofvar'] = NAZIYA.floatstopper(cosd*100)
                             Naziya['variance'] = NAZIYA.floatstopper(acsqr**2)
+
+                            # DATABASE
+                            NAZIYA.Database_Insertion('Discrete_Series', firstinput, secondinput, Collection_Name, IpAddress, 'Items')
                         else:
                             if secondinput == '0':
                                 Naziya['seriesname'] = "INDIVIDUAL SERIES"
@@ -381,12 +395,17 @@ def standarddev(request):
                                 Naziya['coefficientofsd'] = cosd
                                 Naziya['coefficientofvar'] = cosd*100
                                 Naziya['variance'] = srt**2   
+
+                                #DATABASE
+                                NAZIYA.Database_Insertion('Individual_Series', firstinput,secondinput,Collection_Name,IpAddress,'Items')
                             else:
                                 if len(list1) != len(list2):
                                     Naziya['x2'] = len(list1)
                                     Naziya['f2'] = len(list2)
                                     Naziya['seriesname1'] = "Please Check that lenght of both( X/C.I. and frequency is equal or may be you entered Two (,,) Commas )"
+                                    NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
                 except:
+                    NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
                     Naziya['allerror'] = 'Handle'
                     Naziya['seriesname1'] = 'Please Enter Your Question Correctly'
     return render(request, "Mathstandardev.html",Naziya)  
@@ -404,6 +423,14 @@ def mean(request):
 
         firstinput = request.POST.get('firstinput')
         secondinput = request.POST.get('secondinput')
+
+        # DATABASE FUNCTION GLOBAL INFO 
+        Collection_Name = Database_Name["Mean"]
+        IpAddress = NAZIYA.IP_Address(request)
+
+        Checking_Existence = [i for i in Collection_Name.find({'User': IpAddress}, {'User':1, '_id':0})]
+
+        Collection_Name.insert_one({'User' : IpAddress,'Continuous_Series': {}, 'Discrete_Series':{}, 'Individual_Series': {}, 'Errors':{}}) if Checking_Existence == [] else None
 
         if firstinput == '' and secondinput == '':
             Naziya['seriesname1'] = 'Please Enter Your Question First'
@@ -459,6 +486,8 @@ def mean(request):
 
                         acm = NAZIYA.intfloatconverter(sum(par)/sum(secondlist))
                         Naziya['actualmean'] = acm
+                        #DATABASE
+                        NAZIYA.Database_Insertion('Continuous_Series',firstinput,secondinput,Collection_Name,IpAddress,'Class_Interval')
                     else:
                         if len(list1) == len(list2):
                             Naziya['seriesname'] = "DISCRETE SERIES"
@@ -476,6 +505,8 @@ def mean(request):
                             Naziya['sumfx'] = sum(par)
                             acm = NAZIYA.intfloatconverter(sum(par)/sum(secondlist))
                             Naziya['actualmean'] = acm
+                            #DATABASE
+                            NAZIYA.Database_Insertion('Discrete_Series',firstinput,secondinput,Collection_Name,IpAddress,'Items')
                         else:
                             if secondinput == '0':
                                 Naziya['seriesname'] = "INDIVIDUAL SERIES"
@@ -487,14 +518,18 @@ def mean(request):
                                 Naziya['sumx'] = su
                                 Naziya['len'] = len(firstlist)
                                 Naziya['actualmean'] = NAZIYA.intfloatconverter(sum(firstlist)/len(firstlist)) 
+                                #DATABASE
+                                NAZIYA.Database_Insertion('Individual_Series',firstinput,secondinput,Collection_Name,IpAddress,'Items')
                             else:
                                 if len(list1) != len(list2):
                                     Naziya['x2'] = len(list1)
                                     Naziya['f2'] = len(list2)
                                     Naziya['seriesname1'] = "Please Check that lenght of both( X/C.I. and frequency is equal or may be you entered Two (,,) Commas )"
+                                    NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
                 except:
                     Naziya['allerror'] = 'Handle'
                     Naziya['seriesname1'] = 'Please Enter Your Question Correctly'
+                    NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
     return render(request, "Mathsmean.html",Naziya)
 
 def median(request):
@@ -510,6 +545,13 @@ def median(request):
 
         firstinput = request.POST.get('firstinput')
         secondinput = request.POST.get('secondinput')
+
+        Collection_Name = Database_Name["Median"]
+        IpAddress = NAZIYA.IP_Address(request)
+
+        Checking_Existence = [i for i in Collection_Name.find({'User': IpAddress}, {'User':1, '_id':0})]
+
+        Collection_Name.insert_one({'User' : IpAddress,'Continuous_Series': {}, 'Discrete_Series':{}, 'Individual_Series': {}, 'Errors':{}}) if Checking_Existence == [] else None
 
         if firstinput == '' and secondinput == '':
             Naziya['seriesname1'] = 'Please Enter Your Question First'
@@ -591,7 +633,9 @@ def median(request):
                         med1 = l1 + med
                         Naziya['divide2'] = NAZIYA.intfloatconverter(NAZIYA.floatstopper(med))
                         Naziya['median'] = NAZIYA.intfloatconverter(med1)
-                        
+
+                        #DATABASE
+                        NAZIYA.Database_Insertion('Continuous_Series',firstinput,secondinput,Collection_Name,IpAddress,'Class_Interval')
                     else:
                         if len(list1) == len(list2):
                             Naziya['seriesname'] = "DISCRETE SERIES"
@@ -661,6 +705,8 @@ def median(request):
                                 a = NAZIYA.Single_Side_Indexing(cf,zu1)
                                 firstli = firstlistcopy[a]
                                 Naziya['term'] = firstli
+                            # DATABASE
+                            NAZIYA.Database_Insertion('Discrete_Series', firstinput, secondinput, Collection_Name, IpAddress, 'Items')
                         else:
                             if secondinput == '0':
                                 # print('this is individual series')
@@ -712,14 +758,18 @@ def median(request):
                                     Naziya['la'] = la
                                     median = la/2
                                     Naziya['median']= NAZIYA.intfloatconverter(median)
+                                #DATABASE
+                                NAZIYA.Database_Insertion('Individual_Series', firstinput,secondinput,Collection_Name,IpAddress,'Items')
                             else:
                                 if len(list1) != len(list2):
                                     Naziya['x2'] = len(list1)
                                     Naziya['f2'] = len(list2)
                                     Naziya['seriesname1'] = "Please Check that lenght of both( X/C.I. and frequency is equal or may be you entered Two (,,) Commas )"
+                                    NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
                 except:
                     Naziya['allerror'] = 'Handle'
                     Naziya['seriesname1'] = 'Please Enter Your Question Correctly'
+                    NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
     return render(request, "Mathsmedian.html", Naziya)
 
 def mode(request):
@@ -736,6 +786,13 @@ def mode(request):
 
         firstinput = request.POST.get('firstinput')
         secondinput = request.POST.get('secondinput')
+
+        Collection_Name = Database_Name["Mode"]
+        IpAddress = NAZIYA.IP_Address(request)
+
+        Checking_Existence = [i for i in Collection_Name.find({'User': IpAddress}, {'User':1, '_id':0})]
+
+        Collection_Name.insert_one({'User' : IpAddress,'Continuous_Series': {}, 'Discrete_Series':{}, 'Individual_Series': {}, 'Errors':{}}) if Checking_Existence == [] else None
 
         if firstinput == '' and secondinput == '':
             Naziya['seriesname1'] = 'Please Enter Your Question First'
@@ -1031,6 +1088,7 @@ def mode(request):
                             Naziya['divide1'] = divide1
 
                             Naziya['mode'] = int(l1list[0])+divide1
+                        NAZIYA.Database_Insertion('Continuous_Series',firstinput,secondinput,Collection_Name,IpAddress,'Class_Interval')
                     else:
                         # FOR DISCRETE SERIES
                         if len(list1) == len(list2):
@@ -1241,6 +1299,8 @@ def mode(request):
 
                                 mo = secondlist.index(max(secondlist))
                                 Naziya['mode'] = firstlist[mo]
+                            # DATABASE
+                            NAZIYA.Database_Insertion('Discrete_Series', firstinput, secondinput, Collection_Name, IpAddress, 'Items')
                         else:
                             if secondinput == '0':
                                 Naziya['seriesname'] = "INDIVIDUAL SERIES"
@@ -1266,14 +1326,18 @@ def mode(request):
                                     mode = [key[i] for i in z]
                                     Naziya['mode'] = mode
                                     Naziya['lenmode'] = len(mode)
+                                    #DATABASE
+                                NAZIYA.Database_Insertion('Individual_Series', firstinput,secondinput,Collection_Name,IpAddress,'Items')
                             else:
                                 if len(list1) != len(list2):
                                     Naziya['x2'] = len(list1)
                                     Naziya['f2'] = len(list2)
                                     Naziya['seriesname1'] = "Please Check that lenght of both( X/C.I. and frequency is equal or may be you entered Two (,,) Commas )"
+                                    NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
                 except:
                     Naziya['allerror'] = 'Handle'
                     Naziya['seriesname1'] = 'Please Enter Your Question Correctly'
+                    NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
     return render(request, "Mathsmode.html", Naziya)
 
 def mathsrange(request):
@@ -1290,6 +1354,13 @@ def mathsrange(request):
 
         firstinput = request.POST.get('firstinput')
         secondinput = request.POST.get('secondinput')
+
+        Collection_Name = Database_Name["Range"]
+        IpAddress = NAZIYA.IP_Address(request)
+
+        Checking_Existence = [i for i in Collection_Name.find({'User': IpAddress}, {'User':1, '_id':0})]
+
+        Collection_Name.insert_one({'User' : IpAddress,'Continuous_Series': {}, 'Discrete_Series':{}, 'Individual_Series': {}, 'Errors':{}}) if Checking_Existence == [] else None
 
         if firstinput == '' and secondinput == '':
             Naziya['seriesname1'] = 'Please Enter Your Question First'
@@ -1337,6 +1408,7 @@ def mathsrange(request):
                         Naziya['add1'] = hf + lf
                         Naziya['coefficientofrange'] = NAZIYA.intfloatconverter(NAZIYA.floatstopper(((hf-lf)/(hf+lf))))
 
+                        NAZIYA.Database_Insertion('Continuous_Series',firstinput,secondinput,Collection_Name,IpAddress,'Class_Interval')
                     else:
                         # FOR DISCRETE SERIES
                         if len(list1) == len(list2):
@@ -1359,6 +1431,8 @@ def mathsrange(request):
                             Naziya['add1'] = hf + lf
 
                             Naziya['coefficientofrange'] = NAZIYA.intfloatconverter(NAZIYA.floatstopper(((hf-lf)/(hf+lf))))
+                            # DATABASE
+                            NAZIYA.Database_Insertion('Discrete_Series', firstinput, secondinput, Collection_Name, IpAddress, 'Items')
                         else:
                             if secondinput == '0':
                                 Naziya['seriesname'] = "INDIVIDUAL SERIES"
@@ -1396,14 +1470,18 @@ def mathsrange(request):
                                     Naziya['rang'] = hf - lf
                                     Naziya['add1'] = hf + lf
                                     Naziya['coefficientofrange'] = NAZIYA.intfloatconverter(NAZIYA.floatstopper(((hf-lf)/(hf+lf))))
+                                #DATABASE
+                                NAZIYA.Database_Insertion('Individual_Series', firstinput,secondinput,Collection_Name,IpAddress,'Items')
                             else:
                                 if len(list1) != len(list2):
                                     Naziya['x2'] = len(list1)
                                     Naziya['f2'] = len(list2)
                                     Naziya['seriesname1'] = "Please Check that lenght of both( X/C.I. and frequency is equal or may be you entered Two (,,) Commas )"
+                                    NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
                 except:
                     Naziya['allerror'] = 'Handle'
                     Naziya['seriesname1'] = 'Please Enter Your Question Correctly'
+                    NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
     return render(request, "Mathsrange.html", Naziya)
     
 def quartile(request):
@@ -1419,6 +1497,13 @@ def quartile(request):
 
         firstinput = request.POST.get('firstinput')
         secondinput = request.POST.get('secondinput')
+
+        Collection_Name = Database_Name["Quartile"]
+        IpAddress = NAZIYA.IP_Address(request)
+
+        Checking_Existence = [i for i in Collection_Name.find({'User': IpAddress}, {'User':1, '_id':0})]
+
+        Collection_Name.insert_one({'User' : IpAddress,'Continuous_Series': {}, 'Discrete_Series':{}, 'Individual_Series': {}, 'Errors':{}}) if Checking_Existence == [] else None
 
         if firstinput == '' and secondinput == '':
             Naziya['seriesname1'] = 'Please Enter Your Question First'
@@ -1457,7 +1542,6 @@ def quartile(request):
                             cixitem.append(189)
 
                         if len(cixitem) == len(list2):
-
                             Naziya['seriesname'] = "CONTINUOUS SERIES"
                             Naziya['len1'] = len(list1)
                             Naziya['lencon'] = 56
@@ -1571,6 +1655,7 @@ def quartile(request):
                             Naziya['divide'] = NAZIYA.intfloatconverter(NAZIYA.floatstopper2((variab/2)))
 
                             Naziya['coqd'] = NAZIYA.intfloatconverter(NAZIYA.floatstopper(variab/variab1))
+                            NAZIYA.Database_Insertion('Continuous_Series',firstinput,secondinput,Collection_Name,IpAddress,'Class_Interval')
                         else:
                             if len(list1) == len(list2):
                                 Naziya['seriesname'] = "DISCRETE SERIES"
@@ -1707,6 +1792,8 @@ def quartile(request):
 
                                 Naziya['divide'] = NAZIYA.intfloatconverter(variab/2)
                                 Naziya['coqd'] = NAZIYA.intfloatconverter(NAZIYA.floatstopper(variab/variab1))
+                                # DATABASE
+                                NAZIYA.Database_Insertion('Discrete_Series', firstinput, secondinput, Collection_Name, IpAddress, 'Items')
                             else:
                                 if  secondinput == '0':
                                     Naziya['seriesname'] = "INDIVIDUAL SERIES"
@@ -1821,14 +1908,18 @@ def quartile(request):
                                     Naziya['add1'] = variab1
                                     Naziya['divide'] = variab/2
                                     Naziya['coqd'] = NAZIYA.intfloatconverter(NAZIYA.floatstopper(variab/variab1))
+                                    #DATABASE
+                                    NAZIYA.Database_Insertion('Individual_Series', firstinput,secondinput,Collection_Name,IpAddress,'Items')
                                 else:
                                     if len(list1) != len(list2):
                                         Naziya['x2'] = len(list1)
                                         Naziya['f2'] = len(list2)
                                         Naziya['seriesname1'] = "Please Check that lenght of both( X/C.I. and frequency is equal or may be you entered Two (,,) Commas )"
+                                        NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
                 except:
                     Naziya['allerror'] = 'Handle'
                     Naziya['seriesname1'] = 'Please Enter Your Question Correctly'
+                    NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
     return render(request, "Mathsquartile.html",Naziya)
 
 def MeanDeviation(request):
@@ -1844,6 +1935,13 @@ def MeanDeviation(request):
 
         firstinput = request.POST.get('firstinput')
         secondinput = request.POST.get('secondinput')
+
+        Collection_Name = Database_Name["MeanDeviation"]
+        IpAddress = NAZIYA.IP_Address(request)
+
+        Checking_Existence = [i for i in Collection_Name.find({'User': IpAddress}, {'User':1, '_id':0})]
+
+        Collection_Name.insert_one({'User' : IpAddress,'Continuous_Series': {}, 'Discrete_Series':{}, 'Individual_Series': {}, 'Errors':{}}) if Checking_Existence == [] else None
 
         if firstinput == '' and secondinput == '':
             Naziya['seriesname1'] = 'Please Enter Your Question First'
@@ -2059,6 +2157,7 @@ def MeanDeviation(request):
 
                         calcofcomdm = NAZIYA.intfloatconverter(NAZIYA.floatstopper(mediand/med1))
                         Naziya['coefficientofmdmedian'] = calcofcomdm
+                        NAZIYA.Database_Insertion('Continuous_Series',firstinput,secondinput,Collection_Name,IpAddress,'Class_Interval')
                     else:
                         # FOR DISCRETE SERIES
                         if len(list1) == len(list2):
@@ -2265,6 +2364,8 @@ def MeanDeviation(request):
 
                             calcofcomdm = NAZIYA.intfloatconverter(NAZIYA.floatstopper(mediand/Median_Odd_Even))
                             Naziya['coefficientofmdmedian'] = calcofcomdm
+                            # DATABASE
+                            NAZIYA.Database_Insertion('Discrete_Series', firstinput, secondinput, Collection_Name, IpAddress, 'Items')
                         else:
                             if secondinput == '0':
                                 # INDIVIDAUL SERIES 
@@ -2434,14 +2535,18 @@ def MeanDeviation(request):
 
                                 calcofcomdm = NAZIYA.intfloatconverter(NAZIYA.floatstopper(mediand/globalmd))
                                 Naziya['coefficientofmdmedian'] = calcofcomdm
+                                #DATABASE
+                                NAZIYA.Database_Insertion('Individual_Series', firstinput,secondinput,Collection_Name,IpAddress,'Items')
                             else:
                                 if len(list1) != len(list2):
                                     Naziya['x2'] = len(list1)
                                     Naziya['f2'] = len(list2)
                                     Naziya['seriesname1'] = "Please Check that lenght of both( X/C.I. and frequency is equal or may be you entered Two (,,) Commas )"
+                                    NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
                 except:
                     Naziya['allerror'] = 'Handle'
                     Naziya['seriesname1'] = 'Please Enter Your Question Correctly'
+                    NAZIYA.Database_Insertion('Errors',firstinput,secondinput,Collection_Name,IpAddress,'CI_Items')
     return render(request, "MathsMeanDeviation.html", Naziya)
 
 def combinedmean(request):

@@ -35,7 +35,6 @@ def closestvalue(Naziya,Parveen):
             break
         else:
             continue
-
     return o
 
 def indices(Naziya,Parveen):
@@ -226,8 +225,30 @@ def Last_Number_Checking(*Naziya):
     for i in Naziya[0]:
         for j in i.get(Naziya[1]):
             j2.append(j)
-    n = int(str(j2[-1])[-1])
-    return n
+    n = ''.join(filter(lambda i: i.isdigit(), str(j2[-1])))
+    return int(n)
+
+def Database_Insertion(*Naziya):
+    '''Series_Name, Firstinput, Secondinput, Collection_Name, IpAddress, Firstinput_Type'''
+    Data = {Naziya[0]: {'Question1':{Naziya[5]: Naziya[1],'Frequency': Naziya[2]}}}
+
+    checking_last_message_count = [i for i in Naziya[3].find({'User':Naziya[4]},{ 'User':1,Naziya[0]:1,'_id':0 })]
+
+    var = [i for i in Naziya[3].find({'User': Naziya[4]}, {Naziya[0]:1, '_id':0})]
+
+    if var[0].get(Naziya[0]) == {}:
+        Naziya[3].update_one({'User':Naziya[4]},{'$set':Data})
+    else:
+        N_User = Last_Number_Checking(checking_last_message_count,Naziya[0])
+        N_Question_Check = Existing_Value(checking_last_message_count,Naziya[0])
+
+        z = [[i[Naziya[5]],i['Frequency']] for i in N_Question_Check]
+        
+        Naziya[3].update_one({'User': Naziya[4]},{'$set':{f'{Naziya[0]}.Question'+f'{N_User+1}':{Naziya[5]:Naziya[1], 'Frequency': Naziya[2]}}}) if [Naziya[1],Naziya[2]] not in z else None
+
+def IP_Address(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    return x_forwarded_for.split(',')[-1].strip() if x_forwarded_for else request.META.get('REMOTE_ADDR')
 
 if __name__ == "__main__":
     print('Running this from source file directly')
