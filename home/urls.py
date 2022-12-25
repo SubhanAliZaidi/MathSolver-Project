@@ -34,6 +34,4 @@ urlpatterns = [
     path('CombinedMean', views.combinedmean, name='combinedmean'),
     path('combinedmean', views.combinedmean, name='combinedmean'),
     path('Combinedmean', views.combinedmean, name='combinedmean'),
-    path('SgpaToCgpa', views.SgpaToPercentage, name='SgpaToCgpa'),
-    path('sgpatocgpa', views.SgpaToPercentage, name='SgpaToCgpa'),
 ]

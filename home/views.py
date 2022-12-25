@@ -2,13 +2,12 @@ Naziya = "naziya"
 import Naziya as NAZIYA
 import math
 import random
-from math import sqrt
 from django.shortcuts import render
 from home.models import *
 from collections import Counter
 import pymongo
 
-Database_Link = pymongo.MongoClient("mongodb://localhost:27017/")
+Database_Link = pymongo.MongoClient("mongodb+srv://Subhan_Ali:Naziya_1@cluster0.n2bv4fb.mongodb.net/test")
 Database_Name = Database_Link["Naz"]
 
 def homepage(Naziya):
@@ -173,7 +172,7 @@ def standarddev(request):
                         g1 = NAZIYA.floatstopper(subs)
                         Naziya['subs'] = g1
 
-                        sqrroot = NAZIYA.floatstopper(sqrt(g1))
+                        sqrroot = NAZIYA.floatstopper(math.sqrt(g1))
                         Naziya['sqrroot'] = sqrroot
 
                         # ACTUAL MEAN METHOD
@@ -213,7 +212,7 @@ def standarddev(request):
                         divide3 = sum(acfdeviation2)/sumof_f
                         Naziya['divide3'] = NAZIYA.floatstopper2(divide3)
 
-                        acsqr = NAZIYA.floatstopper(sqrt(divide3))
+                        acsqr = NAZIYA.floatstopper(math.sqrt(divide3))
                         Naziya['acsqrroot'] = acsqr
 
                         # COEFFICIENT OF STANDARD DEVIATION
@@ -285,7 +284,7 @@ def standarddev(request):
                             g1 = NAZIYA.floatstopper2(subs)
                             Naziya['subs'] = g1
 
-                            sqrroot = sqrt(g1)
+                            sqrroot = math.sqrt(g1)
                             Naziya['sqrroot'] = sqrroot
 
                             # ACTUAL MEAN METHOD
@@ -321,7 +320,7 @@ def standarddev(request):
                             divide3 = sum(acfdeviation2)/sumof_f
                             Naziya['divide3'] = NAZIYA.floatstopper2(divide3)
 
-                            acsqr = NAZIYA.floatstopper(sqrt(divide3))
+                            acsqr = NAZIYA.floatstopper(math.sqrt(divide3))
                             Naziya['acsqrroot'] = acsqr
 
                             # COEFFICIENT OF STANDARD DEVIATION
@@ -366,7 +365,7 @@ def standarddev(request):
                                 min = NAZIYA.floatstopper2(div - va1)
                                 Naziya['min'] = NAZIYA.intfloatconverter(min)
 
-                                sqr = sqrt(min)
+                                sqr = math.sqrt(min)
                                 Naziya['sqrroot'] = sqr
 
                                 # ACTUAL MEAN METHOD FOR INDIVIDUAL SERIES
@@ -387,7 +386,7 @@ def standarddev(request):
                                 parveen1 = NAZIYA.floatstopper2(sum(acd2)/len(firstlist))
                                 Naziya['divide3'] = NAZIYA.intfloatconverter(parveen1)
 
-                                srt = NAZIYA.floatstopper2(sqrt(parveen1))
+                                srt = NAZIYA.floatstopper2(math.sqrt(parveen1))
                                 Naziya['acsqrroot'] = srt
 
                                 # COEFFICIENT OF STANDARD DEVIATION
@@ -1514,8 +1513,7 @@ def quartile(request):
                 Naziya['emp'] = 0
             else:
                 try:
-                    if len(firstinput) == 3 or len(firstinput) == 5 or len(firstinput) == 1 or len(firstinput) == 2 or len(firstinput) == 4:
-
+                    if len(firstinput) in range(6):
                         Naziya['seriesname1'] = "Please enter atleast 3 comma seperated value to calculate quartile"
                         Naziya['emp'] = 0
                     else:
@@ -2610,13 +2608,3 @@ def combinedmean(request):
                                 Naziya['allerror'] = 'Handle'
                                 Naziya['seriesname1'] = 'Please Enter Your Question Correctly'
     return render(request, "MathsCombinedMean.html", Naziya)
-
-def SgpaToPercentage(request):
-
-    Naziya = {'question':'Sgpa To Percentage',}
-    
-    if request.method == 'POST':
-
-        print('this si sgpatopercentage')
-
-    return render(request,'SgpaToPercentage.html',Naziya)
