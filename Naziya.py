@@ -17,7 +17,6 @@ def ErrorHandling(Naziya):
                     zs = str(i)
                     try:
                         if int(zs) == int(i):
-                            z1 = [z[0],z[-1]]
                             q.append(i)
                     except ValueError:
                         continue
@@ -52,83 +51,51 @@ def indexingfunction(Naziya,Parveen):
     indexlist = [i for i in range(len(Naziya)) if Naziya[i]==Parveen]
     return indexlist
 
-def Try(Naziya):
-    ci = [(i).strip().split("-") for i in Naziya]
-    cilis = []
-    cinaz = 0
-    for i in ci:
-        g = i
-        cinaz+=1
-        for i in g:
-            we = int(i)
-            cilis.append(we)
+class Try_Exception:
+    def __init__(self,Naziya):
+        self.Naziya = Naziya
+        self.var1 = 0
+        self.list = []
+                    
+    def Try(self):
+        ci = [(i).strip().split("-") for i in self.Naziya]
+        for j in ci:
+            for i in j:
+                self.list.append(int(i))
+                
+        cixitem = []
+        self.variable = 0
+        for i in range(len(self.list)//2):
+            cixitem.append(intfloatconverter((self.list[self.variable]+self.list[self.variable+1])/2))
+            self.variable+=2
+        return cixitem
 
-    cixitem = []
-    ciy = 0
-    cix = 1
-    for i in range(len(cilis)//2):
-        xy = (cilis[ciy]+cilis[cix])/2
-        if xy == int(xy):
-            z = int(xy)
-            cix+=2
-            ciy+=2
-            cixitem.append(z)
-        else:   
-            cix+=2
-            ciy+=2
-            cixitem.append(xy)
-    return cixitem
+    def Exception(self):
+        for i in self.Naziya:
+            if type(i) == list:
+                for j in i:
+                    self.list.append(j)
+            else:
+                self.list.append(i)
+        li = []
+        for _ in range(len(self.list)//2):
+            li.append(self.list[self.var1] +"-"+ self.list[self.var1+1])
+            self.var1 += 2
 
-def Exception(Naziya):
-    a = []
-    for i in Naziya:
-        if type(i) == list:
-            for j in i:
-                a.append(j)
-        else:
-            a.append(i)
+        self.list.clear()
+        ci = [(i).strip().split('-') for i in li]
+        for j in ci:
+            self.var1+=2
+            for i in j:
+                self.list.append(int(i))
 
-    k = 0
-    o = 1
-    list1 = []
-    for i in range(len(a)//2):
-        r = a[k] +"-"+ a[o]
-        k += 2
-        o += 2
-        list1.append(r)
-    li = list1
-
-    cishow = []
-    ci = []
-    for i in li:
-        z = (i).strip().split("-")
-        ci.append(z)
-        cishow.append(i)
-
-    cilis = []
-    cinaz = 0
-    for i in ci:
-        g = i
-        cinaz+=1
-        for i in g:
-            we = int(i)
-            cilis.append(we)
-
-    cixitem = []
-    ciy = 0
-    cix = 1
-    for i in range(len(cilis)//2):
-        xy = (cilis[ciy]+cilis[cix])/2
-        if xy == int(xy):
-            z = int(xy)
-            cix+=2
-            ciy+=2
-            cixitem.append(z)
-        else:   
-            cix+=2
-            ciy+=2
-            cixitem.append(xy)
-    return li,cixitem,cilis
+        cixitem = []
+        self.var1 = 0
+        for i in range(len(self.list)//2):
+            xy = (self.list[self.var1]+self.list[self.var1+1])/2
+            self.var1+=2
+            cixitem.append(intfloatconverter(xy))
+        return li,cixitem,self.list
 
 def Empty_Error_Handling(Naziya):
     Parveen = []

@@ -107,10 +107,10 @@ def standarddev(request):
                     li = list12
 
                     try:
-                        cixitem = NAZIYA.Try(li)
+                        cixitem = NAZIYA.Try_Exception(li).Try()
                     except ValueError:
                         q = NAZIYA.ErrorHandling(list12)
-                        colo = NAZIYA.Exception(q)
+                        colo = NAZIYA.Try_Exception(q).Exception()
                         li = colo[0]
                         cixitem = colo[1]
 
@@ -452,10 +452,10 @@ def mean(request):
                     li = list12
 
                     try:
-                        cixitem = NAZIYA.Try(li)
+                        cixitem = NAZIYA.Try_Exception(li).Try()
                     except ValueError:
                         q = NAZIYA.ErrorHandling(list12)
-                        colo = NAZIYA.Exception(q)
+                        colo = NAZIYA.Try_Exception(q).Exception()
                         li = colo[0]
                         cixitem = colo[1]
 
@@ -574,10 +574,10 @@ def median(request):
                     li = list12
 
                     try:
-                        cixitem = NAZIYA.Try(li)
+                        cixitem = NAZIYA.Try_Exception(li).Try()
                     except ValueError:
                         q = NAZIYA.ErrorHandling(list12)
-                        colo = NAZIYA.Exception(q)
+                        colo = NAZIYA.Try_Exception(q).Exception()
                         li = colo[0]
                         cixitem = colo[1]
 
@@ -815,10 +815,10 @@ def mode(request):
                     li = list12
 
                     try:
-                        cixitem = NAZIYA.Try(li)
+                        cixitem = NAZIYA.Try_Exception(li).Try()
                     except ValueError:
                         q = NAZIYA.ErrorHandling(list12)
-                        colo = NAZIYA.Exception(q)
+                        colo = NAZIYA.Try_Exception(q).Exception()
                         li = colo[0]
                         cixitem = colo[1]
 
@@ -1383,10 +1383,10 @@ def mathsrange(request):
                     li = list12
 
                     try:
-                        cixitem = NAZIYA.Try(li)
+                        cixitem = NAZIYA.Try_Exception(li).Try()
                     except ValueError:
                         q = NAZIYA.ErrorHandling(list12)
-                        colo = NAZIYA.Exception(q)
+                        colo = NAZIYA.Try_Exception(q).Exception()
                         li = colo[0]
                         cixitem = colo[1]
                         cilis = colo[2]
@@ -1529,10 +1529,10 @@ def quartile(request):
                         li = list12
 
                         try:
-                            cixitem = NAZIYA.Try(li)
+                            cixitem = NAZIYA.Try_Exception(li).Try()
                         except ValueError:
                             q = NAZIYA.ErrorHandling(list12)
-                            colo = NAZIYA.Exception(q)
+                            colo = NAZIYA.Try_Exception(q).Exception()
                             li = colo[0]
                             cixitem = colo[1]
 
@@ -1963,10 +1963,10 @@ def MeanDeviation(request):
                     li = list12
 
                     try:
-                        cixitem = NAZIYA.Try(li)
+                        cixitem = NAZIYA.Try_Exception(li).Try()
                     except ValueError:
                         q = NAZIYA.ErrorHandling(list12)
-                        colo = NAZIYA.Exception(q)
+                        colo = NAZIYA.Try_Exception(q).Exception()
                         li = colo[0]
                         cixitem = colo[1]
 
