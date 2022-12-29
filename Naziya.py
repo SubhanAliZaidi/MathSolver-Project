@@ -7,37 +7,15 @@ def floatstopper(Naziya):
 def floatstopper2(Naziya):
     return float('{:.2f}'.format(Naziya))
 
-def ErrorHandling(Naziya):
-    q = []
-    for i in Naziya:
-        try:
-            z = i.strip().split('-')
-            if len(z) > 2:
-                for i in z:
-                    zs = str(i)
-                    try:
-                        if int(zs) == int(i):
-                            q.append(i)
-                    except ValueError:
-                        continue
-            else:
-                q.append(z)
-        except SyntaxError:
-            print('There Is Two Comma In Your Input Please Remove That')
-    return q
-
 def closestvalue(Naziya,Parveen):
-    o = 0
-    for i in Naziya:
-        if i>= Parveen:
-            o+=i
+    Variable = 0
+    for items in Naziya:
+        if items >= Parveen:
+            Variable+=items
             break
         else:
             continue
-    return o
-
-def indices(Naziya,Parveen):
-    return [i for i, x in enumerate(Naziya) if x == Parveen]
+    return Variable
 
 def maxnum(Naziya):
     s1 = 0
@@ -47,64 +25,107 @@ def maxnum(Naziya):
             s1+=1
     return False if s1 <= 1 else True
 
-def indexingfunction(Naziya,Parveen):
-    indexlist = [i for i in range(len(Naziya)) if Naziya[i]==Parveen]
-    return indexlist
-
-class Try_Exception:
+class ErrorHandling:
     def __init__(self,Naziya):
         self.Naziya = Naziya
-        self.var1 = 0
-        self.list = []
+        self.variable : int = 0
+        self.list : list = []
                     
-    def Try(self):
+    def Try(self) -> None:
         ci = [(i).strip().split("-") for i in self.Naziya]
         for j in ci:
             for i in j:
                 self.list.append(int(i))
                 
         cixitem = []
-        self.variable = 0
         for i in range(len(self.list)//2):
             cixitem.append(intfloatconverter((self.list[self.variable]+self.list[self.variable+1])/2))
             self.variable+=2
         return cixitem
 
-    def Exception(self):
+    def Exception(self) -> None:
         for i in self.Naziya:
             if type(i) == list:
                 for j in i:
                     self.list.append(j)
             else:
                 self.list.append(i)
+                
         li = []
         for _ in range(len(self.list)//2):
-            li.append(self.list[self.var1] +"-"+ self.list[self.var1+1])
-            self.var1 += 2
-
+            li.append(self.list[self.variable] +"-"+ self.list[self.variable+1])
+            self.variable += 2
+            
         self.list.clear()
         ci = [(i).strip().split('-') for i in li]
         for j in ci:
-            self.var1+=2
+            self.variable+=2
             for i in j:
                 self.list.append(int(i))
 
         cixitem = []
-        self.var1 = 0
+        self.variable = 0
         for i in range(len(self.list)//2):
-            xy = (self.list[self.var1]+self.list[self.var1+1])/2
-            self.var1+=2
+            xy = (self.list[self.variable]+self.list[self.variable+1])/2
+            self.variable+=2
             cixitem.append(intfloatconverter(xy))
         return li,cixitem,self.list
+    
+    def Dash_Error(self) -> None:
+        for i in self.Naziya:
+            z = i.strip().split('-')
+            if len(z) > 2:
+                for i in z:
+                    try:
+                        if int(str(i)) == int(i):
+                            self.list.append(i)
+                    except ValueError:
+                        continue
+            else:
+                self.list.append(z)
+        return self.list
+    
+    def Empty_Error(self) -> None:
+        for i in self.Naziya:
+            if i == '':
+                continue
+            else:
+                self.list.append(i)
+        return self.list
 
-def Empty_Error_Handling(Naziya):
-    Parveen = []
-    for i in Naziya:
-        if i == '':
-            continue
+class Indexing:
+    def __init__(self,*Naziya) -> None:
+        self.Naziya = Naziya
+        self.IndexVariable : int = 0
+            
+    def Median_Indexing(self):
+        if self.Naziya[0] <= int(self.Naziya[1]):
+            indexing1 = self.Naziya[2].index(self.Naziya[0])
+            self.IndexVariable += indexing1
         else:
-            Parveen.append(i)
-    return Parveen
+            indexing1 = self.Naziya[2].index(self.Naziya[0])
+            self.IndexVariable+=indexing1
+        return self.IndexVariable
+
+    def Single_Side_Indexing(self):
+        for i in self.Naziya[0]:
+            if i >= self.Naziya[1]:
+                self.IndexVariable += self.Naziya[0].index(i)
+                break
+        return self.IndexVariable
+
+    def Quartile_Indexing(self):
+        for i in self.Naziya[0]:
+            if i >= self.Naziya[1]:
+                self.IndexVariable += self.Naziya[2][self.Naziya[0].index(i)]
+                break
+        return self.IndexVariable
+        
+    def Indexing_Function(self):
+        return [i for i in range(len(self.Naziya[0])) if self.Naziya[0][i]==self.Naziya[1]]
+            
+    def Indicies(self):
+        return [i for i, x in enumerate(self.Naziya[0]) if x == self.Naziya[1]]
 
 def Cumulative(Naziya):
     Parveen = []
@@ -140,32 +161,6 @@ def Summation_Value(*Naziya):
             for j in range(0,Naziya[1]):
                 za.append(1)
     return zs,za
-
-def Indexing(*Naziya):
-    indexing = 0
-    if Naziya[0] <= int(Naziya[1]):
-        indexing1 = Naziya[2].index(Naziya[0])
-        indexing += indexing1
-    else:
-        indexing1 = Naziya[2].index(Naziya[0])
-        indexing+=indexing1
-    return indexing
-
-def Single_Side_Indexing(*Naziya):
-    indexingforcf = 0
-    for i in Naziya[0]:
-        if i >= Naziya[1]:
-            indexingforcf += Naziya[0].index(i)
-            break
-    return indexingforcf
-
-def Quartile_Indexing(*Naziya):
-    fs1 = 0
-    for i in Naziya[0]:
-        if i >= Naziya[1]:
-            fs1 += Naziya[2][Naziya[0].index(i)]
-            break
-    return fs1
 
 def String_Add(*Naziya):
     dlist1 = []
@@ -213,9 +208,9 @@ def Database_Insertion(*Naziya):
         
         Naziya[3].update_one({'User': Naziya[4]},{'$set':{f'{Naziya[0]}.Question'+f'{N_User+1}':{Naziya[5]:Naziya[1], 'Frequency': Naziya[2]}}}) if [Naziya[1],Naziya[2]] not in z else None
 
-def IP_Address(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    return x_forwarded_for.split(',')[-1].strip() if x_forwarded_for else request.META.get('REMOTE_ADDR')
+def IP_Address(Naziya):
+    x_forwarded_for = Naziya.META.get('HTTP_X_FORWARDED_FOR')
+    return x_forwarded_for.split(',')[-1].strip() if x_forwarded_for else Naziya.META.get('REMOTE_ADDR')
 
 if __name__ == "__main__":
     print('Running this from source file directly')

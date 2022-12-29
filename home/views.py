@@ -7,7 +7,7 @@ from home.models import *
 from collections import Counter
 import pymongo
 
-Database_Link = pymongo.MongoClient("mongodb+srv://Subhan_Ali:Naziya_1@cluster0.n2bv4fb.mongodb.net/test")
+Database_Link = pymongo.MongoClient("mongodb://localhost:27017")
 Database_Name = Database_Link["Naz"]
 
 def homepage(Naziya):
@@ -39,6 +39,7 @@ def contactform(request):
         
         if var == []:
             Collection_Name.insert_one(Data)
+            Naziya['submitstatus'] = 'sucessful'
         else:
             N_Email = NAZIYA.Last_Number_Checking(checking_last_message_count,'Email')
             N_PhoneNumber = NAZIYA.Last_Number_Checking(checking_last_message_count,'Phone_Number')
@@ -102,15 +103,15 @@ def standarddev(request):
                     list12 = (firstinput).strip().split(',')
                     listnaz = (secondinput).strip().split(',')
 
-                    list2 = NAZIYA.Empty_Error_Handling(listnaz)
+                    list2 = NAZIYA.ErrorHandling(listnaz).Empty_Error()
                     list1 = list12
                     li = list12
 
                     try:
-                        cixitem = NAZIYA.Try_Exception(li).Try()
+                        cixitem = NAZIYA.ErrorHandling(li).Try()
                     except ValueError:
-                        q = NAZIYA.ErrorHandling(list12)
-                        colo = NAZIYA.Try_Exception(q).Exception()
+                        q = NAZIYA.ErrorHandling(list12).Dash_Error()
+                        colo = NAZIYA.ErrorHandling(q).Exception()
                         li = colo[0]
                         cixitem = colo[1]
 
@@ -447,15 +448,15 @@ def mean(request):
                     list12 = (firstinput).strip().split(',')
                     listnaz = (secondinput).strip().split(',')
 
-                    list2 = NAZIYA.Empty_Error_Handling(listnaz)
+                    list2 = NAZIYA.ErrorHandling(listnaz).Empty_Error()
                     list1 = list12
                     li = list12
 
                     try:
-                        cixitem = NAZIYA.Try_Exception(li).Try()
+                        cixitem = NAZIYA.ErrorHandling(li).Try()
                     except ValueError:
-                        q = NAZIYA.ErrorHandling(list12)
-                        colo = NAZIYA.Try_Exception(q).Exception()
+                        q = NAZIYA.ErrorHandling(list12).Dash_Error()
+                        colo = NAZIYA.ErrorHandling(q).Exception()
                         li = colo[0]
                         cixitem = colo[1]
 
@@ -569,15 +570,15 @@ def median(request):
                     list12 = (firstinput).strip().split(',')
                     listnaz = (secondinput).strip().split(',')
                     
-                    list2 = NAZIYA.Empty_Error_Handling(listnaz)
+                    list2 = NAZIYA.ErrorHandling(listnaz).Empty_Error()
                     list1 = list12
                     li = list12
 
                     try:
-                        cixitem = NAZIYA.Try_Exception(li).Try()
+                        cixitem = NAZIYA.ErrorHandling(li).Try()
                     except ValueError:
-                        q = NAZIYA.ErrorHandling(list12)
-                        colo = NAZIYA.Try_Exception(q).Exception()
+                        q = NAZIYA.ErrorHandling(list12).Dash_Error()
+                        colo = NAZIYA.ErrorHandling(q).Exception()
                         li = colo[0]
                         cixitem = colo[1]
 
@@ -605,7 +606,7 @@ def median(request):
 
                         # CHOOSING CLOSEST VALUE IN LIST
                         val= NAZIYA.closestvalue(cf,sum_f)
-                        indexing = NAZIYA.Indexing(val,sum_f,cf)
+                        indexing = NAZIYA.Indexing(val,sum_f,cf).Median_Indexing()
 
                         # TAKING POSITION IN LIST
                         cfp = cf[indexing-1]
@@ -653,11 +654,9 @@ def median(request):
 
                             f12 = NAZIYA.intfloatconverter_list(list2)
                             fcopy = f12.copy()
-                            for key in firstlist:
-                                for value in fcopy:
-                                    naziya[key] = value
-                                    fcopy.remove(value)
-                                    break
+
+                            for key,value in zip(firstlist,fcopy):
+                                naziya[key] = value
                             
                             f = [naziya[i] for i in firstlistcopy]
                             Naziya['f'] = f
@@ -677,12 +676,12 @@ def median(request):
                                 divi = findincf+1
                                 Naziya['add1'] = NAZIYA.intfloatconverter(divi)
 
-                                indexingforcf = NAZIYA.Single_Side_Indexing(cf,findincf)
+                                indexingforcf = NAZIYA.Indexing(cf,findincf).Single_Side_Indexing()
 
                                 te = firstlistcopy[indexingforcf]
                                 Naziya['term1'] = te
 
-                                indexingforcf2 = NAZIYA.Single_Side_Indexing(cf,divi)
+                                indexingforcf2 = NAZIYA.Indexing(cf,divi).Single_Side_Indexing()
 
                                 te2 = firstlistcopy[indexingforcf2]
                                 Naziya['term2'] = te2
@@ -701,7 +700,7 @@ def median(request):
                                 Naziya['n'] = zu
                                 zu1 = zu/2
                                 Naziya['divide1'] = NAZIYA.intfloatconverter(zu1)
-                                a = NAZIYA.Single_Side_Indexing(cf,zu1)
+                                a = NAZIYA.Indexing(cf,zu1).Single_Side_Indexing()
                                 firstli = firstlistcopy[a]
                                 Naziya['term'] = firstli
                             # DATABASE
@@ -810,15 +809,15 @@ def mode(request):
                     list12 = (firstinput).strip().split(',')
                     listnaz = (secondinput).strip().split(',')
                     
-                    list2 = NAZIYA.Empty_Error_Handling(listnaz)
+                    list2 = NAZIYA.ErrorHandling(listnaz).Empty_Error()
                     list1 = list12
                     li = list12
 
                     try:
-                        cixitem = NAZIYA.Try_Exception(li).Try()
+                        cixitem = NAZIYA.ErrorHandling(li).Try()
                     except ValueError:
-                        q = NAZIYA.ErrorHandling(list12)
-                        colo = NAZIYA.Try_Exception(q).Exception()
+                        q = NAZIYA.ErrorHandling(list12).Dash_Error()
+                        colo = NAZIYA.ErrorHandling(q).Exception()
                         li = colo[0]
                         cixitem = colo[1]
 
@@ -921,7 +920,7 @@ def mode(request):
                             Naziya['g2_3_3'] = g2_3_3
                             Naziya['leng2_3_3'] = len(g2_3_3)
 
-                            ui = NAZIYA.indexingfunction(secondlist,max(secondlist))
+                            ui = NAZIYA.Indexing(secondlist,max(secondlist)).Indexing_Function()
                             for i in ui:
                                 dash7[i] = "Naziya"
 
@@ -992,27 +991,27 @@ def mode(request):
                             for i in range(len(secondlist)+1):
                                 tallydict[i] = 0
 
-                            ex = NAZIYA.indexingfunction(dash1,"Naziya")
+                            ex = NAZIYA.Indexing(dash1,"Naziya").Indexing_Function()
                             for i in ex:
                                 tallydict[i] += 1
 
-                            ex2 = NAZIYA.indexingfunction(dash2,"Naziya")
+                            ex2 = NAZIYA.Indexing(dash2,"Naziya").Indexing_Function()
                             for i in ex2:
                                 tallydict[i] += 1
 
-                            ex3 = NAZIYA.indexingfunction(dash3,"Naziya")
+                            ex3 = NAZIYA.Indexing(dash3,"Naziya").Indexing_Function()
                             for i in ex3:
                                 tallydict[i] += 1
                             
-                            ex4 = NAZIYA.indexingfunction(dash4,"Naziya")
+                            ex4 = NAZIYA.Indexing(dash4,"Naziya").Indexing_Function()
                             for i in ex4:
                                 tallydict[i] += 1
 
-                            ex5 = NAZIYA.indexingfunction(dash5,"Naziya")
+                            ex5 = NAZIYA.Indexing(dash5,"Naziya").Indexing_Function()
                             for i in ex5:
                                 tallydict[i] += 1
 
-                            ex7 = NAZIYA.indexingfunction(dash7,"Naziya")
+                            ex7 = NAZIYA.Indexing(dash7,"Naziya").Indexing_Function()
                             for i in ex7:
                                 tallydict[i] += 1
 
@@ -1183,7 +1182,7 @@ def mode(request):
                                 Naziya['g2_3_3'] = g2_3_3
                                 Naziya['leng2_3_3'] = len(g2_3_3)
 
-                                ui = NAZIYA.indexingfunction(secondlist,max(secondlist))
+                                ui = NAZIYA.Indexing(secondlist,max(secondlist)).Indexing_Function()
                                 for i in ui:
                                     dash7[i] = "Naziya"
 
@@ -1254,31 +1253,31 @@ def mode(request):
                                 for i in range(len(secondlist)+1):
                                     tallydict[i] = 0
 
-                                ex = NAZIYA.indexingfunction(dash1,"Naziya")
+                                ex = NAZIYA.Indexing(dash1,"Naziya").Indexing_Function()
                                 for i in ex:
                                     tallydict[i] += 1
 
-                                ex2 = NAZIYA.indexingfunction(dash2,"Naziya")
+                                ex2 = NAZIYA.Indexing(dash2,"Naziya").Indexing_Function()
                                 for i in ex2:
                                     tallydict[i] += 1
 
-                                ex3 = NAZIYA.indexingfunction(dash3,"Naziya")
+                                ex3 = NAZIYA.Indexing(dash3,"Naziya").Indexing_Function()
                                 for i in ex3:
                                     tallydict[i] += 1
                                 
-                                ex4 = NAZIYA.indexingfunction(dash4,"Naziya")
+                                ex4 = NAZIYA.Indexing(dash4,"Naziya").Indexing_Function()
                                 for i in ex4:
                                     tallydict[i] += 1
 
-                                ex5 = NAZIYA.indexingfunction(dash5,"Naziya")
+                                ex5 = NAZIYA.Indexing(dash5,"Naziya").Indexing_Function()
                                 for i in ex5:
                                     tallydict[i] += 1
 
-                                ex6 = NAZIYA.indexingfunction(dash6,"Naziya")
+                                ex6 = NAZIYA.Indexing(dash6,"Naziya").Indexing_Function()
                                 for i in ex6:
                                     tallydict[i] += 1
 
-                                ex7 = NAZIYA.indexingfunction(dash7,"Naziya")
+                                ex7 = NAZIYA.Indexing(dash7,"Naziya").Indexing_Function()
                                 for i in ex7:
                                     tallydict[i] += 1
 
@@ -1321,7 +1320,7 @@ def mode(request):
                                     Naziya['mode'] = "Mode Is not possible"
                                 else:
                                     maxval = max(value) 
-                                    z = NAZIYA.indices(value, maxval)
+                                    z = NAZIYA.Indexing(value, maxval).Indicies()
                                     mode = [key[i] for i in z]
                                     Naziya['mode'] = mode
                                     Naziya['lenmode'] = len(mode)
@@ -1378,15 +1377,15 @@ def mathsrange(request):
                     list12 = (firstinput).strip().split(',')
                     listnaz = (secondinput).strip().split(',')
 
-                    list2 = NAZIYA.Empty_Error_Handling(listnaz)
+                    list2 = NAZIYA.ErrorHandling(listnaz).Empty_Error()
                     list1 = list12
                     li = list12
 
                     try:
-                        cixitem = NAZIYA.Try_Exception(li).Try()
+                        cixitem = NAZIYA.ErrorHandling(li).Try()
                     except ValueError:
-                        q = NAZIYA.ErrorHandling(list12)
-                        colo = NAZIYA.Try_Exception(q).Exception()
+                        q = NAZIYA.ErrorHandling(list12).Dash_Error()
+                        colo = NAZIYA.ErrorHandling(q).Exception()
                         li = colo[0]
                         cixitem = colo[1]
                         cilis = colo[2]
@@ -1524,15 +1523,15 @@ def quartile(request):
                         list12 = (firstinput).strip().split(',')
                         listnaz = (secondinput).strip().split(',')
                             
-                        list2 = NAZIYA.Empty_Error_Handling(listnaz)
+                        list2 = NAZIYA.ErrorHandling(listnaz).Empty_Error()
                         list1 = list12
                         li = list12
 
                         try:
-                            cixitem = NAZIYA.Try_Exception(li).Try()
+                            cixitem = NAZIYA.ErrorHandling(li).Try()
                         except ValueError:
-                            q = NAZIYA.ErrorHandling(list12)
-                            colo = NAZIYA.Try_Exception(q).Exception()
+                            q = NAZIYA.ErrorHandling(list12).Dash_Error()
+                            colo = NAZIYA.ErrorHandling(q).Exception()
                             li = colo[0]
                             cixitem = colo[1]
 
@@ -1673,11 +1672,8 @@ def quartile(request):
                                 f12 = NAZIYA.intfloatconverter_list(list2)
                                 fcopy = f12.copy()
 
-                                for key in firstlist:
-                                    for value in fcopy:
-                                        naziya[key] = value
-                                        fcopy.remove(value)
-                                        break
+                                for key,value in zip(firstlist,fcopy):
+                                    naziya[key] = value
                                 
                                 f = [naziya[i] for i in firstlistcopy]
                                 Naziya['f'] = f
@@ -1721,13 +1717,13 @@ def quartile(request):
                                         Naziya['roundfirst'] = roundfirst
                                         Naziya['roundsecond'] = roundsecond
 
-                                        fs1 = NAZIYA.Quartile_Indexing(cf,first,firstlistcopy)
+                                        fs1 = NAZIYA.Indexing(cf,first,firstlistcopy).Quartile_Indexing()
                                         Naziya['fs1'] = fs1
 
-                                        fs2 = NAZIYA.Quartile_Indexing(cf,roundfirst,firstlistcopy)
+                                        fs2 = NAZIYA.Indexing(cf,roundfirst,firstlistcopy).Quartile_Indexing()
                                         Naziya['fs2'] = fs2
 
-                                        fs3 = NAZIYA.Quartile_Indexing(cf,roundsecond,firstlistcopy)
+                                        fs3 = NAZIYA.Indexing(cf,roundsecond,firstlistcopy).Quartile_Indexing()
                                         Naziya['fs3'] = fs3
 
                                         var = fs3 - fs2
@@ -1766,13 +1762,13 @@ def quartile(request):
                                         Naziya['roundfirst1'] = roundfirst
                                         Naziya['roundsecond1'] = roundsecond
                                         
-                                        fs1 = NAZIYA.Quartile_Indexing(cf,first,firstlistcopy)
+                                        fs1 = NAZIYA.Indexing(cf,first,firstlistcopy).Quartile_Indexing()
                                         Naziya['fs11'] = fs1
 
-                                        fs2 = NAZIYA.Quartile_Indexing(cf,roundfirst,firstlistcopy)
+                                        fs2 = NAZIYA.Indexing(cf,roundfirst,firstlistcopy).Quartile_Indexing()
                                         Naziya['fs21'] = fs2
 
-                                        fs3 = NAZIYA.Quartile_Indexing(cf,roundsecond,firstlistcopy)
+                                        fs3 = NAZIYA.Indexing(cf,roundsecond,firstlistcopy).Quartile_Indexing()
                                         Naziya['fs31'] = fs3
                                         var = fs3 - fs2
                                         Naziya['firstsolve1'] = var
@@ -1958,15 +1954,15 @@ def MeanDeviation(request):
                     list12 = (firstinput).strip().split(',')
                     listnaz = (secondinput).strip().split(',')
 
-                    list2 = NAZIYA.Empty_Error_Handling(listnaz)
+                    list2 = NAZIYA.ErrorHandling(listnaz).Empty_Error()
                     list1 = list12
                     li = list12
 
                     try:
-                        cixitem = NAZIYA.Try_Exception(li).Try()
+                        cixitem = NAZIYA.ErrorHandling(li).Try()
                     except ValueError:
-                        q = NAZIYA.ErrorHandling(list12)
-                        colo = NAZIYA.Try_Exception(q).Exception()
+                        q = NAZIYA.ErrorHandling(list12).Dash_Error()
+                        colo = NAZIYA.ErrorHandling(q).Exception()
                         li = colo[0]
                         cixitem = colo[1]
 
@@ -2024,7 +2020,7 @@ def MeanDeviation(request):
 
                         # CHOOSING CLOSEST VALUE IN LIST
                         val= NAZIYA.closestvalue(cf,sum_f)
-                        indexing = NAZIYA.Indexing(val,sum_f,cf)
+                        indexing = NAZIYA.Indexing(val,sum_f,cf).Median_Indexing()
 
                         # TAKING POSITION IN LIST
                         cfp = cf[indexing-1]
@@ -2074,7 +2070,7 @@ def MeanDeviation(request):
 
                         # SOLVED WITH MEAN SHORTCUT METHOD
                         Naziya['method3'] = "Solved With Mean (Shortcut Method)"
-                        df = NAZIYA.Single_Side_Indexing(cixitem,acm)
+                        df = NAZIYA.Indexing(cixitem,acm).Single_Side_Indexing()
 
                         # FOR SIGMAFXA AND SIGMAFXB
                         zs_tuple = NAZIYA.Summation_Value(cixitem,df,acm,par)
@@ -2109,7 +2105,7 @@ def MeanDeviation(request):
 
                         # SOLVED WITH MEDIAN (SHORTCUT METHOD)
                         Naziya['method4'] = "Solved With Median (Shortcut Method)"
-                        dfm = NAZIYA.Single_Side_Indexing(cixitem,med1)
+                        dfm = NAZIYA.Indexing(cixitem,med1).Single_Side_Indexing()
 
                         # FOR SIGMAFXAM AND SIGMAFXBM
                         zsm_tuple = NAZIYA.Summation_Value(cixitem,dfm,med1,par)
@@ -2170,12 +2166,10 @@ def MeanDeviation(request):
 
                             secondlist = NAZIYA.intfloatconverter_list(list2)
                             secondlistcopy = secondlist.copy()
-                            for key in firstlist:
-                                for value in secondlistcopy:
-                                    naziya[key] = value
-                                    secondlistcopy.remove(value)
-                                    break
 
+                            for key,value in zip(firstlist,secondlistcopy):
+                                naziya[key] = value
+                                
                             f = [naziya[i] for i in firstlistcopy]
                             Naziya['f'] = f
                             sumof_x = sum(firstlist)
@@ -2225,11 +2219,11 @@ def MeanDeviation(request):
                                 divi = findincf+1
                                 Naziya['add1'] = NAZIYA.intfloatconverter(divi)
 
-                                indexingforcf = NAZIYA.Single_Side_Indexing(cf,findincf)
+                                indexingforcf = NAZIYA.Indexing(cf,findincf).Single_Side_Indexing()
                                 te = firstlistcopy[indexingforcf]
                                 Naziya['term1'] = te
 
-                                indexingforcf2 = NAZIYA.Single_Side_Indexing(cf,divi)
+                                indexingforcf2 = NAZIYA.Indexing(cf,divi).Single_Side_Indexing()
                                 te2 = firstlistcopy[indexingforcf2]
                                 Naziya['term2'] = te2
 
@@ -2249,7 +2243,7 @@ def MeanDeviation(request):
                                 zu1 = zu/2
                                 Naziya['divide1'] = NAZIYA.intfloatconverter(zu1)
 
-                                a = NAZIYA.Single_Side_Indexing(cf,zu1)
+                                a = NAZIYA.Indexing(cf,zu1).Single_Side_Indexing()
                                 firstli = firstlistcopy[a]
                                 Naziya['term'] = firstli
                                 Median_Odd_Even += firstli
@@ -2276,7 +2270,7 @@ def MeanDeviation(request):
 
                             # SOLVED WITH MEAN SHORTCUT METHOD
                             Naziya['method3'] = "Solved With Mean (Shortcut Method)"
-                            df = NAZIYA.Single_Side_Indexing(firstlistcopy,acm)
+                            df = NAZIYA.Indexing(firstlistcopy,acm).Single_Side_Indexing()
 
                             # FOR SIGMAFXA AND SIGMAFXB (Mean)
                             za_tuple = NAZIYA.Summation_Value(firstlistcopy,df,acm,par)
@@ -2314,7 +2308,7 @@ def MeanDeviation(request):
 
                             # # SOLVED WITH MEDIAN (SHORTCUT METHOD)
                             Naziya['method4'] = "Solved With Median (Shortcut Method)"
-                            dfm = NAZIYA.Single_Side_Indexing(firstlistcopy,Median_Odd_Even)
+                            dfm = NAZIYA.Indexing(firstlistcopy,Median_Odd_Even).Single_Side_Indexing()
 
                             # FOR SIGMAFXAM AND SIGMAFXBM (Median)
                             zsm_tuple = NAZIYA.Summation_Value(firstlistcopy,dfm,Median_Odd_Even,par)
@@ -2449,7 +2443,7 @@ def MeanDeviation(request):
 
                                 # SOLVING FOR INDIVIDUAL SERIES WITH MEAN SHORTCUT METHOD
                                 Naziya['method3'] = 'Solve With Mean (Shortcut Method)'
-                                df = NAZIYA.Single_Side_Indexing(copyformedianx,me)
+                                df = NAZIYA.Indexing(copyformedianx,me).Single_Side_Indexing()
 
                                 # FOR SIGMAXA AND SIGMAXB
                                 zs_tuple = NAZIYA.Summation_Value(copyformedianx,df,me,copyformedianx)
@@ -2488,7 +2482,7 @@ def MeanDeviation(request):
                                 Naziya['method4'] = 'Solve With Median (Shortcut Method)'
 
                                 # FOR SIGMAXAM AND SIGMAXBM
-                                dfm = NAZIYA.Single_Side_Indexing(copyformedianx,globalmd)
+                                dfm = NAZIYA.Indexing(copyformedianx,globalmd).Single_Side_Indexing()
                                 zsm_tuple = NAZIYA.Summation_Value(copyformedianx,dfm,globalmd,copyformedianx)
                                 sigmaxam = sum(zsm_tuple[0])
                                 sigmaxbm = sum(zsm_tuple[1])
