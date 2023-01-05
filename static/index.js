@@ -12,14 +12,12 @@ document.addEventListener("keydown", e =>{
             return '#' + n.slice(0,6);
         }
         var color = random_color()
-        console.log(color)
         r.style.setProperty('--accent-color', color);
         document.getElementById("colorChoice").value = color;
         document.getElementById("colorChoicemid").value = color;
         localStorage.setItem("Naziya" , color)
 }
 });
-
 
 var r = document.querySelector(':root');
 var r1 = document.querySelector(':root');
@@ -34,7 +32,6 @@ function changeColor(){
     r.style.setProperty('--accent-color', localStorage.getItem("Naziya"));
     
     document.getElementById("colorChoicemid").value = localStorage.getItem("Naziya");
-
 });
 };
 
@@ -53,11 +50,14 @@ function changeColormid(){
 r.style.setProperty('--accent-color', localStorage.getItem("Naziya"));
 r1.style.setProperty('--accent-color', localStorage.getItem("Naziya"));
 
+console.log(localStorage.getItem("--accent-color"))
+
 if (localStorage.getItem("Naziya") === null){
     document.getElementById("colorChoice").value = "#ff0000";
     document.getElementById("colorChoicemid").value = "#ff0000";
 }
 else{
+    console.log(localStorage.getItem("Naziya"))
     document.getElementById("colorChoice").value = localStorage.getItem("Naziya");
     document.getElementById("colorChoicemid").value = localStorage.getItem("Naziya");
 }    
@@ -451,10 +451,8 @@ if (z == "white"){
 }
 
 
-
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) =>{
-        console.log(entry)
         if (entry.isIntersecting) {
             entry.target.classList.add('showanimation');
         }
@@ -466,7 +464,6 @@ const observer = new IntersectionObserver((entries) => {
 
 const observer1 = new IntersectionObserver((entries) => {
     entries.forEach((entry) =>{
-        console.log(entry)
         if (entry.isIntersecting) {
             entry.target.classList.add('showanimation1');
         }
@@ -478,7 +475,6 @@ const observer1 = new IntersectionObserver((entries) => {
 
 const observer2 = new IntersectionObserver((entries) => {
     entries.forEach((entry) =>{
-        console.log(entry)
         if (entry.isIntersecting) {
             entry.target.classList.add('showanimation2');
         }
@@ -504,10 +500,8 @@ scrollableElement.addEventListener('wheel', checkScrollDirection);
 
 function checkScrollDirection(event){
     if (checkScrollDirectionIsUp(event)) {
-        console.log('Up');
     }
     else{
-        console.log('Down');
     }
 }
 

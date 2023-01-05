@@ -778,7 +778,7 @@ def mode(request):
         'question':'Mode',
         'info':'Ex - 52,85,64,41,92,34......(For Individual/Discrete Series)',
         'info2':'Ex - 0-10,10-20,20-30......(For Continuous Series)',
-        'x':[]}
+        'x':[],}
     
     if request.method == "POST":
 
@@ -1581,8 +1581,7 @@ def quartile(request):
                                     f1 = f[a1]
                                     Naziya['fforq1'] = f1
 
-                                    lisforclass = []
-                                    q = NAZIYA.intfloatconverter_list(z.strip().split('-'))
+                                    lisforclass = NAZIYA.intfloatconverter_list(z.strip().split('-'))
 
                                     lforclass = lisforclass[0]
                                     Naziya['lforclass'] = lforclass
@@ -1618,8 +1617,7 @@ def quartile(request):
                                     f1 = f[a1]
                                     Naziya['fforq11'] = f1
 
-                                    lisforclass = []
-                                    q = NAZIYA.intfloatconverter_list(z.strip().split('-'))
+                                    lisforclass = NAZIYA.intfloatconverter_list(z.strip().split('-'))
 
                                     lforclass = lisforclass[0]
                                     Naziya['lforclass1'] = lforclass

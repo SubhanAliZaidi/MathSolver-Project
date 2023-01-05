@@ -6,14 +6,15 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="/static/Assets/Nazloopicon.png" type="image/icon type" width="150px">
+        <meta name="theme-color" content="#ff0000">
+        <meta name="msapplication-navbutton-color" content="#ff0000">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <title>Nazloop - {% block title %} {% endblock title%}</title>
-        <link rel="stylesheet" href="static/index.css" class="css">
-        <link rel="stylesheet" href="static/NewSignUp.css" class="css">
+        <link rel="stylesheet" href="{% static 'index.css' %}" class="css" type='text/css'>
+        <link rel="stylesheet" href="{% static 'NewSignUp.css' %}" class="css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="static/index.js" defer></script>
-        <script src="static/NewSignUp.js" defer></script>
-        <script src="static/About.js" defer></script>
+        <link rel="icon" href="{% static 'Nazloopicon.png' %}" type="image/icon" width="150px">
         <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         {% block cssfile %} {% endblock cssfile%}
@@ -59,9 +60,9 @@
     <header class="fixed">
         <div class="Naziya">
             <div class="logo">
-                <a href='/Homepage' class="logo1">N</a>
+                <a href='/Home' class="logo1">N</a>
 
-                <a href='/Homepage' class="logo2">azloop
+                <a href='/Home' class="logo2">azloop
                 </a>
             </div>
                 
@@ -78,7 +79,7 @@
 
                 <ul class="primary-navigation" id="primary-navigation" data-visible="true">
                 
-                    <a href="/Homepage" ><li id='homechange' class="section" onclick='navhomecolorchange()' style='color:var(--accent-color);' >Home</li></a>
+                    <a href="/Home" ><li id='homechange' class="section" onclick='navhomecolorchange()' style='color:var(--accent-color);' >Home</li></a>
                 
 
                     <button onclick="scrolling()" id='removefunction'>
@@ -101,7 +102,7 @@
 
                 <ul class="middle-nav" >
                     <li>
-                        <a href="/Homepage"><img id="home1" src="/static/Assets/home1.png" width="26px" style="padding-top: 4px ; color: aqua;"></a>
+                        <a href="/Home"><img id="home1" src="/static/Assets/home1.png" width="26px" style="padding-top: 4px ; color: aqua;"></a>
                     </li>
 
                     <button onclick="scrolling()">
@@ -245,6 +246,9 @@
         </div>
     </div>
 
+    <script src= "{% static 'index.js' %}"></script>
+    <script src= "{% static 'NewSignUp.js' %}"></script>
+    <script src= "{% static 'About.js' %}"></script>
 
     <script>
 
@@ -300,8 +304,6 @@
             var scrollPercentage = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
 
             var drawLength = pathLength * scrollPercentage;
-
-            console.log(scrollPercentage)
             
             path.style.strokeDashoffset = pathLength - drawLength;
 
@@ -327,8 +329,6 @@
 
 
         document.addEventListener('mousemove', (e) => {
-            console.log(e)
-
             const mouseX = e.clientX;
             const mouseY = e.clientY;
 
@@ -338,8 +338,6 @@
             const anchorY = rekt.top + rekt.height /2;
 
             const angleDeg = angle(mouseX, mouseY, anchorX, anchorY);
-
-            console.log(angleDeg)
 
             const eyes = document.querySelectorAll('.eye')
             eyes.forEach(eye => {
@@ -358,8 +356,6 @@
         }
 
         document.addEventListener('mousemove', (e) => {
-            console.log(e)
-
             const mouseX = e.clientX;
             const mouseY = e.clientY;
 
@@ -369,8 +365,6 @@
             const anchorY = rekt.top + rekt.height /2;
 
             const angleDeg = angle1(mouseX, mouseY, anchorX, anchorY);
-
-            console.log(angleDeg)
 
             const eyes = document.querySelectorAll('.eye1')
             eyes.forEach(eye => {
@@ -498,9 +492,8 @@
             }
         }
 
-        console.log(localStorage.getItem('link'))
         if (localStorage.getItem("link") == 4) {
-            // linkhref.href = '/Homepage';
+            // linkhref.href = '/Home';
             localStorage.setItem("link" , 0)
         }
         else{

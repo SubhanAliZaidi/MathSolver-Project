@@ -5,7 +5,7 @@
 {% block title %} Mathsolver {% endblock title%}
 
 {% block cssfile %}
-    <link rel="stylesheet" href="static/Mathsolvercontent.css" class="css">
+    <link rel="stylesheet" href="{% static "Mathsolvercontent.css" %}" class="css">
 {% endblock cssfile%}
 
 {% block body%}
@@ -51,48 +51,48 @@
         <Naziya class="buttongroup">
 
             <div class='maincontainerforbutton'>
-                <a href='/Mean'  id='mean' style='color:white;' name='mean'>Solve Mean</a>
+                <a href='/Mathsolver/Mean'  id='mean' style='color:white;' name='mean'>Solve Mean</a>
             </div>
 
             <div class='maincontainerforbutton'>
-                <a href='/Median'  id='/median' style='color:white;' name='median'>Solve Median</a>
+                <a href='/Mathsolver/Median'  id='/median' style='color:white;' name='median'>Solve Median</a>
             </div>
 
             <div class='maincontainerforbutton'>
-                <a href='/Mode'   id='mode' style='color:white;' name='mode'>Solve Mode</a>
+                <a href='/Mathsolver/Mode'   id='mode' style='color:white;' name='mode'>Solve Mode</a>
             </div>
 
             <div class='maincontainerforbutton'>
-                <a href='/Standarddeviation' style='color:white;' id='standarddeviation' name='standarddeviation'>Solve Standard Deviation</a>  
+                <a href='/Mathsolver/StandardDeviation' style='color:white;' id='standarddeviation' name='standarddeviation'>Solve Standard Deviation</a>  
             </div>
 
             <div class='maincontainerforbutton'>
-                <a href='/range' id='range' style='color:white;' name='range'>Solve Range</a>
+                <a href='/Mathsolver/Range' id='range' style='color:white;' name='range'>Solve Range</a>
             </div>
             
             <div class='maincontainerforbutton'>
-                <a href='/Quartile' id='quartile' style='color:white;' name='quartile'>Solve Quartile</a>  
+                <a href='/Mathsolver/Quartile' id='quartile' style='color:white;' name='quartile'>Solve Quartile</a>  
             </div>
             
             <div class='maincontainerforbutton'>
-                <a href='/MeanDeviation' id='meandeviation' style='color:white;' name='meandeviation'>Solve Mean Deviation</a>
+                <a href='/Mathsolver/MeanDeviation' id='meandeviation' style='color:white;' name='meandeviation'>Solve Mean Deviation</a>
             </div>
             
             
             <div class='maincontainerforbutton' >
-                <a href='/CombinedMean' id='combinedmean' style='color:white;' name='combinedmean'>Solve Combined Mean</a>
+                <a href='/Mathsolver/CombinedMean' id='combinedmean' style='color:white;' name='combinedmean'>Solve Combined Mean</a>
             </div>
             
             {% comment %} <div class='maincontainerforbutton' style='background-color:grey;'>
-                <a href='/CombinedSD' id='combinedsd' style='color:white;' name='combinedsd'>Solve Combined Standard Deviation</a>
+                <a href='/Mathsolver/CombinedSD' id='combinedsd' style='color:white;' name='combinedsd'>Solve Combined Standard Deviation</a>
             </div>
         
             <div class='maincontainerforbutton' style='background-color:grey;'>
-                <a href='/coefficientofcorrelation' id='coefficientofcorrelation' style="color:white;" name='coefficientofcorrelation'>Solve Coefficient Of Correlation</a> 
+                <a href='/Mathsolver/coefficientofcorrelation' id='coefficientofcorrelation' style="color:white;" name='coefficientofcorrelation'>Solve Coefficient Of Correlation</a> 
             </div>
 
             <div class='maincontainerforbutton' style='background-color:grey;'>
-                <a href='/rankcorrelation' style='color:white;' id='rankcorrelation' name='rankcorrelation'>Solve Rank Correlation</a>
+                <a href='/Mathsolver/rankcorrelation' style='color:white;' id='rankcorrelation' name='rankcorrelation'>Solve Rank Correlation</a>
             </div> 
             
             <div class='maincontainerforbutton' style='background-color:grey;'>

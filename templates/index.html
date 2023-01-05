@@ -29,7 +29,7 @@
 
 <div id="popupparveennaz" >
     <div class='aboutinnernaz'>
-        <iframe style="border-radius: 10px; background-color: transparent;" src="https://textbin.net/embed/vxzs7chdpk" width="600px" height="400px"></iframe>
+        {% comment %} <iframe style="border-radius: 10px; background-color: transparent;" src="https://textbin.net/embed/vxzs7chdpk" width="600px" height="400px"></iframe> {% endcomment %}
 
         <a onclick="toggleparveennaz()" class='close1' style='margin-top:20px;'>Close</a>
     </div>
@@ -970,8 +970,6 @@
 
     
     document.addEventListener('mousemove', (e) => {
-        console.log(e)
-
         const mouseX = e.clientX;
         const mouseY = e.clientY;
 
@@ -981,8 +979,6 @@
         const anchorY = rekt.top + rekt.height /2;
 
         const angleDeg = angle1(mouseX, mouseY, anchorX, anchorY);
-
-        console.log(angleDeg)
 
         const eyes = document.querySelectorAll('.eye2')
         eyes.forEach(eye => {
