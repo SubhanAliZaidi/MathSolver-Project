@@ -162,63 +162,6 @@ document.querySelector('.slidernaz1').addEventListener('input', (e) => {
   containernaz1.style.setProperty('--positionnaz1', `${e.target.value}%`);
 })
 
-
-// BACKUP CODE FOR AUTOPOPUP KEY HIGHLIGTH POPUP (THIS CODE SHOW POPUP EVERYTIME IT RUNS)
-
-// const Autopopup = document.querySelector('.Autopopup');
-// const close = document.querySelector('.close');
-// const naziyapopup = document.querySelector('.naziyapopup');
-
-// window.onload = function(){
-//     setTimeout(function(){
-//       Autopopup.style.display = "block";
-//     }, 1000)
-// }
-
-// close.addEventListener('click', () => {
-//     Autopopup.style.display = "none";
-//     naziyapopup.style.display = "none";
-// })
-
-
-
-
-
-
-//  FOR HIDING AND SHOWING AUTOPOPUP & SCROLL BAR IN DIFFERENT PAGES AND LOCATION ALREADY IMPLEMENTED IN BASE HTML 
-
-
-
-// // comment out about and contactfrom overflow
-// const Autopopup = document.querySelector('.Autopopup');
-// const close = document.querySelector('.close');
-// const naziyapopup = document.querySelector('.naziyapopup');
-
-// if (localStorage.getItem('popup1') === null ){
-
-//     Autopopup.style.display = "block";
-
-//     close.addEventListener('click', () => {
-//         Autopopup.style.display = "none";
-//         naziyapopup.style.display = "none";
-//         document.querySelector('.bodytheme').style.overflow = 'scroll';
-//         localStorage.setItem("popup1", '5')
-//     });
-// }
-
-// else{
-//     Autopopup.style.display = "none";
-//     naziyapopup.style.display = "none";
-//     document.querySelector('.bodytheme').style.overflow = 'hidden';
-
-//     close.addEventListener('click', () => {
-//         Autopopup.style.display = "none";
-//         naziyapopup.style.display = "none";
-//     });
-
-// }
-
-
 let slideIndex = 1;
 showSlides(slideIndex);
 
@@ -246,34 +189,6 @@ function showSlides(n) {
   dots[slideIndex-1].className += " active";
 }
 
-
-
-// FOR SHOWING THEME ICON IN DIFFERENT PAGE MAIN CODE IS RIGHT BELOW THIS IS BEFORE CODE 
-
-// const contactformcolorchange2 = document.getElementById("contactform")
-// const homecolorchange2 = document.getElementById("homechange")
-// const workcolorchange2 = document.getElementById("workchange")
-
-// parnaz = document.getElementById("customID");
-
-//     var myScrollFunc = function() {
-//     var y = window.scrollY;
-//     if (y >= 300) {
-//         parnaz.className = "par show";
-//         contactformcolorchange2.style.color = 'var(--secondary-color)';
-//         homecolorchange2.style.color = 'var(--secondary-color)';
-//         workcolorchange2.style.color = 'var(--accent-color)';
-//     } else {
-//         parnaz.className = "par hide"
-//         contactformcolorchange2.style.color = 'var(--secondary-color)';
-//         homecolorchange2.style.color = 'var(--accent-color)';
-//         workcolorchange2.style.color = 'var(--secondary-color)';
-//     }
-//     };
-
-// window.addEventListener("scroll", myScrollFunc);
-
-
 parnaz = document.getElementById("customID");
 
 var myScrollFunc = function() {
@@ -298,8 +213,6 @@ var myScrollFunc = function() {
 
 window.addEventListener("scroll", myScrollFunc);
 
-
-
 parnaz1 = document.getElementById("customID1");
 
 var myScrollFunc = function() {
@@ -313,9 +226,7 @@ if (y >= 900) {
 
 window.addEventListener("scroll", myScrollFunc);
 
-
 parnaz2 = document.getElementById("customID2");
-
 var myScrollFunc = function() {
 var y = window.scrollY;
 if (y >= 250) {
@@ -348,37 +259,6 @@ const scrollR= document.getElementById('scrollright');
 scrollR.onclick = () =>{
     document.getElementById('scrollcontainer').scrollLeft += 200;
 };
-
-// document.addEventListener('mousemove', (e) => {
-//     console.log(e)
-
-//     const mouseX = e.clientX;
-//     const mouseY = e.clientY;
-
-//     const anchor = document.getElementById('anchor')
-//     const rekt = anchor.getBoundingClientRect();
-//     const anchorX = rekt.left + rekt.width /2;
-//     const anchorY = rekt.top + rekt.height /2;
-
-//     const angleDeg = angle(mouseX, mouseY, anchorX, anchorY);
-
-//     console.log(angleDeg)
-
-//     const eyes = document.querySelectorAll('.eye')
-//     eyes.forEach(eye => {
-//         eye.style.transform = `rotate(${90 + angleDeg}deg)`;
-//         // anchor.style.filter = `hue-rotate(${angleDeg}deg)`;
-//     });
-// });
-
-
-// function angle(cx,cy,ex,ey){
-//     const dy = ey - cy;
-//     const dx = ex - cx;
-//     const rad = Math.atan2(dy,dx);
-//     const deg = rad * 180/Math.PI;
-//     return deg;
-// };
 
 document.addEventListener("keydown", e =>{
     if (
@@ -425,7 +305,7 @@ if (z == "white"){
         naziya5.classList.add('themeclickanimation');
         naziya5.classList.remove('themeclickanimation1');
         naziya51.classList.add('themeclickanimation');
-        naziya51.classList.remove
+        naziya51.classList.remove('themeclickanimation1');
         naziya5.src = "/static/Assets/moon(1).png";
         naziya51.src = "/static/Assets/moon(1).png"; 
         home1.src = "/static/Assets/home.png"

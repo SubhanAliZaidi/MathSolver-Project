@@ -25,21 +25,17 @@
 <body class='bodytheme'>
 
     <div id='preloader'>
-
         <div class='loadercircle'></div>
         <div class='loadercircle'></div>
         <div class='loadercircle'></div>
-
     </div>
 
     <div class='line-container'>
-
         <a id='heartlink'>
             <svg viewBox="0 0 163.28 149.286" preserveAspectRatio='xMidYMax' id='heartflip'>
                 <path id="Heart_Path_" data-name="Heart Path " d="M564.5,576.5,628,512.25s20.5-16.75,11.5-48c-13.25-31-44.5-27-44.5-27s-18.764.366-29.933,21.964c-11.344-22.1-30.886-23.414-42.817-21.964C498,442.75,491.5,459,491.5,459s-14.75,27,6.75,50.75S564.5,576.5,564.5,576.5Z" transform="translate(-482.55 -432.831)" fill="none" stroke="var(--secondary-color)" stroke-width="8"/>
             </svg>
         </a>
-          
     </div>
 
     <div id="popupparveen" >
@@ -207,7 +203,6 @@
         {% endblock about%}
 
         <div class='mainrelative1'>
-
             <main class="maineyeball">
                 <img src="/static/Images/eye.png" alt="" id="anchor" width='200px'>
                    <div id="eyes">
@@ -223,7 +218,6 @@
     {% endblock signupreplace%}
 
         <div class="centerbottom">
-
             <div class="containerparveen" id="blurparveen">
                 <div class="contentparveen">
                     <a onclick="toggleparveen()"><button class='infoicon'>
@@ -244,6 +238,7 @@
 
             </p>
         </div>
+
     </div>
 
     <script src= "{% static 'index.js' %}"></script>
@@ -251,7 +246,6 @@
     <script src= "{% static 'About.js' %}"></script>
 
     <script>
-
         const primaryNav = document.querySelector(".primary-navigation");
         const navToggle = document.querySelector(".mobile-nav-toggle");
 
@@ -263,9 +257,7 @@
             navToggle.setAttribute('aria-expanded',true);
         } else if (visibility === "true") {
             primaryNav.setAttribute('data-visible' ,false);
-            navToggle.setAttribute('aria-expanded',false);
-        }
-
+            navToggle.setAttribute('aria-expanded',false);}
         })
 
         
@@ -311,22 +303,15 @@
                 path.style.fill = 'red';
                 document.getElementById('heartlink').href = '/Heartlink';
                 document.getElementById('heartlink').target = '_blank';
-                document.getElementById('heartflip').classList.add('svgheartflip')
-
-            }
+                document.getElementById('heartflip').classList.add('svgheartflip')}
             else{
-
                 if (scrollPercentage == 0){
-                    document.getElementById('heartflip').classList.remove('svgheartflip')
-    
-                }
+                    document.getElementById('heartflip').classList.remove('svgheartflip')}
                 else{
                     path.style.fill = 'none';
-                    document.getElementById('heartlink').removeAttribute("href");
-                }
+                    document.getElementById('heartlink').removeAttribute("href");}
             }
         })
-
 
         document.addEventListener('mousemove', (e) => {
             const mouseX = e.clientX;
@@ -342,7 +327,6 @@
             const eyes = document.querySelectorAll('.eye')
             eyes.forEach(eye => {
                 eye.style.transform = `rotate(${90 + angleDeg}deg)`;
-                // anchor.style.filter = `hue-rotate(${angleDeg}deg)`;
             })
         })
 
@@ -369,10 +353,8 @@
             const eyes = document.querySelectorAll('.eye1')
             eyes.forEach(eye => {
                 eye.style.transform = `rotate(${90 + angleDeg}deg)`;
-                // anchor.style.filter = `hue-rotate(${angleDeg}deg)`;
             })
         })
-
 
         function angle1(cx,cy,ex,ey){
             const dy = ey - cy;
@@ -381,7 +363,6 @@
             const deg = rad * 180/Math.PI;
             return deg;
         }
-                
 
         parnaz3 = document.getElementById("scrolltop");
         parnaz4 = document.getElementById("scrolldown")
@@ -390,27 +371,22 @@
         var y = window.scrollY;
         if (y >= 250) {
             parnaz3.className = "scrolltop show"
-            parnaz4.className = "scrolltop1 hide"
-        } else {
+            parnaz4.className = "scrolltop1 hide"}
+        else {
             parnaz3.className = "scrolltop hide"
-            parnaz4.className = "scrolltop1 show"
-        }
+            parnaz4.className = "scrolltop1 show"}
         };
 
         window.addEventListener("scroll", myScrollFunc);
                 
         function toggleText(){
-
             var x = document.getElementById("hiddenlist");
             
             if (x.style.display === "none") {
-                x.style.display = "block";
-            } 
-            
-            else {
-                x.style.display = "none";
-            }
-            }
+                x.style.display = "block";}
+            else{
+                x.style.display = "none";}
+        }
 
         var loader = document.getElementById("preloader");
         var scrollonloader = document.querySelector(".bodytheme");
@@ -422,7 +398,6 @@
             }
         });
 
-
         // comment out about and contactfrom overflow with if condition
 
         const Autopopup = document.querySelector('.Autopopup');
@@ -430,7 +405,6 @@
         const naziyapopup = document.querySelector('.naziyapopup');
 
         if (localStorage.getItem('popup1') === null ){
-
             Autopopup.style.display = "block";
 
             close.addEventListener('click', () => {
@@ -450,7 +424,6 @@
                 Autopopup.style.display = "none";
                 naziyapopup.style.display = "none";
             });
-
         }
         
 
@@ -493,16 +466,11 @@
         }
 
         if (localStorage.getItem("link") == 4) {
-            // linkhref.href = '/Home';
-            localStorage.setItem("link" , 0)
-        }
+            localStorage.setItem("link" , 0)}
         else{
-            // linkhref.removeAttribute("href");
-            localStorage.setItem("link" , 1)
-        }
+            localStorage.setItem("link" , 1)}
 
     </script>
-
     
     {% block signupscript%}
     {% endblock signupscript%}

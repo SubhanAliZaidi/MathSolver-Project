@@ -539,6 +539,8 @@ html {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 2rem;
+    max-width: 900px;
+    margin: auto;
 	align-items: center;
 	justify-content: center;
 	border-radius: 0px 0px 0px 0px;
