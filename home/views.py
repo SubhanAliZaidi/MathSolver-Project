@@ -1,11 +1,9 @@
 Naziya = "naziya"
 import Naziya as NAZIYA
-import math
-import random
+import math,random,pymongo
 from django.shortcuts import render
 from home.models import *
 from collections import Counter
-import pymongo
 
 Database_Link = pymongo.MongoClient("mongodb://localhost:27017")
 Database_Name = Database_Link["Naz"]
