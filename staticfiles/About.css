@@ -1,0 +1,105 @@
+/* Naziya */
+@import url(index.css);
+
+.aboutbody {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	padding-top: 0px;
+	padding-bottom: 40px;
+	padding-left: 0px;
+	padding-right: 0px;
+	color: var(--secondary-color);
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+		"Lucida Sans", Arial, sans-serif;
+	margin-top: 200px;
+	-webkit-backdrop-filter: blur(40px);
+	backdrop-filter: blur(40px);
+}
+
+.dumbcenter {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 5px;
+    margin-top: 25px
+}
+
+.languagegraph {
+	width: 200px;
+	height: 200px;
+	background-color: var(--accent-color);
+	border-radius: 50%;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	text-align: center;
+}
+
+.langlines {
+	display: flex;
+	flex-direction: row;
+    align-items: center;
+    justify-content: center;
+	flex-wrap: wrap;
+    color: var(--secondary-text-color);
+}
+
+.langlines1 {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 1rem;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.langinfo {
+	display: flex;
+	flex-direction: row;
+	gap: 2rem;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+}
+
+@media (max-width: 800px) {
+	.aboutbody {
+		padding-bottom: 210px;
+	}
+}
+
+.chartBox{
+    width: 250px;
+}
+
+.colorbox{
+    display: inline-block;
+    width: 35px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+.colorbox0{
+    background-color: rgb(227, 76, 38);
+}
+
+.colorbox1{
+    background-color: rgb(32, 98, 175);
+}
+
+.colorbox2{
+    background-color: rgb(244, 129, 49);
+}
+
+.colorbox3{
+    background-color: rgb(21, 214, 118);
+}
+
+.colorbox4{
+    background-color: rgb(129, 66, 255);
+}
