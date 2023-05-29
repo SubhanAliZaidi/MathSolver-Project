@@ -5,8 +5,11 @@ from django.shortcuts import render
 from home.models import *
 from collections import Counter
 
-Database_Link = pymongo.MongoClient("mongodb://localhost:27017")
-Database_Name = Database_Link["Naz"]
+# Database_Link = pymongo.MongoClient("mongodb://localhost:27017")
+# Database_Name = Database_Link["Naz"]
+
+Database_Link = ''
+Database_Name = ''
 
 def homepage(Naziya):
     return render(Naziya, 'index.html')

@@ -4062,80 +4062,70 @@
 #     print('finished in', round(b-a,2),'seconds')
 
     
-di = [10,45,45,65]
-sum = 0
-for k in di:
-    sum += k
-print(sum)
+# di = [10,45,45,65]
+# sum = 0
+# for k in di:
+#     sum += k
+# print(sum)
 
-print(len(di))
+# print(len(di))
 
-l = ['naziya','sa','kd']
-print(l[1][-1])
+# l = ['naziya','sa','kd']
+# print(l[1][-1])
 
-a = True
-b = False
-c = False
-ki = 'Hello My World Naziya'
+# a = True
+# b = False
+# c = False
+# ki = 'Hello My World Naziya'
 
-if a or b and c:
-    print('hello')
-else:
-    print('nothing')
+# if a or b and c:
+#     print('hello')
+# else:
+#     print('nothing')
 
-class Indexing:
-    def __init__(self, *Naziya) -> None:
-        self.naz = Naziya[0] 
-        self.target = Naziya[1]
+# class Indexing:
+#     def __init__(self, *Naziya) -> None:
+#         self.naz = Naziya[0] 
+#         self.target = Naziya[1]
 
-    async def function(self) -> None:
-        for i in self.naz:
-            if i == self.target:
-                print(await i)
+#     async def function(self) -> None:
+#         for i in self.naz:
+#             if i == self.target:
+#                 print(await i)
 
 
-process = Indexing(di, 65).function()
+# process = Indexing(di, 65).function()
 
-if a == b:
-    print('C')
-else:
-    print("D")
+# if a == b:
+#     print('C')
+# else:
+#     print("D")
 
-class solution:
-    def two_sums(self,nums,target) -> None:
-        self.lis = nums
-        self.targ = target
+# class solution:
+#     def two_sums(self,nums,target) -> None:
+#         self.lis = nums
+#         self.targ = target
         
-        for i in self.lis:
-            for j in self.lis:
-                if i+j == self.targ:
-                    return [self.lis.index(i),self.lis.index(j)]
-        return None
+#         for i in self.lis:
+#             for j in self.lis:
+#                 if i+j == self.targ:
+#                     return [self.lis.index(i),self.lis.index(j)]
+#         return None
 
-a = 45
-kd = 'Hello'
-r = 4
-d = [4,5,65,4]
-def funct(d,r):
-    if r in d: return r
+# a = 45
+# kd = 'Hello'
+# r = 4
+# d = [4,5,65,4]
+# def funct(d,r):
+#     if r in d: return r
 
-a = solution().two_sums([2,4,5,6,4,4],11)
-print(a)
-b = Solution().twoSum([2,2,4],4)
-print(b)
+# a = solution().two_sums([2,4,5,6,4,4],11)
+# print(a)
+# b = Solution().twoSum([2,2,4],4)
+# print(b)
 
-k = True
-d = False
-
-
-
-
-
-
-
-
-
-
+# k = True
+# d = False
 
 
 
@@ -4410,19 +4400,19 @@ d = False
 
 # print(int(input('Enter Your first number here : ')) + int(input('enter your second input : ')))
 
-a = '()]['
+# a = '()]['
 
-b = a.count('(')
-c = a.count(')')
-d = a.count('[')
-k = a.count(']')
-l = a.count('{')
-o = a.count('}')
+# b = a.count('(')
+# c = a.count(')')
+# d = a.count('[')
+# k = a.count(']')
+# l = a.count('{')
+# o = a.count('}')
 
-if b == c and d == k and l == o:
-    print("True")
-else:
-    print('False')
+# if b == c and d == k and l == o:
+#     print("True")
+# else:
+#     print('False')
 
 
 
