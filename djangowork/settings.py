@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-j!@v3w-no!8czzz+vop=kmz-ekrzorg1!!ng_(1wyd@il#mto%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://nazloop.up.railway.app" , "127.0.0.1", "0.0.0.0:6046"]
+ALLOWED_HOSTS = ["nazloop.up.railway.app" , "127.0.0.1", "0.0.0.0:6046"]
 
 
 # Application definition
