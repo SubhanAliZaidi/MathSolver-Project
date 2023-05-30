@@ -44,11 +44,6 @@ INSTALLED_APPS = [
     'djangowork'
 ]
 
-CORS_ORIGIN_WHITELIST = [
-    'https://nazloop.up.railway.app',
-    # Add other trusted origins if needed
-]
-
 MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -58,6 +53,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://nazloop.herokuapp.com'
 ]
 
 ROOT_URLCONF = 'djangowork.urls'
