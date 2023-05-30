@@ -56,7 +56,8 @@ MIDDLEWARE = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://nazloop.up.railway.app/'
+    'https://nazloop.up.railway.app',
+    'https://nazloop.up.railway.app'
 ]
 
 ROOT_URLCONF = 'djangowork.urls'
