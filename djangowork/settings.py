@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     'djangowork'
 ]
 
+CORS_ORIGIN_WHITELIST = [
+    'https://nazloop.up.railway.app',
+    # Add other trusted origins if needed
+]
 
 MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
